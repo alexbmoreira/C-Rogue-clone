@@ -136,10 +136,22 @@ void collisionResponse() {
          gotoZ = nextZ;
       }
       if(world[int_currX][int_currY][int_nextZ] != 0) {
-         gotoZ = currZ;
+         if(world[int_currX][int_currY + 1][int_nextZ] == 0) {
+            gotoZ = nextZ;
+            gotoY = currY - 1;
+         }
+         else {
+            gotoZ = currZ;
+         }
       }
       if(world[int_nextX][int_currY][int_currZ] != 0) {
-         gotoX = currX;
+         if(world[int_nextX][int_currY + 1][int_currZ] == 0) {
+            gotoX = nextX;
+            gotoY = currY - 1;
+         }
+         else {
+            gotoX = currX;
+         }
       }
 
       setViewPosition(gotoX, gotoY, gotoZ);
