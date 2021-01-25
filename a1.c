@@ -285,9 +285,7 @@ void update() {
 
 
    } else {
-      printf("%d\n", flycontrol);
       getOldViewPosition(&x, &y, &z);
-      printf("old view: (%f, %f, %f)\n", x, y, z);
 
       int int_x = (int)x*(-1);
       int int_y = (int)((y*(-1)) - 0.1);
