@@ -121,10 +121,10 @@ void collisionResponse() {
    int int_currY = (int)currY*(-1);
    int int_currZ = (int)currZ*(-1);
 
-   printf("Current: %f, %f, %f\n", currX, currY, currZ);
-   printf("Current Int: %d, %d, %d\n", int_currX, int_currY, int_currZ);
-   printf("Next: %f, %f, %f\n", nextX, nextY, nextZ);
-   printf("Next Int: %d, %d, %d\n", int_nextX, int_nextY, int_nextZ);
+   // printf("Current: %f, %f, %f\n", currX, currY, currZ);
+   // printf("Current Int: %d, %d, %d\n", int_currX, int_currY, int_currZ);
+   // printf("Next: %f, %f, %f\n", nextX, nextY, nextZ);
+   // printf("Next Int: %d, %d, %d\n", int_nextX, int_nextY, int_nextZ);
 
    if(world[int_nextX][int_nextY][int_nextZ] != 0) {
       float gotoX = currX;
