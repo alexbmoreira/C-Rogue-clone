@@ -107,7 +107,43 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 	   will be the negative value of the array indices */
 void collisionResponse() {
 
-	/* your code for collisions goes here */
+   float currX, currY, currZ;
+   float nextX, nextY, nextZ;
+
+   getOldViewPosition(&currX, &currY, &currZ);
+   getViewPosition(&nextX, &nextY, &nextZ);
+
+   int int_nextX = (int)nextX*(-1);
+   int int_nextY = (int)nextY*(-1);
+   int int_nextZ = (int)nextZ*(-1);
+
+   int int_currX = (int)currX*(-1);
+   int int_currY = (int)currY*(-1);
+   int int_currZ = (int)currZ*(-1);
+
+   // printf("Current: %f, %f, %f\n", currX, currY, currZ);
+   // printf("Current Int: %d, %d, %d\n", int_currX, int_currY, int_currZ);
+   // printf("Next: %f, %f, %f\n", nextX, nextY, nextZ);
+   // printf("Next Int: %d, %d, %d\n", int_nextX, int_nextY, int_nextZ);
+
+   if(world[int_nextX][int_nextY][int_nextZ] != 0) {
+      float gotoX = currX;
+      float gotoY = currY;
+      float gotoZ = currZ;
+
+      if(world[int_currX][int_nextY][int_currZ] != 0) {
+         gotoX = nextX;
+         gotoZ = nextZ;
+      }
+      if(world[int_currX][int_currY][int_nextZ] != 0) {
+         gotoZ = currZ;
+      }
+      if(world[int_nextX][int_currY][int_currZ] != 0) {
+         gotoX = currX;
+      }
+
+      setViewPosition(gotoX, gotoY, gotoZ);
+   }
 
 }
 
@@ -149,9 +185,9 @@ void draw2D() {
 	/*  system is running */
 	/* -gravity must also implemented here, duplicate collisionResponse */
 void update() {
-int i, j, k;
-float *la;
-float x, y, z;
+   int i, j, k;
+   float *la;
+   float x, y, z;
 
 	/* sample animation for the testworld, don't remove this code */
 	/* demo of animating mobs */
@@ -267,47 +303,45 @@ void mouse(int button, int state, int x, int y) {
 }
 
 
-
-int main(int argc, char** argv)
-{
-int i, j, k;
+int main(int argc, char** argv) {
+   int i, j, k;
 	/* initialize the graphics system */
    graphicsInit(&argc, argv);
 	
    /* initialize world to empty */
-      for(i=0; i<WORLDX; i++)
-         for(j=0; j<WORLDY; j++)
-            for(k=0; k<WORLDZ; k++)
-               world[i][j][k] = 0;
+   for(i=0; i<WORLDX; i++)
+      for(j=0; j<WORLDY; j++)
+         for(k=0; k<WORLDZ; k++)
+            world[i][j][k] = 0;
 
-	/* the first part of this if statement builds a sample */
-	/* world which will be used for testing */
-	/* DO NOT remove this code. */
-	/* Put your code in the else statment below */
-	/* The testworld is only guaranteed to work with a world of
+	/* the first part of this if statement builds a sample
+	   world which will be used for testing
+	   DO NOT remove this code.
+	   Put your code in the else statment below
+	   The testworld is only guaranteed to work with a world of
 		with dimensions of 100,50,100. */
    if (testWorld == 1) {
 
-	/* some sample objects */
-	/* build a red platform */
+      /* some sample objects */
+      /* build a red platform */
       for(i=0; i<WORLDX; i++) {
          for(j=0; j<WORLDZ; j++) {
             world[i][24][j] = 3;
          }
       }
-	/* create some green and blue cubes */
+	   /* create some green and blue cubes */
       world[50][25][50] = 1;
       world[49][25][50] = 1;
       world[49][26][50] = 1;
       world[52][25][52] = 2;
       world[52][26][52] = 2;
 
-	/* create user defined colour and draw cube */
+	   /* create user defined colour and draw cube */
       setUserColour(9, 0.7, 0.3, 0.7, 1.0, 0.3, 0.15, 0.3, 1.0);
       world[54][25][50] = 9;
 
 
-	/* blue box shows xy bounds of the world */
+	   /* blue box shows xy bounds of the world */
       for(i=0; i<WORLDX-1; i++) {
          world[i][25][0] = 2;
          world[i][25][WORLDZ-1] = 2;
@@ -317,15 +351,24 @@ int i, j, k;
          world[WORLDX-1][25][i] = 2;
       }
 
-	/* create two sample mobs */
-	/* these are animated in the update() function */
+	   /* create two sample mobs */
+	   /* these are animated in the update() function */
       createMob(0, 50.0, 25.0, 52.0, 0.0);
       createMob(1, 50.0, 25.0, 52.0, 0.0);
 
-	/* create sample player */
+	   /* create sample player */
       createPlayer(0, 52.0, 27.0, 52.0, 0.0);
-   } else {
-      
+   }
+   else {
+      for(i = 0; i < WORLDX; i++) {
+         for(j = 0; j < WORLDZ; j++) {
+            world[i][40][j] = 3;
+         }
+      }
+
+      world[20][41][12] = 1;
+      world[29][41][39] = 1;
+      world[28][41][38] = 1;
    }
 
 
