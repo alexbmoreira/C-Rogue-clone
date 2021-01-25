@@ -2,6 +2,32 @@
 
 ## Contents
 
+- [Building and Running the Graphics System](#building-and-running-the-graphics-system)
+- [Programming Interface to the Graphics System](#programming-interface-to-the-graphics-system)
+    - [Drawing the world](#drawing-the-world)
+    - [Viewpoint Manipulation Functions](#viewpoint-manipulation-functions)
+    - [Collision Response Function](#collision-response-function)
+    - [Timing Events](#timing-events)
+    - [World Notes](#world-notes)
+    - [Important Notes](#important-notes)
+    - [Mob Controls](#mob-controls)
+    - [Access to the Mouse Operations](#access-to-the-mouse-operations)
+    - [Client-Server Flags](#client-server-flags)
+    - [Setting the View Orientation](#setting-the-view-orientation)
+    - [2D Drawing Functions](#2d-drawing-functions)
+    - [Display Map Flag](#display-map-flag)
+    - [Screen Size Variables](#screen-size-variables)
+    - [Player Controls](#player-controls)
+    - [Space Flag](#space-flag)
+    - [Setting the Light Position](#setting-the-light-position)
+    - [Drawing Tubes (actually crossed quadrilaterals)](#drawing-tubes-actually-crossed-quadrilaterals)
+- [Appendix A](#appendix-a)
+    - [Culling Objects that Cannot Be Seen](#culling-objects-that-cannot-be-seen)
+    - [Display Lists](#display-lists)
+    - [Empty Functions](#empty-functions)
+    - [Culling Information](#culling-information)
+    - [Frames Per Second (FPS) Printing](#frames-per-second-fps-printing)
+
 ## Building and Running the Graphics System
 
 The program consists of three `.c` files.  The a1.c file contains the `main()` routine and the `update()` function. All of the changes necessary for the assignments can be made to this file.  The `graphics.c` file contains all of the code to create the 3D graphics for the assignment. The `visible.c` file contains the visible surface determination code. You should not need to change `graphics.c` or `visible.c`.
@@ -257,7 +283,7 @@ The `mouse()` function allows you to respond to mouse button events.
 
 Flags were added so the user can identify if the program is running as a client or a server. The `-client` flag sets the variable `netClient` equal to 1. The `-server` flag sets the variable `netServer` equal to 1. They are initially set to 0.
 
-### Setting the  View Orientation
+### Setting the View Orientation
 
 The counterpart to the `getViewOrientation()` function allows you to set the viewpoint rotation. When combined with the `getViewPosition()` and `setViewPosition()` you can position the viewpoint in the world and rotate it to face in the desired direction.
 
@@ -392,7 +418,9 @@ void showTube(int number);
 - `number` is the identifier of the tube.
 
 
-## Appendix A - Culling Objects that Cannot Be Seen
+## Appendix A
+
+### Culling Objects that Cannot Be Seen
 
 You probably don't need this unless you are modifying the frustum culling code. 
 
