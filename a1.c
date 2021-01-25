@@ -285,9 +285,19 @@ void update() {
 
 
    } else {
+      printf("%d\n", flycontrol);
+      getOldViewPosition(&x, &y, &z);
+      printf("old view: (%f, %f, %f)\n", x, y, z);
 
-	/* your code goes here */
-
+      int int_x = (int)x*(-1);
+      int int_y = (int)((y*(-1)) - 0.1);
+      int int_z = (int)z*(-1);
+      
+      if ((world[int_x][int_y][int_z] == 0) && flycontrol != 1) {
+         y += 0.1;
+         setOldViewPosition(x, y, z);
+         setViewPosition(x, y, z);
+      }
    }
 }
 
@@ -372,15 +382,19 @@ int main(int argc, char** argv) {
       createPlayer(0, 52.0, 27.0, 52.0, 0.0);
    }
    else {
+
+      setOldViewPosition(-50, -50, -50);
+
       for(i = 0; i < WORLDX; i++) {
          for(j = 0; j < WORLDZ; j++) {
             world[i][40][j] = 3;
          }
       }
 
-      world[20][41][12] = 1;
       world[29][41][39] = 1;
-      world[28][41][38] = 1;
+      world[29][42][40] = 1;
+      world[30][43][40] = 1;
+      world[30][44][39] = 1;
    }
 
 
