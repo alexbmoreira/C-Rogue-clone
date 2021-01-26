@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
@@ -21,4 +25,6 @@
 
 	/* maximum number of user defined colours */
 #define NUMBERCOLOURS 100
+
+GLubyte  world[WORLDX][WORLDY][WORLDZ];
 

@@ -3,11 +3,6 @@
 /* Keyboard and mouse rotation taken from Swiftless Tutorials #23 Part 2 */
 /* http://www.swiftless.com/tutorials/opengl/camera2.html */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-
 #include "graphics.h"
 
 GLubyte  world[WORLDX][WORLDY][WORLDZ];
