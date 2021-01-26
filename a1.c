@@ -8,12 +8,7 @@
 
 // #region EXTERN
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <time.h>
-
+#include "utils.h"
 #include "graphics.h"
 
 extern GLubyte  world[WORLDX][WORLDY][WORLDZ];
@@ -324,12 +319,6 @@ void mouse(int button, int state, int x, int y) {
 }
 
 
-int getRandom(int min, int max) {
-   int r = (rand() % (max + 1 - min)) + min;
-   return r;
-}
-
-
 void createRooms(int section) {
    int sec_X = 0;
    int sec_Z = 0;
@@ -397,10 +386,10 @@ void createRooms(int section) {
       world[corner_X + room_X][31][j] = 6;
    }
 
-   printf("Section %d\n", section);
-   printf("Section spot: (%d, %d)\n", sec_X, sec_Z);
-   printf("Room size: %d x %d\n", room_X, room_Z);
-   printf("Corner coords: (%d, %d)\n\n", corner_X, corner_Z);
+   // printf("Section %d\n", section);
+   // printf("Section spot: (%d, %d)\n", sec_X, sec_Z);
+   // printf("Room size: %d x %d\n", room_X, room_Z);
+   // printf("Corner coords: (%d, %d)\n\n", corner_X, corner_Z);
 }
 
 
