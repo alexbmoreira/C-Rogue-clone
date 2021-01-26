@@ -48,8 +48,8 @@ LIBS = -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/De
 # on your distribution.
 #LIBS = -lGL -lGLU -lglut -lm -D__LINUX__
 
-a1: a1.c graphics.c visible.c graphics.h
-	gcc a1.c graphics.c visible.c -o a1 $(LIBS)
+a1: a1.c graphics.c visible.c utils.c generation.c graphics.h utils.h generation.h
+	gcc a1.c graphics.c visible.c utils.c generation.c -o a1 $(LIBS)
 
 run:
 	make a1 && ./a1
