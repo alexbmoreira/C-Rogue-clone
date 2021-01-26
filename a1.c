@@ -109,11 +109,13 @@ void collisionResponse() {
    getViewPosition(&nextX, &nextY, &nextZ);
 
    int int_nextX = (int)nextX*(-1);
-   int int_nextY = (int)nextY*(-1);
+   int int_nextY = (int)nextY*(-1) - 1;
+   int int_nextY_head = (int)nextY*(-1);
    int int_nextZ = (int)nextZ*(-1);
 
    int int_currX = (int)currX*(-1);
-   int int_currY = (int)currY*(-1);
+   int int_currY = (int)currY*(-1) - 1;
+   int int_currY_head = (int)currY*(-1);
    int int_currZ = (int)currZ*(-1);
 
    // printf("Current: %f, %f, %f\n", currX, currY, currZ);
@@ -121,16 +123,16 @@ void collisionResponse() {
    // printf("Next: %f, %f, %f\n", nextX, nextY, nextZ);
    // printf("Next Int: %d, %d, %d\n", int_nextX, int_nextY, int_nextZ);
 
-   if(world[int_nextX][int_nextY][int_nextZ] != 0) {
+   if(world[int_nextX][int_nextY][int_nextZ] != 0 || world[int_nextX][int_nextY_head][int_nextZ] != 0) {
       float gotoX = currX;
       float gotoY = currY;
       float gotoZ = currZ;
 
-      if(world[int_currX][int_nextY][int_currZ] != 0) {
+      if(world[int_currX][int_nextY][int_currZ] != 0 || world[int_currX][int_nextY_head][int_currZ] != 0) {
          gotoX = nextX;
          gotoZ = nextZ;
       }
-      if(world[int_currX][int_currY][int_nextZ] != 0) {
+      if(world[int_currX][int_currY][int_nextZ] != 0 || world[int_currX][int_currY_head][int_nextZ] != 0) {
          if(world[int_currX][int_currY + 1][int_nextZ] == 0) {
             gotoZ = nextZ;
             gotoY = currY - 1;
@@ -139,7 +141,7 @@ void collisionResponse() {
             gotoZ = currZ;
          }
       }
-      if(world[int_nextX][int_currY][int_currZ] != 0) {
+      if(world[int_nextX][int_currY][int_currZ] != 0 || world[int_nextX][int_currY_head][int_currZ] != 0) {
          if(world[int_nextX][int_currY + 1][int_currZ] == 0) {
             gotoX = nextX;
             gotoY = currY - 1;
@@ -151,7 +153,6 @@ void collisionResponse() {
 
       setViewPosition(gotoX, gotoY, gotoZ);
    }
-
 }
 
 
@@ -283,7 +284,7 @@ void update() {
       getOldViewPosition(&x, &y, &z);
 
       int int_x = (int)x*(-1);
-      int int_y = (int)((y*(-1)) - 0.1);
+      int int_y = (int)((y*(-1)) - 1.1);
       int int_z = (int)z*(-1);
       
       if ((world[int_x][int_y][int_z] == 0) && flycontrol != 1) {
