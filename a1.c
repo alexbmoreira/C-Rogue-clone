@@ -325,7 +325,6 @@ void mouse(int button, int state, int x, int y) {
 
 
 int getRandom(int min, int max) {
-   srand(time(NULL));
    int r = (rand() % (max + 1 - min)) + min;
    return r;
 }
@@ -378,11 +377,11 @@ void createRooms(int section) {
          break;
    }
 
-   for(int i = sec_X - (WORLDX / 3); i <= sec_X; i++) {
-      for(int j = sec_Z - (WORLDZ / 3); j <= sec_Z; j++) {
-         world[i][30][j] = section;
-      }
-   }
+   // for(int i = sec_X - (WORLDX / 3); i <= sec_X; i++) {
+   //    for(int j = sec_Z - (WORLDZ / 3); j <= sec_Z; j++) {
+   //       world[i][30][j] = section;
+   //    }
+   // }
    
    int room_X = getRandom(5, (WORLDX / 3) - 6);
    int room_Z = getRandom(5, (WORLDZ / 3) - 6);
@@ -406,6 +405,7 @@ void createRooms(int section) {
 
 
 int main(int argc, char** argv) {
+   srand(time(NULL));
    int i, j, k;
 	/* initialize the graphics system */
    graphicsInit(&argc, argv);
