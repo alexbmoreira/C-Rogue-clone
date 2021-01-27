@@ -4,6 +4,11 @@
 
 char maze[WORLDX][WORLDZ];
 
+extern void setViewPosition(float, float, float);
+extern void getViewPosition(float *, float *, float *);
+extern void getOldViewPosition(float *, float *, float *);
+extern void setOldViewPosition(float, float, float);
+
 void fillRect(int start_x, int end_x, int start_z, int end_z, char tile) {
     for (int i = start_x; i < end_x; i++) {
         for (int j = start_z; j < end_z; j++) {
@@ -160,35 +165,34 @@ void makeRooms(int section) {
          break;
    }
    
-   int room_x = getRandom(5, (WORLDX / 3) - 6);
-   int room_z = getRandom(5, (WORLDZ / 3) - 6);
-   int corner_x = getRandom(sec_X - (WORLDX / 3) + 2, sec_X - 2 - room_x);
-   int corner_z = getRandom(sec_Z - (WORLDZ / 3) + 2, sec_Z - 2 - room_z);
+    int room_x = getRandom(5, (WORLDX / 3) - 6);
+    int room_z = getRandom(5, (WORLDZ / 3) - 6);
+    int corner_x = getRandom(sec_X - (WORLDX / 3) + 2, sec_X - 2 - room_x);
+    int corner_z = getRandom(sec_Z - (WORLDZ / 3) + 2, sec_Z - 2 - room_z);
 
-//    printf("room x %d\n", room_x);
-//    printf("room z %d\n", room_z);
-//    printf("corner x %d\n", corner_x);
-//    printf("corner z %d\n", corner_z);
+    int doors[4] = {
+        getRandom(corner_x + 1, corner_x + room_x - 1),
+        getRandom(corner_x + 1, corner_x + room_x - 1),
+        getRandom(corner_z + 1, corner_z + room_z - 1),
+        getRandom(corner_z + 1, corner_z + room_z - 1)
+        };
 
-   int doors[4] = {
-       getRandom(corner_x + 1, corner_x + room_x - 1),
-       getRandom(corner_x + 1, corner_x + room_x - 1),
-       getRandom(corner_z + 1, corner_z + room_z - 1),
-       getRandom(corner_z + 1, corner_z + room_z - 1)
-       };
+    for(int i = corner_x; i <= corner_x + room_x; i++) {
+        maze[i][corner_z] = 'W';
+        maze[i][corner_z + room_z] = 'W';
 
-   for(int i = corner_x; i <= corner_x + room_x; i++) {
-      maze[i][corner_z] = 'W';
-      maze[i][corner_z + room_z] = 'W';
+        makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
+    }
+    for(int j = corner_z; j <= corner_z + room_z; j++) {
+        maze[corner_x][j] = 'W';
+        maze[corner_x + room_x][j] = 'W';
 
-      makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
-   }
-   for(int j = corner_z; j <= corner_z + room_z; j++) {
-      maze[corner_x][j] = 'W';
-      maze[corner_x + room_x][j] = 'W';
+        makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
+    }
 
-      makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
-   }
+    if(section == 1) {
+        maze[corner_x + (room_x / 2)][corner_z + (room_z / 2)] = 'S';
+    }
 }
 
 void perpCorridors(int x, int z) {
@@ -237,6 +241,9 @@ void generateDungeon() {
             if(maze[i][j] == 'W') { // Create a wall
                 world[i][31][j] = 4;
                 world[i][32][j] = 4;
+            }
+            else if(maze[i][j] == 'S') {
+                setOldViewPosition(i*(-1), 32.5*(-1), j*(-1));
             }
             else if(maze[i][j] == '.') { // Create a corridor
                 // Check horizontals
