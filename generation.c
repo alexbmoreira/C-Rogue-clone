@@ -245,34 +245,43 @@ void generateDungeon() {
         for (int j = 0; j < WORLDZ; j++) {
             if(maze[i][j] == 'W') { // Create a wall
                 world[i][31][j] = 4;
+                world[i][32][j] = 4;
             }
-            else if(maze[i][j] == '.') { // Create a door
+            else if(maze[i][j] == '.') { // Create a corridor
                 // Check horizontals
                 if(maze[i + 1][j] == ' ') {
                     world[i + 1][31][j] = 4;
+                    world[i + 1][32][j] = 4;
                 }
                 if(maze[i - 1][j] == ' ') {
                     world[i - 1][31][j] = 4;
+                    world[i - 1][32][j] = 4;
                 }
                 if(maze[i][j + 1] == ' ') {
                     world[i][31][j + 1] = 4;
+                    world[i][32][j + 1] = 4;
                 }
                 if(maze[i][j - 1] == ' ') {
                     world[i][31][j - 1] = 4;
+                    world[i][32][j - 1] = 4;
                 }
 
                 // Check diagonals
                 if(maze[i + 1][j + 1] == ' ') {
-                    world[i + 1][31][j - 1] = 4;
+                    world[i + 1][31][j + 1] = 4;
+                    world[i + 1][32][j + 1] = 4;
                 }
                 if(maze[i + 1][j - 1] == ' ') {
                     world[i + 1][31][j - 1] = 4;
+                    world[i + 1][32][j - 1] = 4;
                 }
                 if(maze[i - 1][j + 1] == ' ') {
                     world[i - 1][31][j + 1] = 4;
+                    world[i - 1][32][j + 1] = 4;
                 }
                 if(maze[i - 1][j - 1] == ' ') {
                     world[i - 1][31][j - 1] = 4;
+                    world[i - 1][32][j - 1] = 4;
                 }
             }
         }
