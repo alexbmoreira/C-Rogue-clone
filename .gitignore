@@ -36,6 +36,7 @@
 *.x86_64
 *.hex
 a1
+maze
 
 # Debug files
 *.dSYM/
@@ -54,3 +55,6 @@ dkms.conf
 
 # Editor files
 .vscode
+
+# Misc
+maze.c
