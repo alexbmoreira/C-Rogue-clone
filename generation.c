@@ -191,15 +191,6 @@ void makeRooms(int section) {
    }
 }
 
-void createRoom() {
-    int room_x = getRandom(5, (WORLDX / 3) - 6);
-    int room_z = getRandom(5, (WORLDZ / 3) - 6);
-    int corner_x = getRandom((WORLDX / 3) + 2, (2 * (WORLDX / 3)) - 2 - room_x);
-    int corner_z = getRandom((WORLDZ / 3) + 2, (2 * (WORLDZ / 3)) - 2 - room_x);
-
-    fillRect(corner_x, corner_x + room_x, corner_z, corner_z + room_z, '#');
-}
-
 void perpCorridors(int x, int z) {
     int print_vert = 0;
     for (int i = 0; i < WORLDX; i++) {
