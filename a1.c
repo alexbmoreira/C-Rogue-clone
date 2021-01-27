@@ -104,64 +104,66 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 	   will be the negative value of the array indices */
 void collisionResponse() {
 
-   float curr_x, curr_y, curr_z;
-   float next_x, next_y, next_z;
+   if(!flycontrol) {
+      float curr_x, curr_y, curr_z;
+      float next_x, next_y, next_z;
 
-   getOldViewPosition(&curr_x, &curr_y, &curr_z);
-   getViewPosition(&next_x, &next_y, &next_z);
+      getOldViewPosition(&curr_x, &curr_y, &curr_z);
+      getViewPosition(&next_x, &next_y, &next_z);
 
-   float diff_x = curr_x - next_x;
-   float diff_z = curr_z - next_z;
+      float diff_x = curr_x - next_x;
+      float diff_z = curr_z - next_z;
 
-   // printf("diff_x: %f\n", diff_x);
-   // printf("rounded diff_x: %f\n", roundFloat(diff_x));
-   // printf("diff_z: %f\n", diff_z);
-   // printf("rounded diff_z: %f\n\n", roundFloat(diff_z));
+      // printf("diff_x: %f\n", diff_x);
+      // printf("rounded diff_x: %f\n", roundFloat(diff_x));
+      // printf("diff_z: %f\n", diff_z);
+      // printf("rounded diff_z: %f\n\n", roundFloat(diff_z));
 
-   int int_next_x = (int)(next_x - diff_x)*(-1);
-   int int_next_y = (int)next_y*(-1) - 1;
-   int int_next_y_head = (int)next_y*(-1);
-   int int_next_z = (int)(next_z - diff_z)*(-1);
+      int int_next_x = (int)(next_x - diff_x)*(-1);
+      int int_next_y = (int)next_y*(-1) - 1;
+      int int_next_y_head = (int)next_y*(-1);
+      int int_next_z = (int)(next_z - diff_z)*(-1);
 
-   int int_curr_x = (int)curr_x*(-1);
-   int int_curr_y = (int)curr_y*(-1) - 1;
-   int int_curr_y_head = (int)curr_y*(-1);
-   int int_curr_z = (int)curr_z*(-1);
+      int int_curr_x = (int)curr_x*(-1);
+      int int_curr_y = (int)curr_y*(-1) - 1;
+      int int_curr_y_head = (int)curr_y*(-1);
+      int int_curr_z = (int)curr_z*(-1);
 
-   // printf("Current: %f, %f, %f\n", curr_x, curr_y, curr_z);
-   // printf("Current Int: %d, %d, %d\n", int_curr_x, int_curr_y, int_curr_z);
-   // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
-   // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
+      // printf("Current: %f, %f, %f\n", curr_x, curr_y, curr_z);
+      // printf("Current Int: %d, %d, %d\n", int_curr_x, int_curr_y, int_curr_z);
+      // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
+      // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
-   if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_next_x][int_next_y_head][int_next_z] != 0) {
-      float gotoX = curr_x;
-      float gotoY = curr_y;
-      float gotoZ = curr_z;
+      if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_next_x][int_next_y_head][int_next_z] != 0) {
+         float gotoX = curr_x;
+         float gotoY = curr_y;
+         float gotoZ = curr_z;
 
-      if(world[int_curr_x][int_next_y][int_curr_z] != 0 || world[int_curr_x][int_next_y_head][int_curr_z] != 0) {
-         gotoX = next_x;
-         gotoZ = next_z;
-      }
-      if(world[int_curr_x][int_curr_y][int_next_z] != 0 || world[int_curr_x][int_curr_y_head][int_next_z] != 0) {
-         if(world[int_curr_x][int_curr_y + 1][int_next_z] == 0) {
-            gotoZ = next_z;
-            gotoY = curr_y - 1;
-         }
-         else {
-            gotoZ = curr_z;
-         }
-      }
-      if(world[int_next_x][int_curr_y][int_curr_z] != 0 || world[int_next_x][int_curr_y_head][int_curr_z] != 0) {
-         if(world[int_next_x][int_curr_y + 1][int_curr_z] == 0) {
+         if(world[int_curr_x][int_next_y][int_curr_z] != 0 || world[int_curr_x][int_next_y_head][int_curr_z] != 0) {
             gotoX = next_x;
-            gotoY = curr_y - 1;
+            gotoZ = next_z;
          }
-         else {
-            gotoX = curr_x;
+         if(world[int_curr_x][int_curr_y][int_next_z] != 0 || world[int_curr_x][int_curr_y_head][int_next_z] != 0) {
+            if(world[int_curr_x][int_curr_y + 1][int_next_z] == 0) {
+               gotoZ = next_z;
+               gotoY = curr_y - 1;
+            }
+            else {
+               gotoZ = curr_z;
+            }
          }
-      }
+         if(world[int_next_x][int_curr_y][int_curr_z] != 0 || world[int_next_x][int_curr_y_head][int_curr_z] != 0) {
+            if(world[int_next_x][int_curr_y + 1][int_curr_z] == 0) {
+               gotoX = next_x;
+               gotoY = curr_y - 1;
+            }
+            else {
+               gotoX = curr_x;
+            }
+         }
 
-      setViewPosition(gotoX, gotoY, gotoZ);
+         setViewPosition(gotoX, gotoY, gotoZ);
+      }
    }
 }
 
