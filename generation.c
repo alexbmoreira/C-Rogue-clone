@@ -234,6 +234,13 @@ void generateDungeon2D() {
 
 void generateDungeon() {
 
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            world[i][30][j] = 11;
+            world[i][33][j] = 10;
+        }
+    }
+
     generateDungeon2D();
 
     for (int i = 0; i < WORLDX; i++) {

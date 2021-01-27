@@ -379,20 +379,6 @@ int main(int argc, char** argv) {
       createPlayer(0, 52.0, 27.0, 52.0, 0.0);
    }
    else {
-
-      setOldViewPosition(-50, -50, -50);
-
-      for(i = 0; i < WORLDX; i++) {
-         for(j = 0; j < WORLDZ; j++) {
-            world[i][30][j] = 3;
-         }
-      }
-
-      world[29][31][39] = 1;
-      world[29][32][40] = 1;
-      world[30][33][40] = 1;
-      world[30][34][39] = 1;
-
       generateDungeon();
    }
 
