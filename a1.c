@@ -104,6 +104,7 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 	   will be the negative value of the array indices */
 void collisionResponse() {
 
+   // Collision is only active when flying is disabled
    if(!flycontrol) {
       float curr_x, curr_y, curr_z;
       float next_x, next_y, next_z;
@@ -114,15 +115,18 @@ void collisionResponse() {
       float diff_x = curr_x - next_x;
       float diff_z = curr_z - next_z;
 
+      float append_x = (diff_x < 0) ? -0.25: 0.25;
+      float append_z = (diff_z < 0) ? -0.25: 0.25;
+
       // printf("diff_x: %f\n", diff_x);
       // printf("rounded diff_x: %f\n", roundFloat(diff_x));
       // printf("diff_z: %f\n", diff_z);
       // printf("rounded diff_z: %f\n\n", roundFloat(diff_z));
 
-      int int_next_x = (int)(next_x - diff_x)*(-1);
+      int int_next_x = (int)(next_x - append_x)*(-1);
       int int_next_y = (int)next_y*(-1) - 1;
       int int_next_y_head = (int)next_y*(-1);
-      int int_next_z = (int)(next_z - diff_z)*(-1);
+      int int_next_z = (int)(next_z - append_z)*(-1);
 
       int int_curr_x = (int)curr_x*(-1);
       int int_curr_y = (int)curr_y*(-1) - 1;
