@@ -386,8 +386,10 @@ GLfloat yellow[]   = {1.0, 1.0, 0.0, 1.0};
 GLfloat purple[]   = {1.0, 0.0, 1.0, 1.0};
 GLfloat orange[]   = {1.0, 0.64, 0.0, 1.0};
 GLfloat cyan[]   = {0.0, 1.0, 1.0, 1.0};
+GLfloat grey[]   = {0.5, 0.5, 0.5, 1.0};
 GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
-GLfloat black[] = {0.0, 0.0, 0.0, 1.0};
+GLfloat black[] = {0.2, 0.2, 0.2, 1.0};
+GLfloat purple_2[] = {0.44, 0.24, 0.55, 1.0};
 GLfloat dblue[]  = {0.0, 0.0, 0.5, 1.0};
 GLfloat dred[]   = {0.5, 0.0, 0.0, 1.0};
 GLfloat dgreen[] = {0.0, 0.5, 0.0, 1.0};
@@ -395,6 +397,8 @@ GLfloat dyellow[]   = {0.5, 0.5, 0.0, 1.0};
 GLfloat dpurple[]   = {0.5, 0.0, 0.5, 1.0};
 GLfloat dorange[]   = {0.5, 0.32, 0.0, 1.0};
 GLfloat dcyan[]   = {0.0, 0.5, 0.5, 1.0};
+GLfloat dgrey[]   = {0.25, 0.25, 0.25, 1.0};
+GLfloat dpurple_2[] = {0.22, 0.12, 0.27, 1.0};
 
 	/* system defined colours are numbers 1 to 8 */
 	/* user defined colours are 9-99 */
@@ -431,6 +435,14 @@ GLfloat dcyan[]   = {0.0, 0.5, 0.5, 1.0};
    else if (colourID == 9) { 
       glMaterialfv(GL_FRONT, GL_AMBIENT, dcyan);
       glMaterialfv(GL_FRONT, GL_DIFFUSE, cyan);
+   }
+   else if (colourID == 10) { 
+      glMaterialfv(GL_FRONT, GL_AMBIENT, dgrey);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, grey);
+   }
+   else if (colourID == 11) { 
+      glMaterialfv(GL_FRONT, GL_AMBIENT, dpurple_2);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, purple_2);
    } else {
 		/* user define colour */
       if (uColourUsed[ colourID ] != 1) {
