@@ -110,8 +110,7 @@ void  set2Dcolour(float []);
 	/* player control functions */
 	/* set all player location, rotation, and visibility values to zero */
 void initPlayerArray() {
-int i;
-   for (i=0; i<MOB_COUNT; i++) {
+   for (int i=0; i<MOB_COUNT; i++) {
       playerPosition[i][0] = 0.0;
       playerPosition[i][1] = 0.0;
       playerPosition[i][2] = 0.0;
@@ -169,8 +168,7 @@ void showPlayer(int number) {
 	/* mob control functions */
 	/* set all mob location, rotation, and visibility values to zero */
 void initMobArray() {
-int i;
-   for (i=0; i<MOB_COUNT; i++) {
+   for (int i=0; i<MOB_COUNT; i++) {
       mobPosition[i][0] = 0.0;
       mobPosition[i][1] = 0.0;
       mobPosition[i][2] = 0.0;
@@ -226,8 +224,7 @@ void showMob(int number) {
 
 	/* initialize all tubes as not visible */
 void initTubeArray(){
-int i;
-   for (i=0; i<TUBE_COUNT; i++) {
+   for (int i=0; i<TUBE_COUNT; i++) {
       tubeVisible[i] = 0;
    }
 }
@@ -478,12 +475,11 @@ GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
 	/* called each time the world is redrawn */
 void display (void)
 {
-GLfloat skyblue[]  = {0.52, 0.74, 0.84, 1.0};
-GLfloat black[] = {0.0, 0.0, 0.0, 1.0};
-GLfloat red[] = {1.0, 0.0, 0.0, 1.0};
-GLfloat gray[] = {0.3, 0.3, 0.3, 1.0};
-GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
-int i, j, k;
+   GLfloat skyblue[]  = {0.52, 0.74, 0.84, 1.0};
+   GLfloat black[] = {0.0, 0.0, 0.0, 1.0};
+   GLfloat red[] = {1.0, 0.0, 0.0, 1.0};
+   GLfloat gray[] = {0.3, 0.3, 0.3, 1.0};
+   GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
 
    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -552,7 +548,7 @@ int i, j, k;
    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
 
 	/* draw mobs in the world */
-   for(i=0; i<MOB_COUNT; i++) {
+   for(int i=0; i<MOB_COUNT; i++) {
       if (mobVisible[i] == 1) {
          glPushMatrix();
 		/* black body */
@@ -573,7 +569,7 @@ int i, j, k;
    }
 
 	/* draw players in the world */
-   for(i=0; i<PLAYER_COUNT; i++) {
+   for(int i=0; i<PLAYER_COUNT; i++) {
       if (playerVisible[i] == 1) {
          glPushMatrix();
 		/* black body */
@@ -594,7 +590,7 @@ int i, j, k;
    }
 
 	/* draw tubes in the world */
-   for(i=0; i<TUBE_COUNT; i++) {
+   for(int i=0; i<TUBE_COUNT; i++) {
       if (tubeVisible[i] == 1) {
          glPushMatrix();
          setObjectColour(tubeColour[i]);
@@ -621,9 +617,9 @@ int i, j, k;
 	/* draw all cubes in the world array */
    if (displayAllCubes == 1) {
 	/* draw all cubes */
-      for(i=0; i<WORLDX; i++) {
-         for(j=0; j<WORLDY; j++) {
-            for(k=0; k<WORLDZ; k++) {
+      for(int i=0; i<WORLDX; i++) {
+         for(int j=0; j<WORLDY; j++) {
+            for(int k=0; k<WORLDZ; k++) {
                if (world[i][j][k] != 0) {
                   drawCube(i, j, k);
                }
@@ -634,7 +630,7 @@ int i, j, k;
 	/* draw only the cubes in the displayList */
 	/* these should have been selected in the update function */
 
-      for(i=0; i<displayCount; i++) {
+      for(int i=0; i<displayCount; i++) {
          drawCube(displayList[i][0],
                   displayList[i][1],
                   displayList[i][2]);
