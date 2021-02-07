@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "graphics.h"
 #include "generation.h"
+#include "states.h"
 
 extern char maze[WORLDX][WORLDZ];
 
