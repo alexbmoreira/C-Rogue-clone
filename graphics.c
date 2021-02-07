@@ -4,6 +4,7 @@
 /* http://www.swiftless.com/tutorials/opengl/camera2.html */
 
 #include "graphics.h"
+#include "states.h"
 
 GLubyte  world[WORLDX][WORLDY][WORLDZ];
 

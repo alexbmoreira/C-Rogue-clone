@@ -395,6 +395,10 @@ int main(int argc, char** argv) {
    }
    else {
       generateDungeon();
+
+      worldState state;
+      state.state_id = 0;
+      addState(state);
    }
 
 
