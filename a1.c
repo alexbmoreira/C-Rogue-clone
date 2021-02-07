@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "graphics.h"
 #include "generation.h"
+#include "states.h"
 
 extern char maze[WORLDX][WORLDZ];
 
@@ -394,6 +395,10 @@ int main(int argc, char** argv) {
    }
    else {
       generateDungeon();
+
+      worldState state;
+      state.state_id = 0;
+      addState(state);
    }
 
 

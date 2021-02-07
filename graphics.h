@@ -26,5 +26,4 @@
 	/* maximum number of user defined colours */
 #define NUMBERCOLOURS 100
 
-GLubyte  world[WORLDX][WORLDY][WORLDZ];
-
+GLubyte world[WORLDX][WORLDY][WORLDZ];
