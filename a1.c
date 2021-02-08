@@ -12,6 +12,7 @@
 #include "graphics.h"
 #include "generation.h"
 #include "states.h"
+#include "perlin.h"
 
 extern char maze[WORLDX][WORLDZ];
 
@@ -394,7 +395,7 @@ int main(int argc, char** argv) {
       createPlayer(0, 52.0, 27.0, 52.0, 0.0);
    }
    else {
-      generateDungeon();
+      generateTerrain();
 
       worldState state;
       state.state_id = 0;
