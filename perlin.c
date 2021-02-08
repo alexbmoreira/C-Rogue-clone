@@ -85,7 +85,7 @@ void generateTerrain() {
             }
 
             for(int k = 0; k <= terrain[i][j]; k++) {
-                world[i][k][j] = (k < terrain[i][j]) ? 8 : 3;
+                world[i][k][j] = (k < terrain[i][j]) ? 7 : 6;
             }
         }
     }

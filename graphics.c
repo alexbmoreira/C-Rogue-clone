@@ -377,71 +377,56 @@ void init (void)
 	/* pass in the number representing the colour, sets OpenGL materials */
 void setObjectColour(int colourID) {
 	/* predefined colours */
-GLfloat blue[]  = {0.0, 0.0, 1.0, 1.0};
-GLfloat red[]   = {1.0, 0.0, 0.0, 1.0};
-GLfloat green[] = {0.0, 1.0, 0.0, 1.0};
-GLfloat yellow[]   = {1.0, 1.0, 0.0, 1.0};
-GLfloat purple[]   = {1.0, 0.0, 1.0, 1.0};
-GLfloat orange[]   = {1.0, 0.64, 0.0, 1.0};
-GLfloat cyan[]   = {0.0, 1.0, 1.0, 1.0};
-GLfloat grey[]   = {0.5, 0.5, 0.5, 1.0};
 GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
 GLfloat black[] = {0.2, 0.2, 0.2, 1.0};
-GLfloat purple_2[] = {0.44, 0.24, 0.55, 1.0};
-GLfloat dblue[]  = {0.0, 0.0, 0.5, 1.0};
-GLfloat dred[]   = {0.5, 0.0, 0.0, 1.0};
-GLfloat dgreen[] = {0.0, 0.5, 0.0, 1.0};
-GLfloat dyellow[]   = {0.5, 0.5, 0.0, 1.0};
-GLfloat dpurple[]   = {0.5, 0.0, 0.5, 1.0};
-GLfloat dorange[]   = {0.5, 0.32, 0.0, 1.0};
-GLfloat dcyan[]   = {0.0, 0.5, 0.5, 1.0};
-GLfloat dgrey[]   = {0.25, 0.25, 0.25, 1.0};
-GLfloat dpurple_2[] = {0.22, 0.12, 0.27, 1.0};
+GLfloat grey[]   = {0.5, 0.5, 0.5, 1.0};
+GLfloat dungeonfloor[] = {0.44, 0.24, 0.55, 1.0};
+GLfloat grass[] = {0.44, 0.72, 0.34, 1.0};
+GLfloat dirt[] = {0.5, 0.36, 0.14, 1.0};
+GLfloat d_grey[]   = {0.25, 0.25, 0.25, 1.0};
+GLfloat d_dungeonfloor[] = {0.22, 0.12, 0.27, 1.0};
+GLfloat d_grass[] = {0.22, 0.36, 0.17, 1.0};
+GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
 
 	/* system defined colours are numbers 1 to 8 */
 	/* user defined colours are 9-99 */
    if (colourID == 1) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dgreen);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
-   }
-   else if (colourID == 2) { 
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dblue);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, blue);
-   }
-   else if (colourID == 3) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dred);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, red);
-   }
-   else if (colourID == 4) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, black);
-   }
-   else if (colourID == 5) {
       glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, white);
    }
-   else if (colourID == 6) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dpurple);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, purple);
+   else if (colourID == 2) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, black);
    }
-   else if (colourID == 7) { 
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dorange);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, orange);
-   }
-   else if (colourID == 8) { 
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dyellow);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, yellow);
-   }
-   else if (colourID == 9) { 
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dcyan);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, cyan);
-   }
-   else if (colourID == 10) { 
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dgrey);
+   else if (colourID == 3) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_grey);
       glMaterialfv(GL_FRONT, GL_DIFFUSE, grey);
    }
-   else if (colourID == 11) { 
-      glMaterialfv(GL_FRONT, GL_AMBIENT, dpurple_2);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, purple_2);
-   } else {
+   else if (colourID == 4) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloor);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloor);
+   }
+   else if (colourID == 5) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloor);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloor);
+   }
+   else if (colourID == 6) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_grass);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, grass);
+   }
+   else if (colourID == 7) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dirt);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dirt);
+   }
+   // else if (colourID == 8) {
+   // }
+   // else if (colourID == 9) {
+   // }
+   // else if (colourID == 10) {
+   // }
+   // else if (colourID == 11) { 
+   // }
+   // else if (colourID == 12) { 
+   // }
+   else {
 		/* user define colour */
       if (uColourUsed[ colourID ] != 1) {
          printf("ERROR, attempt to access colour which is not allocated.\n");
