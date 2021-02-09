@@ -12,6 +12,7 @@
 #include "graphics.h"
 #include "generation.h"
 #include "states.h"
+#include "perlin.h"
 
 extern char maze[WORLDX][WORLDZ];
 
@@ -124,10 +125,12 @@ void collisionResponse() {
       // printf("diff_z: %f\n", diff_z);
       // printf("rounded diff_z: %f\n\n", roundFloat(diff_z));
 
-      int int_next_x = (int)(next_x - append_x)*(-1);
+      int int_next_x = (int)(next_x)*(-1);
+      int int_predicted_x = (int)(next_x - append_x)*(-1);
       int int_next_y = (int)next_y*(-1) - 1;
       int int_next_y_head = (int)next_y*(-1);
-      int int_next_z = (int)(next_z - append_z)*(-1);
+      int int_next_z = (int)(next_z)*(-1);
+      int int_predicted_z = (int)(next_z - append_z)*(-1);
 
       int int_curr_x = (int)curr_x*(-1);
       int int_curr_y = (int)curr_y*(-1) - 1;
@@ -139,7 +142,7 @@ void collisionResponse() {
       // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
       // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
-      if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_next_x][int_next_y_head][int_next_z] != 0) {
+      if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_predicted_x][int_next_y_head][int_predicted_z] != 0) {
          float gotoX = curr_x;
          float gotoY = curr_y;
          float gotoZ = curr_z;
@@ -149,7 +152,7 @@ void collisionResponse() {
             gotoZ = next_z;
          }
          if(world[int_curr_x][int_curr_y][int_next_z] != 0 || world[int_curr_x][int_curr_y_head][int_next_z] != 0) {
-            if(world[int_curr_x][int_curr_y + 1][int_next_z] == 0) {
+            if(world[int_curr_x][int_curr_y + 1][int_next_z] == 0 && world[int_curr_x][int_curr_y + 2][int_next_z] == 0) {
                gotoZ = next_z;
                gotoY = curr_y - 1;
             }
@@ -158,7 +161,7 @@ void collisionResponse() {
             }
          }
          if(world[int_next_x][int_curr_y][int_curr_z] != 0 || world[int_next_x][int_curr_y_head][int_curr_z] != 0) {
-            if(world[int_next_x][int_curr_y + 1][int_curr_z] == 0) {
+            if(world[int_next_x][int_curr_y + 1][int_curr_z] == 0 && world[int_next_x][int_curr_y + 2][int_curr_z] == 0) {
                gotoX = next_x;
                gotoY = curr_y - 1;
             }
@@ -394,7 +397,15 @@ int main(int argc, char** argv) {
       createPlayer(0, 52.0, 27.0, 52.0, 0.0);
    }
    else {
-      generateDungeon();
+      generateTerrain();
+      
+      setOldViewPosition(-50, -50, -50);
+      for(int i = 45; i > 0; i--) {
+         if(world[50][i][50] != 0) {
+            setOldViewPosition(-50, (i + 3)*(-1), -50);
+            break;
+         }
+      }
 
       worldState state;
       state.state_id = 0;

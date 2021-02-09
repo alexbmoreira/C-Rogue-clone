@@ -37,6 +37,7 @@
 *.hex
 a1
 maze
+perlin
 
 # Debug files
 *.dSYM/
@@ -58,3 +59,4 @@ dkms.conf
 
 # Misc
 maze.c
+rawNoise.*
