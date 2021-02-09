@@ -80,8 +80,8 @@ void generateTerrain() {
             if (terrain[i][j] < 0) {
                 terrain[i][j] = 0;
             }
-            if (terrain[i][j] > 50) {
-                terrain[i][j] = 50;
+            if (terrain[i][j] > 40) {
+                terrain[i][j] = 40;
             }
 
             for(int k = 0; k <= terrain[i][j]; k++) {
