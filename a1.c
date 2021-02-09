@@ -398,6 +398,14 @@ int main(int argc, char** argv) {
    }
    else {
       generateTerrain();
+      
+      setOldViewPosition(-50, -50, -50);
+      for(int i = 45; i > 0; i--) {
+         if(world[50][i][50] != 0) {
+            setOldViewPosition(-50, (i + 3)*(-1), -50);
+            break;
+         }
+      }
 
       worldState state;
       state.state_id = 0;
