@@ -10,6 +10,8 @@
     https://en.wikipedia.org/wiki/Perlin_noise#Implementation
 */
 
+int a, b, c;
+
 int numX = WORLDX,
     numY = WORLDZ,
     numOctaves = 5;
@@ -21,7 +23,8 @@ float terrain[WORLDX][WORLDZ];
 float Noise(int x, int y) {
     int n = x + y * 57;
     n = (n << 13) ^ n;
-    int t = (n * (n * n * 362489573 + 946737083) + 1376312589) & 0x7fffffff;
+
+    int t = (n * (n * n * a + b) + c) & 0x7fffffff;
     return 1.0 - ((float)t / 1073741824.0);
 }
 
@@ -43,19 +46,19 @@ float InterpolatedNoise(float x, float y) {
     int integer_Y = y;
     float fractional_Y = y - integer_Y;
 
-    float v1 = SmoothedNoise(integer_X, integer_Y),
-    float v2 = SmoothedNoise(integer_X + 1, integer_Y),
-    float v3 = SmoothedNoise(integer_X, integer_Y + 1),
-    float v4 = SmoothedNoise(integer_X + 1, integer_Y + 1),
-    float i1 = Interpolate(v1, v2, fractional_X),
+    float v1 = SmoothedNoise(integer_X, integer_Y);
+    float v2 = SmoothedNoise(integer_X + 1, integer_Y);
+    float v3 = SmoothedNoise(integer_X, integer_Y + 1);
+    float v4 = SmoothedNoise(integer_X + 1, integer_Y + 1);
+    float i1 = Interpolate(v1, v2, fractional_X);
     float i2 = Interpolate(v3, v4, fractional_X);
 
     return Interpolate(i1, i2, fractional_Y);
 }
 
 float ValueNoise_2D(float x, float y) {
-    float total = 0,
-    float frequency = pow(2, numOctaves),
+    float total = 0;
+    float frequency = pow(2, numOctaves);
     float amplitude = 1;
 
     for (int i = 0; i < numOctaves; i++) {
@@ -76,6 +79,9 @@ void generateNoise() {
 }
 
 void generateTerrain() {
+    a = getRandom(1000000, 9999999);
+    b = getRandom(1000000, 9999999);
+    c = getRandom(1000000, 9999999);
     generateNoise();
 
     for (int i = 0; i < WORLDX; i++) {
