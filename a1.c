@@ -13,6 +13,7 @@
 #include "generation.h"
 #include "states.h"
 #include "perlin.h"
+#include "clouds.h"
 
 int current_state = 0;
 
@@ -350,6 +351,11 @@ void update() {
          y += 0.1;
          setOldViewPosition(x, y, z);
          setViewPosition(x, y, z);
+      }
+
+      for(int i = 0; i < NUM_CLOUDS - 1; i++) {
+         cloud cl = getCloud(i);
+         animateCloud(&cl);
       }
    }
 }
