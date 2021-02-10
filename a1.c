@@ -352,6 +352,11 @@ void update() {
          setOldViewPosition(x, y, z);
          setViewPosition(x, y, z);
       }
+
+      for(int i = 0; i < NUM_CLOUDS - 1; i++) {
+         cloud cl = getCloud(i);
+         animateCloud(&cl);
+      }
    }
 }
 

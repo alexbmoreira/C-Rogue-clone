@@ -14,6 +14,6 @@ void makeCloud(int cloud_id);
 
 cloud getCloud(int cloud_id);
 
-void drawCloud(int cloud_id);
+void drawCloud(cloud cl);
 
-void animateCloud(cloud cl);
+void animateCloud(cloud *cl);
