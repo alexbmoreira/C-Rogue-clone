@@ -2,6 +2,7 @@
 
 void addState(worldState state) {
     copyWorld(&state);
+    state.active = 1;
     states[state.state_id] = state;
 }
 

@@ -105,12 +105,19 @@ void stairNavigation(int direction) {
    if(direction == -1) {
       clearWorld();
 
-      generateDungeon();
-
-      worldState state;
       current_state++;
-      state.state_id = current_state;
-      addState(state);
+      if(states[current_state].active == 0) {
+         worldState state;
+         state.state_id = current_state;
+         state.active = 0;
+
+         generateDungeon();
+
+         addState(state);
+      }
+      else {
+         stateToWorld(getState(current_state));
+      }
    }
    else {
       current_state--;
@@ -436,6 +443,7 @@ int main(int argc, char** argv) {
 
       worldState state;
       state.state_id = 0;
+      state.active = 0;
       addState(state);
    }
 

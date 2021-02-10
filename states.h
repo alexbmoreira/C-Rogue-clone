@@ -1,6 +1,7 @@
 #include "graphics.h"
 
 typedef struct worldState {
+    int active;
     int state_id;
     GLubyte world[WORLDX][WORLDY][WORLDZ];
 } worldState;
