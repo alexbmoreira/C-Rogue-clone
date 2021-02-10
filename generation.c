@@ -224,7 +224,7 @@ void generateDungeon2D() {
 
     fillRect(0, WORLDX, 0, WORLDZ, ' ');
 
-    for(int i = 4; i < 10; i++) {
+    for(int i = 1; i < 10; i++) {
         makeRooms(i);
     }
     perpCorridors((WORLDX / 3), (WORLDZ / 3));
