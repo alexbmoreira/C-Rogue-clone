@@ -97,6 +97,9 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 //#endregion
 /********* end of extern variable declarations **************/
 
+void stairNavigation(int x, int y, int z) {
+
+}
 
 	/*** collisionResponse() ***/
 	/* -performs collision detection and response */
