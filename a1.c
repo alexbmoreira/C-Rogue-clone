@@ -103,7 +103,6 @@ void stairNavigation(int direction) {
    updateState(current_state);
    
    if(direction == -1) {
-      printf("Moving Down\n");
       clearWorld();
 
       generateDungeon();

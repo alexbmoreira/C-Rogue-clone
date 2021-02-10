@@ -104,7 +104,6 @@ void generateTerrain() {
     int z = getRandom(40, 60);
     for(int y = 41; y > 0; y--) {
         if(world[x][y][z] != 0) {
-            printf("(%d, %d, %d)\n", x, y, z);
             world[x][y + 1][z] = 3;
             break;
         }

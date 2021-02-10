@@ -252,13 +252,6 @@ void generateDungeon() {
 
     generateDungeon2D();
 
-    for(int i = 0; i < WORLDX; i++) {
-        for(int j = 0; j < WORLDZ; j++) {
-            printf("%c", maze[i][j]);
-        }
-        printf("\n");
-    }
-
     for (int i = 0; i < WORLDX; i++) {
         for (int j = 0; j < WORLDZ; j++) {
             if(maze[i][j] == 'W') { // Create a wall
@@ -312,5 +305,14 @@ void generateDungeon() {
                 }
             }
         }
+    }
+}
+
+void printDungeon() {
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            printf("%c", maze[i][j]);
+        }
+        printf("\n");
     }
 }

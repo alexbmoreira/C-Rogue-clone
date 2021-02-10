@@ -10,7 +10,6 @@ worldState getState(int state_id) {
 }
 
 void copyWorld(worldState state) {
-    printf("Copying world\n");
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDY; j++) {
             for(int k = 0; k < WORLDZ; k++) {
