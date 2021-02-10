@@ -396,6 +396,9 @@ void setObjectColour(int colourID) {
    GLfloat dirt[] = {0.5, 0.36, 0.14, 1.0};
    GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
 
+   GLfloat clouds[] = {0.90, 0.90, 0.90, 0.5};
+   GLfloat d_clouds[] = {0.45, 0.45, 0.45, 0.5};
+
 	/* system defined colours are numbers 1 to 8 */
 	/* user defined colours are 9-99 */
    if (colourID == 1) {
