@@ -1,4 +1,10 @@
 #include "states.h"
+#include "graphics.h"
+
+extern void setViewPosition(float, float, float);
+extern void getViewPosition(float *, float *, float *);
+extern void getOldViewPosition(float *, float *, float *);
+extern void setOldViewPosition(float, float, float);
 
 void addState(worldState state) {
     copyWorld(&state);
@@ -18,10 +24,17 @@ void copyWorld(worldState *state) {
             }
         }
     }
+
+    float x, y, z;
+    getOldViewPosition(&x, &y, &z);
+    state->player_x = x;
+    state->player_y = y;
+    state->player_z = z;
 }
 
 void updateState(int state_id) {
     copyWorld(&states[state_id]);
+    printSlice(50, state_id);
 }
 
 void stateToWorld(worldState state) {
@@ -32,6 +45,8 @@ void stateToWorld(worldState state) {
             }
         }
     }
+    setViewPosition(state.player_x, state.player_y, state.player_z);
+    setOldViewPosition(state.player_x, state.player_y, state.player_z);
 }
 
 void clearWorld() {
@@ -53,4 +68,8 @@ void printSlice(int x, int state_id) {
         }
         fprintf(f, "\n");
     }
+
+
+    fprintf(f, "Player spawn:\n");    
+    fprintf(f, "(%f, %f, %f)\n", states[state_id].player_x, states[state_id].player_y, states[state_id].player_z);    
 }

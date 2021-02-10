@@ -4,6 +4,7 @@ typedef struct worldState {
     int active;
     int state_id;
     GLubyte world[WORLDX][WORLDY][WORLDZ];
+    float player_x, player_y, player_z;
 } worldState;
 
 worldState states[100];

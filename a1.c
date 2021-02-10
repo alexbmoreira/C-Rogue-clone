@@ -101,6 +101,7 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 
 void stairNavigation(int direction) {
    updateState(current_state);
+   setOldViewPosition(-50, -50, -50);
    
    if(direction == -1) {
       clearWorld();
@@ -116,12 +117,14 @@ void stairNavigation(int direction) {
          addState(state);
       }
       else {
-         stateToWorld(getState(current_state));
+         worldState state = getState(current_state);
+         stateToWorld(state);
       }
    }
    else {
       current_state--;
-      stateToWorld(getState(current_state));
+      worldState state = getState(current_state);
+      stateToWorld(state);
    }
 }
 
@@ -172,9 +175,11 @@ void collisionResponse() {
       if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_predicted_x][int_next_y_head][int_predicted_z] != 0) {
          if(world[int_next_x][int_next_y][int_next_z] == 1 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 1) {
             stairNavigation(1);
+            return;
          }
          else if(world[int_next_x][int_next_y][int_next_z] == 3 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 3) {
             stairNavigation(-1);
+            return;
          }
 
          float gotoX = curr_x;
