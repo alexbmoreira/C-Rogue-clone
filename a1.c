@@ -113,8 +113,8 @@ void stairNavigation(int direction) {
       addState(state);
    }
    else {
-      // current_state--;
-      // stateToWorld(getState(current_state));
+      current_state--;
+      stateToWorld(getState(current_state));
    }
 }
 
