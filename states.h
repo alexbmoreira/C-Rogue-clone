@@ -18,3 +18,5 @@ void updateState(int state_id);
 void stateToWorld(worldState state);
 
 void clearWorld();
+
+void printSlice(int x, int state_id);

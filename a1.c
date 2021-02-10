@@ -437,6 +437,8 @@ int main(int argc, char** argv) {
       worldState state;
       state.state_id = 0;
       addState(state);
+
+      printSlice(50, state.state_id);
    }
 
 

@@ -42,3 +42,14 @@ void clearWorld() {
         }
     }
 }
+
+void printSlice(int x, int state_id) {
+    FILE *f = fopen("world.log", "w");
+
+    for(int j = WORLDY - 1; j >= 0; j--) {
+        for(int k = 0; k < WORLDZ; k++) {
+            fprintf(f, "%d", world[x][j][k]);
+        }
+        fprintf(f, "\n");
+    }
+}
