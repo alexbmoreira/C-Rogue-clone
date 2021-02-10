@@ -400,9 +400,9 @@ int main(int argc, char** argv) {
       generateTerrain();
       
       setOldViewPosition(-50, -50, -50);
-      for(int i = 45; i > 0; i--) {
-         if(world[50][i][50] != 0) {
-            setOldViewPosition(-50, (i + 3)*(-1), -50);
+      for(int y = 45; y > 0; y--) {
+         if(world[50][y][50] != 0) {
+            setOldViewPosition(-50, (y + 3)*(-1), -50);
             break;
          }
       }
