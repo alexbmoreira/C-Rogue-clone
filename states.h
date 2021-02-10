@@ -11,7 +11,7 @@ void addState(worldState state);
 
 worldState getState(int state_id);
 
-void copyWorld(worldState state);
+void copyWorld(worldState *state);
 
 void updateState(int state_id);
 
