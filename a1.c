@@ -14,6 +14,8 @@
 #include "states.h"
 #include "perlin.h"
 
+int current_state = 0;
+
 extern char maze[WORLDX][WORLDZ];
 
 	/* mouse function called by GLUT when a button is pressed or released */
@@ -97,8 +99,24 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 //#endregion
 /********* end of extern variable declarations **************/
 
-void stairNavigation(int x, int y, int z) {
+void stairNavigation(int direction) {
+   updateState(current_state);
+   
+   if(direction == -1) {
+      printf("Moving Down\n");
+      clearWorld();
 
+      generateDungeon();
+
+      worldState state;
+      current_state++;
+      state.state_id = current_state;
+      addState(state);
+   }
+   else {
+      // current_state--;
+      // stateToWorld(getState(current_state));
+   }
 }
 
 	/*** collisionResponse() ***/
@@ -146,6 +164,13 @@ void collisionResponse() {
       // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
       if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_predicted_x][int_next_y_head][int_predicted_z] != 0) {
+         if(world[int_next_x][int_next_y][int_next_z] == 1 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 1) {
+            stairNavigation(1);
+         }
+         else if(world[int_next_x][int_next_y][int_next_z] == 3 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 3) {
+            stairNavigation(-1);
+         }
+
          float gotoX = curr_x;
          float gotoY = curr_y;
          float gotoZ = curr_z;

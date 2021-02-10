@@ -8,5 +8,13 @@ typedef struct worldState {
 worldState states[100];
 
 void addState(worldState state);
+
 worldState getState(int state_id);
+
 void copyWorld(worldState state);
+
+void updateState(int state_id);
+
+void stateToWorld(worldState state);
+
+void clearWorld();
