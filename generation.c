@@ -3,6 +3,7 @@
 #include "utils.h"
 
 char maze[WORLDX][WORLDZ];
+int d_room;
 
 extern void setViewPosition(float, float, float);
 extern void getViewPosition(float *, float *, float *);
@@ -192,6 +193,12 @@ void makeRooms(int section) {
 
     if(section == 1) {
         maze[corner_x + (room_x / 2)][corner_z + (room_z / 2)] = 'S';
+        maze[corner_x + 1][corner_z + 1] = 'u';
+    }
+    else if(section == d_room) {
+        int x_placement = getRandom(room_x / 4, room_x * 3 /4);
+        int z_placement = getRandom(room_z / 4, room_z * 3 /4);
+        maze[corner_x + x_placement][corner_z + z_placement] = 'd';
     }
 }
 
@@ -224,6 +231,8 @@ void generateDungeon2D() {
 
     fillRect(0, WORLDX, 0, WORLDZ, ' ');
 
+    d_room = getRandom(2, 9);
+
     for(int i = 1; i < 10; i++) {
         makeRooms(i);
     }
@@ -236,8 +245,8 @@ void generateDungeon() {
 
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
-            world[i][30][j] = 4;
-            world[i][33][j] = 3;
+            world[i][30][j] = 5;
+            world[i][33][j] = 5;
         }
     }
 
@@ -246,49 +255,64 @@ void generateDungeon() {
     for (int i = 0; i < WORLDX; i++) {
         for (int j = 0; j < WORLDZ; j++) {
             if(maze[i][j] == 'W') { // Create a wall
-                world[i][31][j] = 1;
-                world[i][32][j] = 1;
+                world[i][31][j] = 4;
+                world[i][32][j] = 4;
             }
-            else if(maze[i][j] == 'S') {
+            else if(maze[i][j] == 'd') { // Create a staircase down
+                world[i][31][j] = 3;
+            }
+            else if(maze[i][j] == 'u') { // Create a staircase back up
+                world[i][31][j] = 1;
+            }
+            else if(maze[i][j] == 'S') { // Set character spawn
                 setOldViewPosition(i*(-1), 32.5*(-1), j*(-1));
             }
             else if(maze[i][j] == '.') { // Create a corridor
                 // Check horizontals
                 if(maze[i + 1][j] == ' ') {
-                    world[i + 1][31][j] = 1;
-                    world[i + 1][32][j] = 1;
+                    world[i + 1][31][j] = 4;
+                    world[i + 1][32][j] = 4;
                 }
                 if(maze[i - 1][j] == ' ') {
-                    world[i - 1][31][j] = 1;
-                    world[i - 1][32][j] = 1;
+                    world[i - 1][31][j] = 4;
+                    world[i - 1][32][j] = 4;
                 }
                 if(maze[i][j + 1] == ' ') {
-                    world[i][31][j + 1] = 1;
-                    world[i][32][j + 1] = 1;
+                    world[i][31][j + 1] = 4;
+                    world[i][32][j + 1] = 4;
                 }
                 if(maze[i][j - 1] == ' ') {
-                    world[i][31][j - 1] = 1;
-                    world[i][32][j - 1] = 1;
+                    world[i][31][j - 1] = 4;
+                    world[i][32][j - 1] = 4;
                 }
 
                 // Check diagonals
                 if(maze[i + 1][j + 1] == ' ') {
-                    world[i + 1][31][j + 1] = 1;
-                    world[i + 1][32][j + 1] = 1;
+                    world[i + 1][31][j + 1] = 4;
+                    world[i + 1][32][j + 1] = 4;
                 }
                 if(maze[i + 1][j - 1] == ' ') {
-                    world[i + 1][31][j - 1] = 1;
-                    world[i + 1][32][j - 1] = 1;
+                    world[i + 1][31][j - 1] = 4;
+                    world[i + 1][32][j - 1] = 4;
                 }
                 if(maze[i - 1][j + 1] == ' ') {
-                    world[i - 1][31][j + 1] = 1;
-                    world[i - 1][32][j + 1] = 1;
+                    world[i - 1][31][j + 1] = 4;
+                    world[i - 1][32][j + 1] = 4;
                 }
                 if(maze[i - 1][j - 1] == ' ') {
-                    world[i - 1][31][j - 1] = 1;
-                    world[i - 1][32][j - 1] = 1;
+                    world[i - 1][31][j - 1] = 4;
+                    world[i - 1][32][j - 1] = 4;
                 }
             }
         }
+    }
+}
+
+void printDungeon() {
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            printf("%c", maze[i][j]);
+        }
+        printf("\n");
     }
 }

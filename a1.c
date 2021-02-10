@@ -14,6 +14,8 @@
 #include "states.h"
 #include "perlin.h"
 
+int current_state = 0;
+
 extern char maze[WORLDX][WORLDZ];
 
 	/* mouse function called by GLUT when a button is pressed or released */
@@ -97,6 +99,34 @@ extern void getUserColour(int, GLfloat *, GLfloat *, GLfloat *, GLfloat *,
 //#endregion
 /********* end of extern variable declarations **************/
 
+void stairNavigation(int direction) {
+   updateState(current_state);
+   setOldViewPosition(-50, -50, -50);
+   
+   if(direction == -1) {
+      clearWorld();
+
+      current_state++;
+      if(states[current_state].active == 0) {
+         worldState state;
+         state.state_id = current_state;
+         state.active = 0;
+
+         generateDungeon();
+
+         addState(state);
+      }
+      else {
+         worldState state = getState(current_state);
+         stateToWorld(state);
+      }
+   }
+   else {
+      current_state--;
+      worldState state = getState(current_state);
+      stateToWorld(state);
+   }
+}
 
 	/*** collisionResponse() ***/
 	/* -performs collision detection and response */
@@ -143,6 +173,15 @@ void collisionResponse() {
       // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
       if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_predicted_x][int_next_y_head][int_predicted_z] != 0) {
+         if(world[int_next_x][int_next_y][int_next_z] == 1 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 1) {
+            stairNavigation(1);
+            return;
+         }
+         else if(world[int_next_x][int_next_y][int_next_z] == 3 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 3) {
+            stairNavigation(-1);
+            return;
+         }
+
          float gotoX = curr_x;
          float gotoY = curr_y;
          float gotoZ = curr_z;
@@ -400,15 +439,16 @@ int main(int argc, char** argv) {
       generateTerrain();
       
       setOldViewPosition(-50, -50, -50);
-      for(int i = 45; i > 0; i--) {
-         if(world[50][i][50] != 0) {
-            setOldViewPosition(-50, (i + 3)*(-1), -50);
+      for(int y = 45; y > 0; y--) {
+         if(world[50][y][50] != 0) {
+            setOldViewPosition(-50, (y + 3)*(-1), -50);
             break;
          }
       }
 
       worldState state;
       state.state_id = 0;
+      state.active = 0;
       addState(state);
    }
 

@@ -11,3 +11,4 @@ void makeRooms(int section);
 void perpCorridors(int x, int z);
 void generateDungeon2D();
 void generateDungeon();
+void printDungeon();
