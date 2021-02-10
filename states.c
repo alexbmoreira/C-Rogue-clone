@@ -48,7 +48,7 @@ void printSlice(int x, int state_id) {
 
     for(int j = WORLDY - 1; j >= 0; j--) {
         for(int k = 0; k < WORLDZ; k++) {
-            fprintf(f, "%d", world[x][j][k]);
+            fprintf(f, "%d", (state_id >= 0) ? states[state_id].world[x][j][k] : world[x][j][k]);
         }
         fprintf(f, "\n");
     }
