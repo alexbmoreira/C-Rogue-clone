@@ -110,7 +110,7 @@ void generateTerrain() {
         }
     }
 
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < NUM_CLOUDS - 1; i++) {
         makeCloud(i);
     }
 }
