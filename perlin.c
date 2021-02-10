@@ -1,6 +1,7 @@
 #include "perlin.h"
 #include "graphics.h"
 #include "utils.h"
+#include "clouds.h"
 
 /* 
     Code for generating 2D Perlin noise inspired by pseudocode found here:
@@ -93,9 +94,6 @@ void generateTerrain() {
             else if (terrain[i][j] > 40) {
                 terrain[i][j] = 40;
             }
-            else if (terrain[i][j] > 25) {
-                world[i][49][j] = 8;
-            }
 
             for(int k = 0; k <= terrain[i][j]; k++) {
                 world[i][k][j] = (k < terrain[i][j]) ? 7 : 6;
@@ -110,5 +108,9 @@ void generateTerrain() {
             world[x][y + 1][z] = 3;
             break;
         }
+    }
+
+    for(int i = 0; i < 10; i++) {
+        makeCloud(i);
     }
 }

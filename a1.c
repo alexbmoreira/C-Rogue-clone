@@ -13,6 +13,7 @@
 #include "generation.h"
 #include "states.h"
 #include "perlin.h"
+#include "clouds.h"
 
 int current_state = 0;
 
