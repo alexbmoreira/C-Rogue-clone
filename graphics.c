@@ -377,16 +377,24 @@ void init (void)
 	/* pass in the number representing the colour, sets OpenGL materials */
 void setObjectColour(int colourID) {
 	/* predefined colours */
-GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
-GLfloat black[] = {0.2, 0.2, 0.2, 1.0};
-GLfloat grey[]   = {0.5, 0.5, 0.5, 1.0};
-GLfloat dungeonfloor[] = {0.44, 0.24, 0.55, 1.0};
-GLfloat grass[] = {0.44, 0.72, 0.34, 1.0};
-GLfloat dirt[] = {0.5, 0.36, 0.14, 1.0};
-GLfloat d_grey[]   = {0.25, 0.25, 0.25, 1.0};
-GLfloat d_dungeonfloor[] = {0.22, 0.12, 0.27, 1.0};
-GLfloat d_grass[] = {0.22, 0.36, 0.17, 1.0};
-GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
+   GLfloat white[] = {1.0, 1.0, 1.0, 1.0};
+
+   GLfloat black[] = {0.2, 0.2, 0.2, 1.0};
+
+   GLfloat grey[]   = {0.5, 0.5, 0.5, 1.0};
+   GLfloat d_grey[]   = {0.25, 0.25, 0.25, 1.0};
+
+   GLfloat dungeonwalls[] = {0.28, 0.34, 0.44, 1.0};
+   GLfloat d_dungeonwalls[] = {0.14, 0.17, 0.22, 1.0};
+
+   GLfloat dungeonfloors[] = {0.28, 0.3, 0.36, 1.0};
+   GLfloat d_dungeonfloors[] = {0.14, 0.15, 0.18, 1.0};
+
+   GLfloat grass[] = {0.44, 0.72, 0.34, 1.0};
+   GLfloat d_grass[] = {0.22, 0.36, 0.17, 1.0};
+
+   GLfloat dirt[] = {0.5, 0.36, 0.14, 1.0};
+   GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
 
 	/* system defined colours are numbers 1 to 8 */
 	/* user defined colours are 9-99 */
@@ -401,12 +409,12 @@ GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
       glMaterialfv(GL_FRONT, GL_DIFFUSE, grey);
    }
    else if (colourID == 4) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloor);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloor);
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonwalls);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonwalls);
    }
    else if (colourID == 5) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloor);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloor);
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloors);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloors);
    }
    else if (colourID == 6) {
       glMaterialfv(GL_FRONT, GL_AMBIENT, d_grass);
