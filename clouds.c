@@ -70,7 +70,7 @@ void clearCloud(cloud cl) {
 void animateCloud(cloud *cl) {
     clearCloud(*cl);
 
-    float movement = getRandom(0, 2) / 10.0f;
+    float movement = getRandom(0, 8) / 100.0f;
 
     cl->x += movement;
 
