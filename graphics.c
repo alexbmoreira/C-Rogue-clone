@@ -427,8 +427,10 @@ void setObjectColour(int colourID) {
       glMaterialfv(GL_FRONT, GL_AMBIENT, d_dirt);
       glMaterialfv(GL_FRONT, GL_DIFFUSE, dirt);
    }
-   // else if (colourID == 8) {
-   // }
+   else if (colourID == 8) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_clouds);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, clouds);
+   }
    // else if (colourID == 9) {
    // }
    // else if (colourID == 10) {
