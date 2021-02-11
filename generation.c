@@ -259,10 +259,10 @@ void generateDungeon() {
                 world[i][32][j] = 4;
             }
             else if(maze[i][j] == 'd') { // Create a staircase down
-                world[i][31][j] = 3;
+                world[i][30][j] = 3;
             }
             else if(maze[i][j] == 'u') { // Create a staircase back up
-                world[i][31][j] = 1;
+                world[i][30][j] = 1;
             }
             else if(maze[i][j] == 'S') { // Set character spawn
                 setOldViewPosition(i*(-1), 32.5*(-1), j*(-1));

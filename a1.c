@@ -173,15 +173,16 @@ void collisionResponse() {
       // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
       // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
+      if(world[int_next_x][int_next_y][int_next_z] == 1 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 1 || world[int_curr_x][int_next_y - 1][int_curr_z] == 1) {
+         stairNavigation(1);
+         return;
+      }
+      else if(world[int_next_x][int_next_y][int_next_z] == 3 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 3 || world[int_curr_x][int_next_y - 1][int_curr_z] == 3) {
+         stairNavigation(-1);
+         return;
+      }
+
       if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_predicted_x][int_next_y_head][int_predicted_z] != 0) {
-         if(world[int_next_x][int_next_y][int_next_z] == 1 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 1) {
-            stairNavigation(1);
-            return;
-         }
-         else if(world[int_next_x][int_next_y][int_next_z] == 3 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 3) {
-            stairNavigation(-1);
-            return;
-         }
 
          float gotoX = curr_x;
          float gotoY = curr_y;
