@@ -25,11 +25,34 @@ void copyWorld(worldState *state) {
         }
     }
 
+    setStateViewPoint(state);
+}
+
+void setStateViewPoint(worldState *state) {
     float x, y, z;
     getOldViewPosition(&x, &y, &z);
-    state->player_x = x;
-    state->player_y = y;
-    state->player_z = z;
+
+    int int_x = (int)x*(-1);
+    int int_y_head = (int)y*(-1);
+    int int_y = ((int)y + 1)*(-1);
+    int int_z = (int)z*(-1);
+
+    state->vp_x = x;
+    state->vp_y = y;
+    state->vp_z = z;
+
+    if(world[int_x + 1][int_y][int_z] == 0 && world[int_x + 1][int_y_head][int_z] == 0) {
+        state->vp_x = x - 1;
+    }
+    else if(world[int_x - 1][int_y][int_z] == 0 && world[int_x - 1][int_y_head][int_z] == 0) {
+        state->vp_x = x + 1;
+    }
+    if(world[int_x][int_y][int_z + 1] == 0 && world[int_x][int_y_head][int_z + 1] == 0) {
+        state->vp_z = z - 1;
+    }
+    else if(world[int_x][int_y][int_z - 1] == 0 && world[int_x][int_y_head][int_z - 1] == 0) {
+        state->vp_z = z + 1;
+    }
 }
 
 void updateState(int state_id) {
@@ -45,8 +68,8 @@ void stateToWorld(worldState state) {
             }
         }
     }
-    setViewPosition(state.player_x, state.player_y, state.player_z);
-    setOldViewPosition(state.player_x, state.player_y, state.player_z);
+    setViewPosition(state.vp_x, state.vp_y, state.vp_z);
+    setOldViewPosition(state.vp_x, state.vp_y, state.vp_z);
 }
 
 void clearWorld() {
@@ -71,5 +94,5 @@ void printSlice(int x, int state_id) {
 
 
     fprintf(f, "Player spawn:\n");    
-    fprintf(f, "(%f, %f, %f)\n", states[state_id].player_x, states[state_id].player_y, states[state_id].player_z);    
+    fprintf(f, "(%f, %f, %f)\n", states[state_id].vp_x, states[state_id].vp_y, states[state_id].vp_z);    
 }
