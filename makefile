@@ -53,3 +53,6 @@ a1: a1.c graphics.c visible.c utils.c generation.c states.c perlin.c clouds.c gr
 
 run:
 	make a1 && ./a1
+
+clean:
+	rm -rf a1 *.log
