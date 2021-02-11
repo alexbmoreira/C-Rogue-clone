@@ -98,6 +98,9 @@ void generateTerrain() {
             for(int k = 0; k <= terrain[i][j]; k++) {
                 world[i][k][j] = (k < terrain[i][j]) ? 7 : 6;
             }
+            if(terrain[i][j] > 38) {
+                world[i][(int)terrain[i][j]][j] = 8;
+            }
         }
     }
 
@@ -105,7 +108,7 @@ void generateTerrain() {
     int z = getRandom(40, 60);
     for(int y = 41; y > 0; y--) {
         if(world[x][y][z] != 0) {
-            world[x][y + 1][z] = 3;
+            world[x][y][z] = 3;
             break;
         }
     }
