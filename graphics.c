@@ -396,8 +396,8 @@ void setObjectColour(int colourID) {
    GLfloat dirt[] = {0.5, 0.36, 0.14, 1.0};
    GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
 
-   GLfloat snow[] = {0.90, 0.90, 0.90, 0.5};
-   GLfloat d_snow[] = {0.45, 0.45, 0.45, 0.5};
+   GLfloat snow[] = {0.80, 0.76, 0.72, 1};
+   GLfloat d_snow[] = {0.65, 0.62, 0.59, 1};
 
    GLfloat clouds[] = {0.90, 0.90, 0.90, 0.5};
    GLfloat d_clouds[] = {0.45, 0.45, 0.45, 0.5};
