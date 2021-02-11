@@ -435,8 +435,7 @@ void setObjectColour(int colourID) {
       glMaterialfv(GL_FRONT, GL_DIFFUSE, snow);
    }
    else if (colourID == 9) {
-      glMaterialfv(GL_FRONT, GL_AMBIENT, d_clouds);
-      glMaterialfv(GL_FRONT, GL_DIFFUSE, clouds);
+      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, clouds);
    }
    // else if (colourID == 10) {
    // }
