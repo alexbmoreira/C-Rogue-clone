@@ -57,7 +57,6 @@ void setStateViewPoint(worldState *state) {
 
 void updateState(int state_id) {
     copyWorld(&states[state_id]);
-    printSlice(50, state_id);
 }
 
 void stateToWorld(worldState state) {
