@@ -396,6 +396,9 @@ void setObjectColour(int colourID) {
    GLfloat dirt[] = {0.5, 0.36, 0.14, 1.0};
    GLfloat d_dirt[] = {0.25, 0.23, 0.07, 1.0};
 
+   GLfloat snow[] = {0.90, 0.90, 0.90, 0.5};
+   GLfloat d_snow[] = {0.45, 0.45, 0.45, 0.5};
+
    GLfloat clouds[] = {0.90, 0.90, 0.90, 0.5};
    GLfloat d_clouds[] = {0.45, 0.45, 0.45, 0.5};
 
@@ -428,11 +431,13 @@ void setObjectColour(int colourID) {
       glMaterialfv(GL_FRONT, GL_DIFFUSE, dirt);
    }
    else if (colourID == 8) {
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_snow);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, snow);
+   }
+   else if (colourID == 9) {
       glMaterialfv(GL_FRONT, GL_AMBIENT, d_clouds);
       glMaterialfv(GL_FRONT, GL_DIFFUSE, clouds);
    }
-   // else if (colourID == 9) {
-   // }
    // else if (colourID == 10) {
    // }
    // else if (colourID == 11) { 
