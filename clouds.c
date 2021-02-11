@@ -1,4 +1,5 @@
 #include "clouds.h"
+#include "colors.h"
 
 void makeCloud(int cloud_id) {
     cloud cl;
@@ -18,28 +19,28 @@ cloud getCloud(int cloud_id) {
 }
 
 void drawCloud(cloud cl) {
-    world[(int)cl.x - 2][(int)cl.y][(int)cl.z] = 8;
+    world[(int)cl.x - 2][(int)cl.y][(int)cl.z] = CLR_CLOUDS;
 
-    world[(int)cl.x - 1][(int)cl.y][(int)cl.z - 1] = 8;
-    world[(int)cl.x - 1][(int)cl.y][(int)cl.z] = 8;
-    world[(int)cl.x - 1][(int)cl.y][(int)cl.z + 1] = 8;
-    world[(int)cl.x - 1][(int)cl.y][(int)cl.z + 2] = 8;
+    world[(int)cl.x - 1][(int)cl.y][(int)cl.z - 1] = CLR_CLOUDS;
+    world[(int)cl.x - 1][(int)cl.y][(int)cl.z] = CLR_CLOUDS;
+    world[(int)cl.x - 1][(int)cl.y][(int)cl.z + 1] = CLR_CLOUDS;
+    world[(int)cl.x - 1][(int)cl.y][(int)cl.z + 2] = CLR_CLOUDS;
 
-    world[(int)cl.x][(int)cl.y][(int)cl.z - 2] = 8;
-    world[(int)cl.x][(int)cl.y][(int)cl.z - 1] = 8;
-    world[(int)cl.x][(int)cl.y][(int)cl.z] = 8;
-    world[(int)cl.x][(int)cl.y][(int)cl.z + 1] = 8;
-    world[(int)cl.x][(int)cl.y][(int)cl.z + 2] = 8;
-    world[(int)cl.x][(int)cl.y][(int)cl.z + 3] = 8;
+    world[(int)cl.x][(int)cl.y][(int)cl.z - 2] = CLR_CLOUDS;
+    world[(int)cl.x][(int)cl.y][(int)cl.z - 1] = CLR_CLOUDS;
+    world[(int)cl.x][(int)cl.y][(int)cl.z] = CLR_CLOUDS;
+    world[(int)cl.x][(int)cl.y][(int)cl.z + 1] = CLR_CLOUDS;
+    world[(int)cl.x][(int)cl.y][(int)cl.z + 2] = CLR_CLOUDS;
+    world[(int)cl.x][(int)cl.y][(int)cl.z + 3] = CLR_CLOUDS;
     
-    world[(int)cl.x + 1][(int)cl.y][(int)cl.z - 2] = 8;
-    world[(int)cl.x + 1][(int)cl.y][(int)cl.z - 1] = 8;
-    world[(int)cl.x + 1][(int)cl.y][(int)cl.z] = 8;
-    world[(int)cl.x + 1][(int)cl.y][(int)cl.z + 1] = 8;
-    world[(int)cl.x + 1][(int)cl.y][(int)cl.z + 2] = 8;
+    world[(int)cl.x + 1][(int)cl.y][(int)cl.z - 2] = CLR_CLOUDS;
+    world[(int)cl.x + 1][(int)cl.y][(int)cl.z - 1] = CLR_CLOUDS;
+    world[(int)cl.x + 1][(int)cl.y][(int)cl.z] = CLR_CLOUDS;
+    world[(int)cl.x + 1][(int)cl.y][(int)cl.z + 1] = CLR_CLOUDS;
+    world[(int)cl.x + 1][(int)cl.y][(int)cl.z + 2] = CLR_CLOUDS;
     
-    world[(int)cl.x + 2][(int)cl.y][(int)cl.z - 1] = 8;
-    world[(int)cl.x + 2][(int)cl.y][(int)cl.z] = 8;
+    world[(int)cl.x + 2][(int)cl.y][(int)cl.z - 1] = CLR_CLOUDS;
+    world[(int)cl.x + 2][(int)cl.y][(int)cl.z] = CLR_CLOUDS;
 }
 
 void clearCloud(cloud cl) {

@@ -1,6 +1,7 @@
 #include "generation.h"
 #include "graphics.h"
 #include "utils.h"
+#include "colors.h"
 
 char maze[WORLDX][WORLDZ];
 int d_room;
@@ -245,8 +246,8 @@ void generateDungeon() {
 
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
-            world[i][30][j] = 5;
-            world[i][33][j] = 5;
+            world[i][30][j] = CLR_DG_FLOOR;
+            world[i][33][j] = CLR_DG_FLOOR;
         }
     }
 
@@ -255,14 +256,14 @@ void generateDungeon() {
     for (int i = 0; i < WORLDX; i++) {
         for (int j = 0; j < WORLDZ; j++) {
             if(maze[i][j] == 'W') { // Create a wall
-                world[i][31][j] = 4;
-                world[i][32][j] = 4;
+                world[i][31][j] = CLR_DG_WALL;
+                world[i][32][j] = CLR_DG_WALL;
             }
             else if(maze[i][j] == 'd') { // Create a staircase down
-                world[i][30][j] = 3;
+                world[i][30][j] = CLR_D_STAIR;
             }
             else if(maze[i][j] == 'u') { // Create a staircase back up
-                world[i][30][j] = 1;
+                world[i][30][j] = CLR_U_STAIR;
             }
             else if(maze[i][j] == 'S') { // Set character spawn
                 setOldViewPosition(i*(-1), 32.5*(-1), j*(-1));
@@ -270,38 +271,38 @@ void generateDungeon() {
             else if(maze[i][j] == '.') { // Create a corridor
                 // Check horizontals
                 if(maze[i + 1][j] == ' ') {
-                    world[i + 1][31][j] = 4;
-                    world[i + 1][32][j] = 4;
+                    world[i + 1][31][j] = CLR_DG_WALL;
+                    world[i + 1][32][j] = CLR_DG_WALL;
                 }
                 if(maze[i - 1][j] == ' ') {
-                    world[i - 1][31][j] = 4;
-                    world[i - 1][32][j] = 4;
+                    world[i - 1][31][j] = CLR_DG_WALL;
+                    world[i - 1][32][j] = CLR_DG_WALL;
                 }
                 if(maze[i][j + 1] == ' ') {
-                    world[i][31][j + 1] = 4;
-                    world[i][32][j + 1] = 4;
+                    world[i][31][j + 1] = CLR_DG_WALL;
+                    world[i][32][j + 1] = CLR_DG_WALL;
                 }
                 if(maze[i][j - 1] == ' ') {
-                    world[i][31][j - 1] = 4;
-                    world[i][32][j - 1] = 4;
+                    world[i][31][j - 1] = CLR_DG_WALL;
+                    world[i][32][j - 1] = CLR_DG_WALL;
                 }
 
                 // Check diagonals
                 if(maze[i + 1][j + 1] == ' ') {
-                    world[i + 1][31][j + 1] = 4;
-                    world[i + 1][32][j + 1] = 4;
+                    world[i + 1][31][j + 1] = CLR_DG_WALL;
+                    world[i + 1][32][j + 1] = CLR_DG_WALL;
                 }
                 if(maze[i + 1][j - 1] == ' ') {
-                    world[i + 1][31][j - 1] = 4;
-                    world[i + 1][32][j - 1] = 4;
+                    world[i + 1][31][j - 1] = CLR_DG_WALL;
+                    world[i + 1][32][j - 1] = CLR_DG_WALL;
                 }
                 if(maze[i - 1][j + 1] == ' ') {
-                    world[i - 1][31][j + 1] = 4;
-                    world[i - 1][32][j + 1] = 4;
+                    world[i - 1][31][j + 1] = CLR_DG_WALL;
+                    world[i - 1][32][j + 1] = CLR_DG_WALL;
                 }
                 if(maze[i - 1][j - 1] == ' ') {
-                    world[i - 1][31][j - 1] = 4;
-                    world[i - 1][32][j - 1] = 4;
+                    world[i - 1][31][j - 1] = CLR_DG_WALL;
+                    world[i - 1][32][j - 1] = CLR_DG_WALL;
                 }
             }
         }
