@@ -98,6 +98,9 @@ void generateTerrain() {
             for(int k = 0; k <= terrain[i][j]; k++) {
                 world[i][k][j] = (k < terrain[i][j]) ? 7 : 6;
             }
+            if(terrain[i][j] > 38) {
+                world[i][(int)terrain[i][j]][j] = 8;
+            }
         }
     }
 
