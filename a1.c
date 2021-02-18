@@ -258,6 +258,7 @@ void draw2D() {
       }
    } else {
       if (displayMap == 1) {
+            drawViewpoint();
          if(current_state > 0) {
             drawDungeon();
          }

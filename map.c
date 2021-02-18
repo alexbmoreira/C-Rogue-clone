@@ -43,18 +43,20 @@ void drawDungeonWithFog() {
 }
 
 void drawViewpoint() {
-    // float x, y, z;
-    // getViewPosition(&x, &y, &z);
+    float x, y, z;
+    getViewPosition(&x, &y, &z);
+    x *= -2;
+    z *= -2;
 
-    // GLfloat green[] = {0.0, 1.0, 0.0, 0.5};
-    // set2Dcolour(green);
+    GLfloat green[] = {0.0, 1.0, 0.0, 0.5};
+    set2Dcolour(green);
     
-    // int x_1 = x - 2;
-    // int z_1 = z - 2;
-    // int x_2 = x + 2;
-    // int z_2 = z - 2;
-    // int x_3 = x;
-    // int z_3 = z + 2;
+    int x_1 = x - 3;
+    int z_1 = z - 3;
+    int x_2 = x + 3;
+    int z_2 = z - 3;
+    int x_3 = x;
+    int z_3 = z + 3;
     
-    // draw2Dtriangle(x_1, z_1, x_2, z_2, x_3, z_3);
+    draw2Dtriangle(x_1, z_1, x_2, z_2, x_3, z_3);
 }
