@@ -10,6 +10,9 @@ typedef struct room
 {
     int start_x, start_z, size_x, size_z;
     int visited;
+
+    int stair_x, stair_z;
+    int stair_type;
 } room;
 
 room rooms[NUM_ROOMS];

@@ -192,17 +192,25 @@ void makeRooms(int section) {
         makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
     }
 
+    room new_room;
+    new_room.stair_type = -1;
+
     if(section == 1) {
         maze[corner_x + (room_x / 2)][corner_z + (room_z / 2)] = 'S';
         maze[corner_x + 1][corner_z + 1] = 'u';
+        new_room.stair_x = corner_x + 1;
+        new_room.stair_z = corner_z + 1;
+        new_room.stair_type = 1;
     }
     else if(section == d_room) {
         int x_placement = getRandom(room_x / 4, room_x * 3 /4);
         int z_placement = getRandom(room_z / 4, room_z * 3 /4);
         maze[corner_x + x_placement][corner_z + z_placement] = 'd';
+        new_room.stair_x = corner_x + x_placement;
+        new_room.stair_z = corner_z + z_placement;
+        new_room.stair_type = 0;
     }
 
-    room new_room;
     new_room.start_x = corner_x;
     new_room.start_z = corner_z;
     new_room.size_x = room_x;

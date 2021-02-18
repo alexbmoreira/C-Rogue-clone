@@ -9,9 +9,9 @@
 #define FULLMAP_O (FULLMAP / 2)
 
 float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
-float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 0.5};
+float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1};
 float MAP_BLACK[4] = {0.2, 0.2, 0.2, 0.5};
-float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 0.5};
+float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1};
 float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
 
 extern void draw2Dline(int, int, int, int, int);
@@ -27,9 +27,9 @@ extern void setViewOrientation(float, float, float);
 extern void getViewOrientation(float *, float *, float *);
 
 void drawDungeon() {
-    set2Dcolour(MAP_DG_FLOOR);
 
     for(int i = 0; i < NUM_ROOMS; i++) {
+        set2Dcolour(MAP_DG_FLOOR);
         int x = rooms[i].start_x * MINIMAP;
         int z = rooms[i].start_z * MINIMAP;
         int l = (rooms[i].start_x + rooms[i].size_x) * MINIMAP;
@@ -39,10 +39,17 @@ void drawDungeon() {
 }
 
 void drawDungeonWithFog() {
-    set2Dcolour(MAP_DG_FLOOR);
 
     for(int i = 0; i < NUM_ROOMS; i++) {
         if(rooms[i].visited == 1) {
+            if(rooms[i].stair_type >= 0) {
+                set2Dcolour(rooms[i].stair_type == 1 ? MAP_U_STAIR : MAP_D_STAIR);
+                int stair_x = rooms[i].stair_x * FULLMAP;
+                int stair_z = rooms[i].stair_z * FULLMAP;
+                draw2Dbox(stair_x - FULLMAP_O, stair_z - FULLMAP_O, stair_x + FULLMAP_O, stair_z + FULLMAP_O);
+            }
+
+            set2Dcolour(MAP_DG_FLOOR);
             int x = rooms[i].start_x * FULLMAP;
             int z = rooms[i].start_z * FULLMAP;
             int l = (rooms[i].start_x + rooms[i].size_x) * FULLMAP;
