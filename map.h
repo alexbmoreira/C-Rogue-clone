@@ -4,3 +4,4 @@
 void drawDungeon();
 void drawDungeonWithFog();
 void drawViewpoint();
+void drawViewpointLarge();

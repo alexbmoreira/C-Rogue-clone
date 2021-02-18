@@ -184,6 +184,8 @@ void collisionResponse() {
       int int_curr_y_head = (int)curr_y*(-1);
       int int_curr_z = (int)curr_z*(-1);
 
+      checkInRoom(int_curr_x, int_curr_z);
+
       // printf("Current: %f, %f, %f\n", curr_x, curr_y, curr_z);
       // printf("Current Int: %d, %d, %d\n", int_curr_x, int_curr_y, int_curr_z);
       // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
@@ -257,9 +259,15 @@ void draw2D() {
       }
    } else {
       if (displayMap == 1) {
-            drawViewpoint();
+         drawViewpoint();
          if(current_state > 0) {
             drawDungeon();
+         }
+      }
+      else if (displayMap == 2) {
+         drawViewpointLarge();
+         if(current_state > 0) {
+            drawDungeonWithFog();
          }
       }
    }

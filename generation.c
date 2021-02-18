@@ -207,6 +207,7 @@ void makeRooms(int section) {
     new_room.start_z = corner_z;
     new_room.size_x = room_x;
     new_room.size_z = room_z;
+    new_room.visited = 0;
     rooms[section - 1] = new_room;
 }
 
