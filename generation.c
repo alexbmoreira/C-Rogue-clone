@@ -201,6 +201,13 @@ void makeRooms(int section) {
         int z_placement = getRandom(room_z / 4, room_z * 3 /4);
         maze[corner_x + x_placement][corner_z + z_placement] = 'd';
     }
+
+    room new_room;
+    new_room.start_x = corner_x;
+    new_room.start_z = corner_z;
+    new_room.size_x = room_x;
+    new_room.size_z = room_z;
+    rooms[section - 1] = new_room;
 }
 
 void perpCorridors(int x, int z) {
