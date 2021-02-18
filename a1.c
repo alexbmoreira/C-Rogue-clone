@@ -263,11 +263,17 @@ void draw2D() {
          if(current_state > 0) {
             drawDungeon();
          }
+         else {
+            drawWorld();
+         }
       }
       else if (displayMap == 2) {
          drawViewpointLarge();
          if(current_state > 0) {
             drawDungeonWithFog();
+         }
+         else {
+            drawWorldLarge();
          }
       }
    }

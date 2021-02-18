@@ -111,10 +111,9 @@ void generateTerrain() {
         x++;
         z++;
     }
-    for(int y = 41; y > 0; y--) {
+    for(int y = 41; y >= 0; y--) {
         if(world[x][y][z] != 0) {
             world[x][y][z] = 3;
-            break;
         }
     }
 

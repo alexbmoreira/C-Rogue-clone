@@ -1,9 +1,18 @@
 #include "graphics.h"
 #include "generation.h"
 #include "map.h"
+#include "colors.h"
 
-#define MINIMAP 2
+#define MINIMAP 3
+#define MINIMAP_O (MINIMAP / 2)
 #define FULLMAP 5
+#define FULLMAP_O (FULLMAP / 2)
+
+float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
+float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 0.5};
+float MAP_BLACK[4] = {0.2, 0.2, 0.2, 0.5};
+float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 0.5};
+float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
 
 extern void draw2Dline(int, int, int, int, int);
 extern void draw2Dbox(int, int, int, int);
@@ -18,8 +27,7 @@ extern void setViewOrientation(float, float, float);
 extern void getViewOrientation(float *, float *, float *);
 
 void drawDungeon() {
-    GLfloat black[] = {0.0, 0.0, 0.0, 0.5};
-    set2Dcolour(black);
+    set2Dcolour(MAP_DG_FLOOR);
 
     for(int i = 0; i < NUM_ROOMS; i++) {
         int x = rooms[i].start_x * MINIMAP;
@@ -31,8 +39,7 @@ void drawDungeon() {
 }
 
 void drawDungeonWithFog() {
-    GLfloat black[] = {0.0, 0.0, 0.0, 0.5};
-    set2Dcolour(black);
+    set2Dcolour(MAP_DG_FLOOR);
 
     for(int i = 0; i < NUM_ROOMS; i++) {
         if(rooms[i].visited == 1) {
@@ -45,14 +52,39 @@ void drawDungeonWithFog() {
     }
 }
 
+void drawWorld() {
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            if(world[i][0][j] == CLR_D_STAIR) {
+                int x = i * MINIMAP;
+                int z = j * MINIMAP;
+                set2Dcolour(MAP_D_STAIR);
+                draw2Dbox(x - MINIMAP_O, z - MINIMAP_O, x + MINIMAP_O, z + MINIMAP_O);
+            }
+        }
+    }
+}
+
+void drawWorldLarge() {
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            if(world[i][0][j] == CLR_D_STAIR) {
+                int x = i * FULLMAP;
+                int z = j * FULLMAP;
+                set2Dcolour(MAP_D_STAIR);
+                draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
+            }
+        }
+    }
+}
+
 void drawViewpoint() {
     float x, y, z;
     getViewPosition(&x, &y, &z);
     x *= (-1)*MINIMAP;
     z *= (-1)*MINIMAP;
 
-    GLfloat green[] = {0.0, 1.0, 0.0, 0.5};
-    set2Dcolour(green);
+    set2Dcolour(MAP_PLAYER);
 
     int offset = MINIMAP + (MINIMAP / 2);
     
@@ -72,8 +104,7 @@ void drawViewpointLarge() {
     x *= (-1)*FULLMAP;
     z *= (-1)*FULLMAP;
 
-    GLfloat green[] = {0.0, 1.0, 0.0, 0.5};
-    set2Dcolour(green);
+    set2Dcolour(MAP_PLAYER);
 
     int offset = FULLMAP + (FULLMAP / 2);
     
