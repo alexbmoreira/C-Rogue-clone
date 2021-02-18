@@ -1,5 +1,4 @@
 #include "states.h"
-#include "graphics.h"
 
 extern void setViewPosition(float, float, float);
 extern void getViewPosition(float *, float *, float *);
@@ -26,6 +25,7 @@ void copyWorld(worldState *state) {
     }
 
     setStateViewPoint(state);
+    setStateRooms(state);
 }
 
 void setStateViewPoint(worldState *state) {
@@ -55,6 +55,12 @@ void setStateViewPoint(worldState *state) {
     }
 }
 
+void setStateRooms(worldState *state) {
+    for(int i = 0; i < NUM_ROOMS; i++) {
+        state->rooms[i] = rooms[i];
+    }
+}
+
 void updateState(int state_id) {
     copyWorld(&states[state_id]);
 }
@@ -69,6 +75,10 @@ void stateToWorld(worldState state) {
     }
     setViewPosition(state.vp_x, state.vp_y, state.vp_z);
     setOldViewPosition(state.vp_x, state.vp_y, state.vp_z);
+
+    for(int i = 0; i < NUM_ROOMS; i++) {
+        rooms[i] = state.rooms[i];
+    }
 }
 
 void clearWorld() {
