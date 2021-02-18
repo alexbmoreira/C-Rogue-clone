@@ -4,13 +4,15 @@
 #include <math.h>
 #include <time.h>
 
+#define NUM_ROOMS 9
+
 typedef struct room
 {
     int start_x, start_z, size_x, size_z;
     int visited;
 } room;
 
-room rooms[9];
+room rooms[NUM_ROOMS];
 
 void fillRect(int start_x, int end_x, int start_z, int end_z, char tile);
 void roomCorridors(int door_x, int door_z, int direction, int end);

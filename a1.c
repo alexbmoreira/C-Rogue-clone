@@ -14,6 +14,7 @@
 #include "states.h"
 #include "perlin.h"
 #include "clouds.h"
+#include "map.h"
 
 int current_state = 0;
 
@@ -256,9 +257,11 @@ void draw2D() {
          draw2Dbox(500, 380, 524, 388);
       }
    } else {
-
-	/* your code goes here */
-
+      if (displayMap == 1) {
+         if(current_state > 0) {
+            drawDungeon();
+         }
+      }
    }
 
 }
