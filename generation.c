@@ -64,8 +64,6 @@ void roomCorridors(int door_x, int door_z, int direction, int end) {
         corr.end_z = door_z;
     }
 
-    // corr.corridor_id = section * (direction + 1);
-    // corridors[section * (direction + 1)] = corr;
     for(int c = 1; c < NUM_ROOMS * 10; c++) {
         if(corridors[c].start_x == corr.start_x && corridors[c].start_z == corr.start_z && corridors[c].end_x == corr.end_x && corridors[c].end_z == corr.end_z) break;
         if(corridors[c].corridor_id == 0) {
