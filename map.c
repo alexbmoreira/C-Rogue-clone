@@ -92,28 +92,38 @@ void drawWallsLarge(int r) {
     int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP;
     int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP;
 
+    int door_1 = 0, door_2 = 0, door_3 = 0, door_4 = 0;
+
     set2Dcolour(MAP_DG_WALL);
     for(int i = x / FULLMAP; i < l / FULLMAP; i++) {
         if(maze[i][z / FULLMAP] == 'D') {
-            draw2Dline(x, z, (i * FULLMAP) - 1, z, FULLMAP);
-            draw2Dline((i * FULLMAP) + 1, z, l, z, FULLMAP);
+            draw2Dline(x, z, (i * FULLMAP) - FULLMAP, z, FULLMAP);
+            draw2Dline((i * FULLMAP) + FULLMAP, z, l, z, FULLMAP);
+            door_1 = 1;
         }
         if(maze[i][w / FULLMAP] == 'D') {
-            draw2Dline(x, w, (i * FULLMAP) - 1, w, FULLMAP);
-            draw2Dline((i * FULLMAP) + 1, w, l, w, FULLMAP);
+            draw2Dline(x, w, (i * FULLMAP) - FULLMAP, w, FULLMAP);
+            draw2Dline((i * FULLMAP) + FULLMAP, w, l, w, FULLMAP);
+            door_2 = 1;
         }
     }
     for(int j = z / FULLMAP; j < w / FULLMAP; j++) {
         if(maze[x / FULLMAP][j] == 'D') {
-            draw2Dline(x, z, x, (j * FULLMAP) - 1, FULLMAP);
-            draw2Dline(x, (j * FULLMAP) + 1, x, w, FULLMAP);
+            draw2Dline(x, z, x, (j * FULLMAP) - FULLMAP, FULLMAP);
+            draw2Dline(x, (j * FULLMAP) + FULLMAP, x, w, FULLMAP);
+            door_3 = 1;
         }
         if(maze[l / FULLMAP][j] == 'D') {
-            draw2Dline(l, z, l, (j * FULLMAP) - 1, FULLMAP);
-            draw2Dline(l, (j * FULLMAP) + 1, l, w, FULLMAP);
+            draw2Dline(l, z, l, (j * FULLMAP) - FULLMAP, FULLMAP);
+            draw2Dline(l, (j * FULLMAP) + FULLMAP, l, w, FULLMAP);
+            door_4 = 1;
         }
     }
 
+    if(door_1 == 0) draw2Dline(x, z, l, z, FULLMAP);
+    if(door_2 == 0) draw2Dline(x, w, l, w, FULLMAP);
+    if(door_3 == 0) draw2Dline(x, z, x, w, FULLMAP);
+    if(door_4 == 0) draw2Dline(l, z, l, w, FULLMAP);
 
     // for(int i = x / FULLMAP; i < l / FULLMAP; i++) {
     //     int door_1 = -1, door_2 = -1;
