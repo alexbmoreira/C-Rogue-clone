@@ -29,3 +29,11 @@ void checkInRoom(int x, int z) {
       }
    }
 }
+
+void checkInCorridor(int x, int z) {
+   for(int i = 0; i < NUM_ROOMS * 10; i++) {
+      if(x >= corridors[i].start_x && x <= corridors[i].end_x && z >= corridors[i].start_z && z <= corridors[i].end_z) {
+         corridors[i].visited = 1;
+      }
+   }
+}
