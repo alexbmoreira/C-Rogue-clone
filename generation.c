@@ -11,6 +11,17 @@ extern void getViewPosition(float *, float *, float *);
 extern void getOldViewPosition(float *, float *, float *);
 extern void setOldViewPosition(float, float, float);
 
+void clearCorridorsArray() {
+    for(int c = 1; c < NUM_ROOMS * 10; c++) {
+        corridors[c].start_x = 0;
+        corridors[c].start_z = 0;
+        corridors[c].end_x = 0;
+        corridors[c].end_z = 0;
+        corridors[c].corridor_id = 0;
+        corridors[c].visited = 0;
+    }
+}
+
 void fillRect(int start_x, int end_x, int start_z, int end_z, char tile) {
     for (int i = start_x; i < end_x; i++) {
         for (int j = start_z; j < end_z; j++) {
@@ -22,6 +33,7 @@ void fillRect(int start_x, int end_x, int start_z, int end_z, char tile) {
 void roomCorridors(int door_x, int door_z, int direction, int end) {
 
     corridor corr;
+    corr.visited = 0;
 
     if(direction == 0) { // Left
         int distance = end;
@@ -249,6 +261,7 @@ void makeRooms(int section) {
 void perpCorridors(int x, int z) {
     int print_corr = 0;
     corridor corr;
+    corr.visited = 0;
     for (int i = 0; i < WORLDX; i++) {
         if(maze[i][z] == '.' && !(maze[i][z - 1] == '.' && maze[i][z + 1] == '.')) {
             // print_corr = (print_corr == 0) ? 1 : 0;
@@ -279,6 +292,7 @@ void perpCorridors(int x, int z) {
     }
 
     print_corr = 0;
+    corr.visited = 0;
     for (int j = 0; j < WORLDZ; j++) {
         if(maze[x][j] == '.' && !(maze[x - 1][j] == '.' && maze[x + 1][j] == '.')) {
             if(print_corr == 0) {
@@ -323,6 +337,7 @@ void generateDungeon2D() {
 }
 
 void generateDungeon() {
+    clearCorridorsArray();
 
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
