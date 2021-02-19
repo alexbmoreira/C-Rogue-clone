@@ -3,10 +3,10 @@
 #include "map.h"
 #include "colors.h"
 
-#define MINIMAP 3
-#define MINIMAP_O (MINIMAP / 2)
+#define MINIMAP 2
+#define MINIMAP_O MINIMAP
 #define FULLMAP 5
-#define FULLMAP_O (FULLMAP / 2)
+#define FULLMAP_O FULLMAP
 
 float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
 float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1};
@@ -31,7 +31,7 @@ extern char maze[WORLDX][WORLDZ];
 
 void drawDungeon() {
 
-    drawWalls();
+    // drawWalls();
 
     drawHallways();
 
@@ -56,7 +56,7 @@ void drawDungeonWithFog() {
                 draw2Dbox(stair_x - FULLMAP_O, stair_z - FULLMAP_O, stair_x + FULLMAP_O, stair_z + FULLMAP_O);
             }
 
-            drawWallsLarge(r);
+            // drawWallsLarge(r);
             
             int x = rooms[r].start_x * FULLMAP;
             int z = rooms[r].start_z * FULLMAP;
