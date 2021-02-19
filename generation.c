@@ -64,8 +64,16 @@ void roomCorridors(int door_x, int door_z, int direction, int end, int section) 
         corr.end_z = door_z;
     }
 
-    corr.corridor_id = section * (direction + 1);
-    corridors[section * (direction + 1)] = corr;
+    // corr.corridor_id = section * (direction + 1);
+    // corridors[section * (direction + 1)] = corr;
+    for(int i = 1; i < NUM_ROOMS * 10; i++) {
+        if(corridors[i].start_x == corr.start_x && corridors[i].start_z == corr.start_z) break;
+        if(corridors[i].corridor_id == 0) {
+            corr.corridor_id = i;
+            corridors[i] = corr;
+            break;
+        }
+    }
 }
 
 void makeDoors(int room_x, int corner_x, int room_z, int corner_z, int section, int doors[]) {
