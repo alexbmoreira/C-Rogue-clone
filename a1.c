@@ -399,11 +399,11 @@ float x, y, z;
       getOldViewPosition(&x, &y, &z);
 
       int int_x = (int)x*(-1);
-      int int_y = (int)((y*(-1)) - 1.1);
+      int int_y = (int)((y*(-1)) - 1.3);
       int int_z = (int)z*(-1);
       
       if ((world[int_x][int_y][int_z] == 0) && flycontrol != 1) {
-         y += 0.1;
+         y += 0.3;
          setOldViewPosition(x, y, z);
          setViewPosition(x, y, z);
       }
