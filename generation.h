@@ -18,6 +18,7 @@ typedef struct room
 typedef struct corridor
 {
     int start_x, start_z, end_x, end_z;
+    int corridor_id;
     int visited;
 } corridor;
 
