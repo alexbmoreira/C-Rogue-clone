@@ -33,6 +33,8 @@ void drawDungeon() {
 
     drawWalls();
 
+    drawHallways();
+
     for(int r = 0; r < NUM_ROOMS; r++) {
         set2Dcolour(MAP_DG_FLOOR);
         int x = rooms[r].start_x * MINIMAP;
@@ -163,6 +165,25 @@ void drawWallsLarge(int r) {
     //         draw2Dline(l, z, l, door_2 - 1, FULLMAP);
     //         draw2Dline(l, door_2 + 1, l, w, FULLMAP);
     // }
+}
+
+void drawHallways() {
+    set2Dcolour(MAP_DG_FLOOR);
+    
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            if(maze[i][j] == '.' || maze[i][j] == 'D') {
+                int x = i * MINIMAP;
+                int z = j * MINIMAP;
+                if(maze[i + 1][j] == '.' || maze[i + 1][j] == 'D') {
+                    draw2Dline(x, z, x + MINIMAP, z, MINIMAP);
+                }
+                if(maze[i][j + 1] == '.' || maze[i][j + 1] == 'D') {
+                    draw2Dline(x, z, x, z + MINIMAP, MINIMAP);
+                }
+            }
+        }
+    }
 }
 
 void drawWorld() {
