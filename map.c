@@ -13,6 +13,7 @@ float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1};
 float MAP_BLACK[4] = {0.2, 0.2, 0.2, 0.5};
 float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1};
 float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
+float MAP_DG_WALL[4] = {0.28, 0.34, 0.44, 1.0};
 
 extern void draw2Dline(int, int, int, int, int);
 extern void draw2Dbox(int, int, int, int);
@@ -26,37 +27,111 @@ extern void setOldViewPosition(float, float, float);
 extern void setViewOrientation(float, float, float);
 extern void getViewOrientation(float *, float *, float *);
 
+extern char maze[WORLDX][WORLDZ];
+
 void drawDungeon() {
 
-    for(int i = 0; i < NUM_ROOMS; i++) {
+    for(int r = 0; r < NUM_ROOMS; r++) {
         set2Dcolour(MAP_DG_FLOOR);
-        int x = rooms[i].start_x * MINIMAP;
-        int z = rooms[i].start_z * MINIMAP;
-        int l = (rooms[i].start_x + rooms[i].size_x) * MINIMAP;
-        int w = (rooms[i].start_z + rooms[i].size_z) * MINIMAP;
+        int x = rooms[r].start_x * MINIMAP;
+        int z = rooms[r].start_z * MINIMAP;
+        int l = (rooms[r].start_x + rooms[r].size_x) * MINIMAP;
+        int w = (rooms[r].start_z + rooms[r].size_z) * MINIMAP;
         draw2Dbox(x, z, l, w);
     }
 }
 
 void drawDungeonWithFog() {
 
-    for(int i = 0; i < NUM_ROOMS; i++) {
-        if(rooms[i].visited == 1) {
-            if(rooms[i].stair_type >= 0) {
-                set2Dcolour(rooms[i].stair_type == 1 ? MAP_U_STAIR : MAP_D_STAIR);
-                int stair_x = rooms[i].stair_x * FULLMAP;
-                int stair_z = rooms[i].stair_z * FULLMAP;
+    for(int r = 0; r < NUM_ROOMS; r++) {
+        if(rooms[r].visited == 1) {
+            if(rooms[r].stair_type >= 0) {
+                set2Dcolour(rooms[r].stair_type == 1 ? MAP_U_STAIR : MAP_D_STAIR);
+                int stair_x = rooms[r].stair_x * FULLMAP;
+                int stair_z = rooms[r].stair_z * FULLMAP;
                 draw2Dbox(stair_x - FULLMAP_O, stair_z - FULLMAP_O, stair_x + FULLMAP_O, stair_z + FULLMAP_O);
             }
 
+            drawWalls(r);
+            
+            int x = rooms[r].start_x * FULLMAP;
+            int z = rooms[r].start_z * FULLMAP;
+            int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP;
+            int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP;
+
             set2Dcolour(MAP_DG_FLOOR);
-            int x = rooms[i].start_x * FULLMAP;
-            int z = rooms[i].start_z * FULLMAP;
-            int l = (rooms[i].start_x + rooms[i].size_x) * FULLMAP;
-            int w = (rooms[i].start_z + rooms[i].size_z) * FULLMAP;
             draw2Dbox(x, z, l, w);
         }
     }
+}
+
+void drawWalls(int r) {
+    int x = rooms[r].start_x * FULLMAP;
+    int z = rooms[r].start_z * FULLMAP;
+    int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP;
+    int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP;
+
+    set2Dcolour(MAP_DG_WALL);
+    for(int i = x / FULLMAP; i < l / FULLMAP; i++) {
+        if(maze[i][z / FULLMAP] == 'D') {
+            draw2Dline(x, z, (i * FULLMAP) - 1, z, FULLMAP);
+            draw2Dline((i * FULLMAP) + 1, z, l, z, FULLMAP);
+        }
+        if(maze[i][w / FULLMAP] == 'D') {
+            draw2Dline(x, w, (i * FULLMAP) - 1, w, FULLMAP);
+            draw2Dline((i * FULLMAP) + 1, w, l, w, FULLMAP);
+        }
+    }
+    for(int j = z / FULLMAP; j < w / FULLMAP; j++) {
+        if(maze[x / FULLMAP][j] == 'D') {
+            draw2Dline(x, z, x, (j * FULLMAP) - 1, FULLMAP);
+            draw2Dline(x, (j * FULLMAP) + 1, x, w, FULLMAP);
+        }
+        if(maze[l / FULLMAP][j] == 'D') {
+            draw2Dline(l, z, l, (j * FULLMAP) - 1, FULLMAP);
+            draw2Dline(l, (j * FULLMAP) + 1, l, w, FULLMAP);
+        }
+    }
+
+
+    // for(int i = x / FULLMAP; i < l / FULLMAP; i++) {
+    //     int door_1 = -1, door_2 = -1;
+    //     if(maze[i][z / FULLMAP] == 'D') {
+    //         door_1 = (i * FULLMAP);
+    //     }
+    //     if(maze[i][w / FULLMAP] == 'D') {
+    //         door_2 = (i * FULLMAP);
+    //     }
+    //     if(i == l / FULLMAP - 1) {
+    //         door_1 = door_1 == -1 ? i : door_1;
+    //         door_2 = door_2 == -1 ? i : door_2;
+    //     }
+    //     draw2Dline(x, z, door_1 - 1, z, FULLMAP);
+    //     draw2Dline(door_1 + 1, z, l, z, FULLMAP);
+    //     draw2Dline(x, w, door_2 - 1, w, FULLMAP);
+    //     draw2Dline(door_2 + 1, w, l, w, FULLMAP);
+    // }
+    // for(int j = z / FULLMAP; j < w / FULLMAP; j++) {
+    //     int door_1 = -1, door_2 = -1;
+    //     if(maze[x / FULLMAP][j] == 'D') {
+    //         door_1 = (j * FULLMAP);
+    //         draw2Dline(x, z, x, (j * FULLMAP) - 1, FULLMAP);
+    //         draw2Dline(x, (j * FULLMAP) + 1, x, w, FULLMAP);
+    //     }
+    //     if(maze[l / FULLMAP][j] == 'D') {
+    //         door_2 = (j * FULLMAP);
+    //         draw2Dline(l, z, l, (j * FULLMAP) - 1, FULLMAP);
+    //         draw2Dline(l, (j * FULLMAP) + 1, l, w, FULLMAP);
+    //     }
+    //     if(j == w / FULLMAP - 1) {
+    //         door_1 = door_1 == -1 ? j : door_1;
+    //         door_2 = door_2 == -1 ? j : door_2;
+    //     }
+    //         draw2Dline(x, z, x, door_1 - 1, FULLMAP);
+    //         draw2Dline(x, door_1 + 1, x, w, FULLMAP);
+    //         draw2Dline(l, z, l, door_2 - 1, FULLMAP);
+    //         draw2Dline(l, door_2 + 1, l, w, FULLMAP);
+    // }
 }
 
 void drawWorld() {
