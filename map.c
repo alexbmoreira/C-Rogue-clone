@@ -132,20 +132,12 @@ void drawWallsLarge(int r) {
 
 void drawHallways() {
     set2Dcolour(MAP_DG_FLOOR);
-    
-    for(int i = 0; i < WORLDX; i++) {
-        for(int j = 0; j < WORLDZ; j++) {
-            if(maze[i][j] == '.' || maze[i][j] == 'D') {
-                int x = i * MINIMAP;
-                int z = j * MINIMAP;
-                if(maze[i + 1][j] == '.' || maze[i + 1][j] == 'D') {
-                    draw2Dline(x, z, x + MINIMAP_O, z, MINIMAP_O);
-                }
-                if(maze[i][j + 1] == '.' || maze[i][j + 1] == 'D') {
-                    draw2Dline(x, z, x, z + MINIMAP_O, MINIMAP_O);
-                }
-            }
-        }
+    for(int c = 0; c < NUM_ROOMS * 10; c++) {
+        int x = corridors[c].start_x * MINIMAP;
+        int z = corridors[c].start_z * MINIMAP;
+        int e_x = corridors[c].end_x * MINIMAP;
+        int e_z = corridors[c].end_z * MINIMAP;
+        if(corridors[c].corridor_id != 0) draw2Dbox(x - MINIMAP, z - MINIMAP, e_x + MINIMAP, e_z + MINIMAP);
     }
 }
 

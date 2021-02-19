@@ -66,7 +66,6 @@ void roomCorridors(int door_x, int door_z, int direction, int end, int section) 
 
     corr.corridor_id = section * (direction + 1);
     corridors[section * (direction + 1)] = corr;
-    printf("adding corridor at %d\n", section * (direction + 1));
 }
 
 void makeDoors(int room_x, int corner_x, int room_z, int corner_z, int section, int doors[]) {
