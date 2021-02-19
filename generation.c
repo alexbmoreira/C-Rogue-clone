@@ -19,32 +19,53 @@ void fillRect(int start_x, int end_x, int start_z, int end_z, char tile) {
     }
 }
 
-void roomCorridors(int door_x, int door_z, int direction, int end) {
+void roomCorridors(int door_x, int door_z, int direction, int end, int section) {
+
+    corridor corr;
 
     if(direction == 0) { // Left
         int distance = end;
         for(int j = door_z - 1; j >= distance; j--) {
             maze[door_x][j] = '.';
         }
+        corr.start_x = door_x;
+        corr.start_z = distance;
+        corr.end_x = door_x;
+        corr.end_z = door_z - 1;
     }
     else if(direction == 1) { // Right
         int distance = end;
         for(int j = door_z + 1; j <= distance; j++) {
             maze[door_x][j] = '.';
         }
+        corr.start_x = door_x;
+        corr.start_z = door_z + 1;
+        corr.end_x = door_x;
+        corr.end_z = distance;
     }
     else if(direction == 2) { // Up
         int distance = end;
         for(int i = door_x - 1; i >= distance; i--) {
             maze[i][door_z] = '.';
         }
+        corr.start_x = distance;
+        corr.start_z = door_z;
+        corr.end_x = door_x - 1;
+        corr.end_z = door_z;
     }
     else if(direction == 3) { // Down
         int distance = end;
         for(int i = door_x + 1; i <= distance; i++) {
             maze[i][door_z] = '.';
         }
+        corr.start_x = door_x + 1;
+        corr.start_z = door_z;
+        corr.end_x = distance;
+        corr.end_z = door_z;
     }
+
+    corridors[section * (direction + 1)] = corr;
+    printf("adding corridor at %d\n", section * (direction + 1));
 }
 
 void makeDoors(int room_x, int corner_x, int room_z, int corner_z, int section, int doors[]) {
@@ -104,19 +125,19 @@ void makeDoors(int room_x, int corner_x, int room_z, int corner_z, int section, 
 
     if(section != 3 && section != 6 && section != 9) {
         maze[corner_x + room_x][doors[3]] = 'D';
-        roomCorridors(corner_x + room_x, doors[3], 3, sec_X);
+        roomCorridors(corner_x + room_x, doors[3], 3, sec_X, section);
     }
     if(section != 1 && section != 4 && section != 7) {
         maze[corner_x][doors[2]] = 'D';
-        roomCorridors(corner_x, doors[2], 2, sec_X - (WORLDX / 3));
+        roomCorridors(corner_x, doors[2], 2, sec_X - (WORLDX / 3), section);
     }
     if(section != 7 && section != 8 && section != 9) {
         maze[doors[1]][corner_z + room_z] = 'D';
-        roomCorridors(doors[1], corner_z + room_z, 1, sec_Z);
+        roomCorridors(doors[1], corner_z + room_z, 1, sec_Z, section);
     }
     if(section != 1 && section != 2 && section != 3) {
         maze[doors[0]][corner_z] = 'D';
-        roomCorridors(doors[0], corner_z, 0, sec_Z - (WORLDZ / 3));
+        roomCorridors(doors[0], corner_z, 0, sec_Z - (WORLDZ / 3), section);
     }
 }
 

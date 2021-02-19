@@ -8,6 +8,7 @@ void drawWalls();
 void drawWallsLarge(int r);
 
 void drawHallways();
+void drawHallwaysLarge();
 
 void drawWorld();
 void drawWorldLarge();
