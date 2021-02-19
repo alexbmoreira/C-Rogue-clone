@@ -31,6 +31,8 @@ extern char maze[WORLDX][WORLDZ];
 
 void drawDungeon() {
 
+    drawWalls();
+
     for(int r = 0; r < NUM_ROOMS; r++) {
         set2Dcolour(MAP_DG_FLOOR);
         int x = rooms[r].start_x * MINIMAP;
@@ -52,7 +54,7 @@ void drawDungeonWithFog() {
                 draw2Dbox(stair_x - FULLMAP_O, stair_z - FULLMAP_O, stair_x + FULLMAP_O, stair_z + FULLMAP_O);
             }
 
-            drawWalls(r);
+            drawWallsLarge(r);
             
             int x = rooms[r].start_x * FULLMAP;
             int z = rooms[r].start_z * FULLMAP;
@@ -65,7 +67,26 @@ void drawDungeonWithFog() {
     }
 }
 
-void drawWalls(int r) {
+void drawWalls() {
+    set2Dcolour(MAP_DG_WALL);
+    
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            if(world[i][31][j] == CLR_DG_WALL) {
+                int x = i * MINIMAP;
+                int z = j * MINIMAP;
+                if(world[i + 1][31][j] == CLR_DG_WALL) {
+                    draw2Dline(x, z, x + MINIMAP, z, MINIMAP);
+                }
+                if(world[i][31][j + 1] == CLR_DG_WALL) {
+                    draw2Dline(x, z, x, z + MINIMAP, MINIMAP);
+                }
+            }
+        }
+    }
+}
+
+void drawWallsLarge(int r) {
     int x = rooms[r].start_x * FULLMAP;
     int z = rooms[r].start_z * FULLMAP;
     int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP;

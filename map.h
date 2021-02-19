@@ -3,7 +3,8 @@
 
 void drawDungeon();
 void drawDungeonWithFog();
-void drawWalls(int r);
+void drawWalls();
+void drawWallsLarge(int r);
 void drawWorld();
 void drawWorldLarge();
 void drawViewpoint();
