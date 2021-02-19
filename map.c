@@ -3,10 +3,10 @@
 #include "map.h"
 #include "colors.h"
 
-#define MINIMAP 2
-#define MINIMAP_O MINIMAP
-#define FULLMAP 5
-#define FULLMAP_O FULLMAP
+int MINIMAP = 2;
+int MINIMAP_O = 2;
+int FULLMAP = 5;
+int FULLMAP_O = 5;
 
 float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
 float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1};
@@ -14,6 +14,9 @@ float MAP_BLACK[4] = {0.2, 0.2, 0.2, 0.5};
 float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1};
 float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
 float MAP_DG_WALL[4] = {0.28, 0.34, 0.44, 1.0};
+
+	/* size of the window in pixels */
+extern int screenWidth, screenHeight;
 
 extern void draw2Dline(int, int, int, int, int);
 extern void draw2Dbox(int, int, int, int);
@@ -29,7 +32,37 @@ extern void getViewOrientation(float *, float *, float *);
 
 extern char maze[WORLDX][WORLDZ];
 
+void drawMinimap(int state) {
+
+    MINIMAP = (screenWidth / 512 > 0) ? screenWidth / 512 : 1;
+    MINIMAP_O = (screenWidth / 512 > 0) ? screenWidth / 512 : 1;
+
+    drawViewpoint();
+    if(state > 0) {
+        drawDungeon();
+    }
+    else {
+        drawWorld();
+    }
+}
+
+void drawFullmap(int state) {
+
+    FULLMAP = (screenWidth / 206 > 0) ? screenWidth / 206 : 1;
+    FULLMAP_O = (screenWidth / 206 > 0) ? screenWidth / 206 : 1;
+
+    drawViewpointLarge();
+    if(state > 0) {
+        drawDungeonWithFog();
+    }
+    else {
+        drawWorldLarge();
+    }
+}
+
 void drawDungeon() {
+
+    printf("Screen height: %d\nScreen width: %d\n", screenHeight, screenWidth);
 
     // drawWalls();
 

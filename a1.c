@@ -260,22 +260,10 @@ void draw2D() {
       }
    } else {
       if (displayMap == 1) {
-         drawViewpoint();
-         if(current_state > 0) {
-            drawDungeon();
-         }
-         else {
-            drawWorld();
-         }
+         drawMinimap(current_state);
       }
       else if (displayMap == 2) {
-         drawViewpointLarge();
-         if(current_state > 0) {
-            drawDungeonWithFog();
-         }
-         else {
-            drawWorldLarge();
-         }
+         drawFullmap(current_state);
       }
    }
 

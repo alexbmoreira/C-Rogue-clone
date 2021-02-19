@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void drawMinimap(int state);
+void drawFullmap(int state);
+
 void drawDungeon();
 void drawDungeonWithFog();
 
