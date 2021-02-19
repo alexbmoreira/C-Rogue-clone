@@ -19,7 +19,7 @@ void fillRect(int start_x, int end_x, int start_z, int end_z, char tile) {
     }
 }
 
-void roomCorridors(int door_x, int door_z, int direction, int end, int section) {
+void roomCorridors(int door_x, int door_z, int direction, int end) {
 
     corridor corr;
 
@@ -66,11 +66,11 @@ void roomCorridors(int door_x, int door_z, int direction, int end, int section) 
 
     // corr.corridor_id = section * (direction + 1);
     // corridors[section * (direction + 1)] = corr;
-    for(int i = 1; i < NUM_ROOMS * 10; i++) {
-        if(corridors[i].start_x == corr.start_x && corridors[i].start_z == corr.start_z) break;
-        if(corridors[i].corridor_id == 0) {
-            corr.corridor_id = i;
-            corridors[i] = corr;
+    for(int c = 1; c < NUM_ROOMS * 10; c++) {
+        if(corridors[c].start_x == corr.start_x && corridors[c].start_z == corr.start_z && corridors[c].end_x == corr.end_x && corridors[c].end_z == corr.end_z) break;
+        if(corridors[c].corridor_id == 0) {
+            corr.corridor_id = c;
+            corridors[c] = corr;
             break;
         }
     }
@@ -133,19 +133,19 @@ void makeDoors(int room_x, int corner_x, int room_z, int corner_z, int section, 
 
     if(section != 3 && section != 6 && section != 9) {
         maze[corner_x + room_x][doors[3]] = 'D';
-        roomCorridors(corner_x + room_x, doors[3], 3, sec_X, section);
+        roomCorridors(corner_x + room_x, doors[3], 3, sec_X);
     }
     if(section != 1 && section != 4 && section != 7) {
         maze[corner_x][doors[2]] = 'D';
-        roomCorridors(corner_x, doors[2], 2, sec_X - (WORLDX / 3), section);
+        roomCorridors(corner_x, doors[2], 2, sec_X - (WORLDX / 3));
     }
     if(section != 7 && section != 8 && section != 9) {
         maze[doors[1]][corner_z + room_z] = 'D';
-        roomCorridors(doors[1], corner_z + room_z, 1, sec_Z, section);
+        roomCorridors(doors[1], corner_z + room_z, 1, sec_Z);
     }
     if(section != 1 && section != 2 && section != 3) {
         maze[doors[0]][corner_z] = 'D';
-        roomCorridors(doors[0], corner_z, 0, sec_Z - (WORLDZ / 3), section);
+        roomCorridors(doors[0], corner_z, 0, sec_Z - (WORLDZ / 3));
     }
 }
 
@@ -249,25 +249,63 @@ void makeRooms(int section) {
 }
 
 void perpCorridors(int x, int z) {
-    int print_vert = 0;
+    int print_corr = 0;
+    corridor corr;
     for (int i = 0; i < WORLDX; i++) {
-        if(maze[i][x] == '.' && !(maze[i][x - 1] == '.' && maze[i][x + 1] == '.')) {
-            print_vert = (print_vert == 0) ? 1 : 0;
+        if(maze[i][z] == '.' && !(maze[i][z - 1] == '.' && maze[i][z + 1] == '.')) {
+            // print_corr = (print_corr == 0) ? 1 : 0;
+            if(print_corr == 0) {
+                print_corr = 1;
+                corr.start_x = i;
+                corr.start_z = z;
+            }
+            else {
+                print_corr = 0;
+                corr.end_x = i;
+                corr.end_z = z;
+
+                for(int c = 1; c < NUM_ROOMS * 10; c++) {
+                    if(corridors[c].start_x == corr.start_x && corridors[c].start_z == corr.start_z && corridors[c].end_x == corr.end_x && corridors[c].end_z == corr.end_z) break;
+                    if(corridors[c].corridor_id == 0) {
+                        corr.corridor_id = c;
+                        corridors[c] = corr;
+                        break;
+                    }
+                }
+            }
         }
 
-        if(print_vert == 1) {
-            maze[i][x] = '.';
+        if(print_corr == 1) {
+            maze[i][z] = '.';
         }
     }
 
-    int print_horz = 0;
+    print_corr = 0;
     for (int j = 0; j < WORLDZ; j++) {
-        if(maze[z][j] == '.' && !(maze[z - 1][j] == '.' && maze[z + 1][j] == '.')) {
-            print_horz = (print_horz == 0) ? 1 : 0;
+        if(maze[x][j] == '.' && !(maze[x - 1][j] == '.' && maze[x + 1][j] == '.')) {
+            if(print_corr == 0) {
+                print_corr = 1;
+                corr.start_x = x;
+                corr.start_z = j;
+            }
+            else {
+                print_corr = 0;
+                corr.end_x = x;
+                corr.end_z = j;
+
+                for(int c = 1; c < NUM_ROOMS * 10; c++) {
+                    if(corridors[c].start_x == corr.start_x && corridors[c].start_z == corr.start_z && corridors[c].end_x == corr.end_x && corridors[c].end_z == corr.end_z) break;
+                    if(corridors[c].corridor_id == 0) {
+                        corr.corridor_id = c;
+                        corridors[c] = corr;
+                        break;
+                    }
+                }
+            }
         }
 
-        if(print_horz == 1) {
-            maze[z][j] = '.';
+        if(print_corr == 1) {
+            maze[x][j] = '.';
         }
     }
 }
@@ -284,7 +322,6 @@ void generateDungeon2D() {
     }
     perpCorridors((WORLDX / 3), (WORLDZ / 3));
     perpCorridors(2 * (WORLDX / 3), 2 * (WORLDZ / 3));
-    perpCorridors(3 * (WORLDX / 3), 3 * (WORLDZ / 3));
 }
 
 void generateDungeon() {

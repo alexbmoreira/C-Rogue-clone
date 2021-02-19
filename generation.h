@@ -26,7 +26,7 @@ room rooms[NUM_ROOMS];
 corridor corridors[NUM_ROOMS * 10];
 
 void fillRect(int start_x, int end_x, int start_z, int end_z, char tile);
-void roomCorridors(int door_x, int door_z, int direction, int end, int section);
+void roomCorridors(int door_x, int door_z, int direction, int end);
 void makeDoors(int room_x, int corner_x, int room_z, int corner_z, int section, int doors[]);
 void makeRooms(int section);
 void perpCorridors(int x, int z);
