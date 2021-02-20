@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "generation.h"
 
 
 int getRandom(int min, int max) {
@@ -19,4 +20,20 @@ float roundFloat(float round_me) {
    }
 
    return rounded;
+}
+
+void checkInRoom(int x, int z) {
+   for(int i = 0; i < NUM_ROOMS; i++) {
+      if(x > rooms[i].start_x && x < rooms[i].start_x + rooms[i].size_x && z > rooms[i].start_z && z < rooms[i].start_z + rooms[i].size_z) {
+         rooms[i].visited = 1;
+      }
+   }
+}
+
+void checkInCorridor(int x, int z) {
+   for(int i = 0; i < NUM_ROOMS * 10; i++) {
+      if(x >= corridors[i].start_x && x <= corridors[i].end_x && z >= corridors[i].start_z && z <= corridors[i].end_z) {
+         corridors[i].visited = 1;
+      }
+   }
 }

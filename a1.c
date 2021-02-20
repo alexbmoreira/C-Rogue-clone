@@ -10,10 +10,10 @@
 
 #include "utils.h"
 #include "graphics.h"
-#include "generation.h"
 #include "states.h"
 #include "perlin.h"
 #include "clouds.h"
+#include "map.h"
 
 int current_state = 0;
 
@@ -184,6 +184,9 @@ void collisionResponse() {
       int int_curr_y_head = (int)curr_y*(-1);
       int int_curr_z = (int)curr_z*(-1);
 
+      checkInRoom(int_curr_x, int_curr_z);
+      checkInCorridor(int_curr_x, int_curr_z);
+
       // printf("Current: %f, %f, %f\n", curr_x, curr_y, curr_z);
       // printf("Current Int: %d, %d, %d\n", int_curr_x, int_curr_y, int_curr_z);
       // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
@@ -256,9 +259,12 @@ void draw2D() {
          draw2Dbox(500, 380, 524, 388);
       }
    } else {
-
-	/* your code goes here */
-
+      if (displayMap == 1) {
+         drawMinimap(current_state);
+      }
+      else if (displayMap == 2) {
+         drawFullmap(current_state);
+      }
    }
 
 }
@@ -381,11 +387,11 @@ float x, y, z;
       getOldViewPosition(&x, &y, &z);
 
       int int_x = (int)x*(-1);
-      int int_y = (int)((y*(-1)) - 1.1);
+      int int_y = (int)((y*(-1)) - 1.3);
       int int_z = (int)z*(-1);
       
       if ((world[int_x][int_y][int_z] == 0) && flycontrol != 1) {
-         y += 0.1;
+         y += 0.3;
          setOldViewPosition(x, y, z);
          setViewPosition(x, y, z);
       }

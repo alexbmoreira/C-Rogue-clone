@@ -191,6 +191,7 @@ void getViewOrientation(float *xaxis, float *yaxis, float *zaxis);
 - Returns the direction the mouse is pointing. 
 - The xaxis, yaxis, and zaxis values are the amount of rotation around the x, y, and z  axis respectively.
 - The values can be larger then 360 degrees which indicates more than one rotation.
+- 0 == south, 90 == west, 180 == north, 270 == east
 
 ### Collision Response Function
 

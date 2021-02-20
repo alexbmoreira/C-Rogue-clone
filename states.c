@@ -1,5 +1,6 @@
 #include "states.h"
-#include "graphics.h"
+
+extern char maze[WORLDX][WORLDZ];
 
 extern void setViewPosition(float, float, float);
 extern void getViewPosition(float *, float *, float *);
@@ -26,6 +27,8 @@ void copyWorld(worldState *state) {
     }
 
     setStateViewPoint(state);
+    setStateRooms(state);
+    setStateMaze(state);
 }
 
 void setStateViewPoint(worldState *state) {
@@ -55,6 +58,23 @@ void setStateViewPoint(worldState *state) {
     }
 }
 
+void setStateRooms(worldState *state) {
+    for(int i = 0; i < NUM_ROOMS; i++) {
+        state->rooms[i] = rooms[i];
+    }
+    for(int i = 0; i < NUM_ROOMS * 10; i++) {
+        state->corridors[i] = corridors[i];
+    }
+}
+
+void setStateMaze(worldState *state) {
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            state->maze[i][j] = maze[i][j];
+        }
+    }
+}
+
 void updateState(int state_id) {
     copyWorld(&states[state_id]);
 }
@@ -69,6 +89,18 @@ void stateToWorld(worldState state) {
     }
     setViewPosition(state.vp_x, state.vp_y, state.vp_z);
     setOldViewPosition(state.vp_x, state.vp_y, state.vp_z);
+
+    for(int i = 0; i < NUM_ROOMS; i++) {
+        rooms[i] = state.rooms[i];
+    }
+    for(int i = 0; i < NUM_ROOMS * 10; i++) {
+        corridors[i] = state.corridors[i];
+    }
+    for(int i = 0; i < WORLDX; i++) {
+        for(int j = 0; j < WORLDZ; j++) {
+            maze[i][j] = state.maze[i][j];
+        }
+    }
 }
 
 void clearWorld() {
