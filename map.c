@@ -62,7 +62,7 @@ void drawFullmap(int state) {
 
 void drawDungeon() {
 
-    printf("Screen height: %d\nScreen width: %d\n", screenHeight, screenWidth);
+    // printf("Screen height: %d\nScreen width: %d\n", screenHeight, screenWidth);
 
     // drawWalls();
 
