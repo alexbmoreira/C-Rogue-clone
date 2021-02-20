@@ -175,14 +175,25 @@ void drawHallways() {
 }
 
 void drawHallwaysLarge() {
-    set2Dcolour(MAP_DG_FLOOR);
     for(int c = 0; c < NUM_ROOMS * 10; c++) {
         if(corridors[c].visited == 1) {
             int x = corridors[c].start_x * FULLMAP;
             int z = corridors[c].start_z * FULLMAP;
             int e_x = corridors[c].end_x * FULLMAP;
             int e_z = corridors[c].end_z * FULLMAP;
-            if(corridors[c].corridor_id != 0) draw2Dbox(x - FULLMAP, z - FULLMAP, e_x + FULLMAP, e_z + FULLMAP);
+            if(corridors[c].corridor_id != 0) {
+                // set2Dcolour(MAP_DG_WALL);
+                // if(x == e_x) {
+                //     draw2Dline(x - FULLMAP, z - FULLMAP, e_x - FULLMAP, e_z - FULLMAP, FULLMAP);
+                //     draw2Dline(x + FULLMAP, z - FULLMAP, e_x + FULLMAP, e_z - FULLMAP, FULLMAP);
+                // }
+                // else if (z == e_z) {
+                //     draw2Dline(x - FULLMAP, z - FULLMAP, e_x - FULLMAP, e_z - FULLMAP, FULLMAP);
+                //     draw2Dline(x - FULLMAP, z + FULLMAP, e_x - FULLMAP, e_z + FULLMAP, FULLMAP);
+                // }
+                set2Dcolour(MAP_DG_FLOOR);
+                draw2Dbox(x - FULLMAP, z - FULLMAP, e_x + FULLMAP, e_z + FULLMAP);
+            }
         }
     }
 }
