@@ -5,7 +5,6 @@
 #include <time.h>
 
 long int last_cloud_anim;
-
-#define CLOUD_ANIM_TIME 3
+#define CLOUD_ANIM_TIME 1
 
 void runAnimations();
