@@ -14,6 +14,7 @@
 #include "perlin.h"
 #include "clouds.h"
 #include "map.h"
+#include "animation.h"
 #define DEFINE_BLOCK
 #include "colors.h"
 
@@ -397,10 +398,7 @@ float x, y, z;
          setViewPosition(x, y, z);
       }
 
-      for(int i = 0; i < NUM_CLOUDS - 1; i++) {
-         cloud cl = getCloud(i);
-         animateCloud(&cl);
-      }
+      runAnimations();
    }
 }
 
