@@ -10,6 +10,9 @@ int MINIMAP_O = 2;
 int FULLMAP = 5;
 int FULLMAP_O = 5;
 
+int FULLMAP_X = 262;
+int FULLMAP_Z = 134;
+
 	/* size of the window in pixels */
 extern int screenWidth, screenHeight;
 
@@ -46,6 +49,9 @@ void drawFullmap(int state) {
     FULLMAP = (screenWidth / 206 > 0) ? screenWidth / 206 : 1;
     FULLMAP_O = (screenWidth / 206 > 0) ? screenWidth / 206 : 1;
 
+    FULLMAP_X = (screenWidth - (FULLMAP * WORLDX)) / 2;
+    FULLMAP_Z = (screenHeight - (FULLMAP * WORLDZ)) / 2;
+
     drawViewpointLarge();
     if(state > 0) {
         drawDungeonWithFog();
@@ -79,17 +85,17 @@ void drawDungeonWithFog() {
         if(rooms[r].visited == 1) {
             if(rooms[r].stair_type >= 0) {
                 set2Dcolour(rooms[r].stair_type == 1 ? MAP_U_STAIR : MAP_D_STAIR);
-                int stair_x = rooms[r].stair_x * FULLMAP;
-                int stair_z = rooms[r].stair_z * FULLMAP;
+                int stair_x = rooms[r].stair_x * FULLMAP + FULLMAP_X;
+                int stair_z = rooms[r].stair_z * FULLMAP + FULLMAP_Z;
                 draw2Dbox(stair_x - FULLMAP_O, stair_z - FULLMAP_O, stair_x + FULLMAP_O, stair_z + FULLMAP_O);
             }
 
             // drawWallsLarge(r);
             
-            int x = rooms[r].start_x * FULLMAP;
-            int z = rooms[r].start_z * FULLMAP;
-            int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP;
-            int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP;
+            int x = rooms[r].start_x * FULLMAP + FULLMAP_X;
+            int z = rooms[r].start_z * FULLMAP + FULLMAP_Z;
+            int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP + FULLMAP_X;
+            int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP + FULLMAP_Z;
 
             drawHallwaysLarge();
 
@@ -119,10 +125,10 @@ void drawWalls() {
 }
 
 void drawWallsLarge(int r) {
-    int x = rooms[r].start_x * FULLMAP;
-    int z = rooms[r].start_z * FULLMAP;
-    int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP;
-    int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP;
+    int x = rooms[r].start_x * FULLMAP + FULLMAP_X;
+    int z = rooms[r].start_z * FULLMAP + FULLMAP_Z;
+    int l = (rooms[r].start_x + rooms[r].size_x) * FULLMAP + FULLMAP_X;
+    int w = (rooms[r].start_z + rooms[r].size_z) * FULLMAP + FULLMAP_Z;
 
     int door_1 = 0, door_2 = 0, door_3 = 0, door_4 = 0;
 
@@ -172,10 +178,10 @@ void drawHallways() {
 void drawHallwaysLarge() {
     for(int c = 0; c < NUM_ROOMS * 10; c++) {
         if(corridors[c].visited == 1) {
-            int x = corridors[c].start_x * FULLMAP;
-            int z = corridors[c].start_z * FULLMAP;
-            int e_x = corridors[c].end_x * FULLMAP;
-            int e_z = corridors[c].end_z * FULLMAP;
+            int x = corridors[c].start_x * FULLMAP + FULLMAP_X;
+            int z = corridors[c].start_z * FULLMAP + FULLMAP_Z;
+            int e_x = corridors[c].end_x * FULLMAP + FULLMAP_X;
+            int e_z = corridors[c].end_z * FULLMAP + FULLMAP_Z;
             if(corridors[c].corridor_id != 0) {
                 // set2Dcolour(MAP_DG_WALL);
                 // if(x == e_x) {
@@ -210,8 +216,8 @@ void drawWorldLarge() {
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
             if(world[i][0][j] == CLR_D_STAIR) {
-                int x = i * FULLMAP;
-                int z = j * FULLMAP;
+                int x = i * FULLMAP + FULLMAP_X;
+                int z = j * FULLMAP + FULLMAP_Z;
                 set2Dcolour(MAP_D_STAIR);
                 draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
             }
@@ -249,12 +255,12 @@ void drawViewpointLarge() {
 
     int offset = FULLMAP + (FULLMAP / 2);
     
-    int x_1 = x - offset;
-    int z_1 = z - offset;
-    int x_2 = x + offset;
-    int z_2 = z - offset;
-    int x_3 = x;
-    int z_3 = z + offset;
+    int x_1 = x - offset + FULLMAP_X;
+    int z_1 = z - offset + FULLMAP_Z;
+    int x_2 = x + offset + FULLMAP_X;
+    int z_2 = z - offset + FULLMAP_Z;
+    int x_3 = x + FULLMAP_X;
+    int z_3 = z + offset + FULLMAP_Z;
     
     draw2Dtriangle(x_1, z_1, x_2, z_2, x_3, z_3);
 }
