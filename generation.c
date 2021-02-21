@@ -342,7 +342,7 @@ void generateDungeon() {
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
             world[i][30][j] = CLR_DG_FLOOR;
-            world[i][33][j] = CLR_DG_FLOOR;
+            world[i][34][j] = CLR_DG_FLOOR;
         }
     }
 
@@ -353,6 +353,7 @@ void generateDungeon() {
             if(maze[i][j] == 'W') { // Create a wall
                 world[i][31][j] = CLR_DG_WALL;
                 world[i][32][j] = CLR_DG_WALL;
+                world[i][33][j] = CLR_DG_WALL;
             }
             else if(maze[i][j] == 'd') { // Create a staircase down
                 world[i][30][j] = CLR_D_STAIR;
@@ -368,36 +369,44 @@ void generateDungeon() {
                 if(maze[i + 1][j] == ' ') {
                     world[i + 1][31][j] = CLR_DG_WALL;
                     world[i + 1][32][j] = CLR_DG_WALL;
+                    world[i + 1][33][j] = CLR_DG_WALL;
                 }
                 if(maze[i - 1][j] == ' ') {
                     world[i - 1][31][j] = CLR_DG_WALL;
                     world[i - 1][32][j] = CLR_DG_WALL;
+                    world[i - 1][33][j] = CLR_DG_WALL;
                 }
                 if(maze[i][j + 1] == ' ') {
                     world[i][31][j + 1] = CLR_DG_WALL;
                     world[i][32][j + 1] = CLR_DG_WALL;
+                    world[i][33][j + 1] = CLR_DG_WALL;
                 }
                 if(maze[i][j - 1] == ' ') {
                     world[i][31][j - 1] = CLR_DG_WALL;
                     world[i][32][j - 1] = CLR_DG_WALL;
+                    world[i][33][j - 1] = CLR_DG_WALL;
                 }
 
                 // Check diagonals
                 if(maze[i + 1][j + 1] == ' ') {
                     world[i + 1][31][j + 1] = CLR_DG_WALL;
                     world[i + 1][32][j + 1] = CLR_DG_WALL;
+                    world[i + 1][33][j + 1] = CLR_DG_WALL;
                 }
                 if(maze[i + 1][j - 1] == ' ') {
                     world[i + 1][31][j - 1] = CLR_DG_WALL;
                     world[i + 1][32][j - 1] = CLR_DG_WALL;
+                    world[i + 1][33][j - 1] = CLR_DG_WALL;
                 }
                 if(maze[i - 1][j + 1] == ' ') {
                     world[i - 1][31][j + 1] = CLR_DG_WALL;
                     world[i - 1][32][j + 1] = CLR_DG_WALL;
+                    world[i - 1][33][j + 1] = CLR_DG_WALL;
                 }
                 if(maze[i - 1][j - 1] == ' ') {
                     world[i - 1][31][j - 1] = CLR_DG_WALL;
                     world[i - 1][32][j - 1] = CLR_DG_WALL;
+                    world[i - 1][33][j - 1] = CLR_DG_WALL;
                 }
             }
         }
