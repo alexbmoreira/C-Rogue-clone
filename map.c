@@ -1,19 +1,14 @@
 #include "graphics.h"
 #include "generation.h"
 #include "map.h"
+#define DEFINE_MAP
 #include "colors.h"
+
 
 int MINIMAP = 2;
 int MINIMAP_O = 2;
 int FULLMAP = 5;
 int FULLMAP_O = 5;
-
-float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
-float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1};
-float MAP_BLACK[4] = {0.2, 0.2, 0.2, 0.5};
-float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1};
-float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
-float MAP_DG_WALL[4] = {0.28, 0.34, 0.44, 1.0};
 
 	/* size of the window in pixels */
 extern int screenWidth, screenHeight;

@@ -21,6 +21,7 @@
     - [Space Flag](#space-flag)
     - [Setting the Light Position](#setting-the-light-position)
     - [Drawing Tubes (actually crossed quadrilaterals)](#drawing-tubes-actually-crossed-quadrilaterals)
+    - [Applying Textures to Cubes](#applying-textures-to-cubes)
 - [Appendix A](#appendix-a)
     - [Culling Objects that Cannot Be Seen](#culling-objects-that-cannot-be-seen)
     - [Display Lists](#display-lists)
@@ -417,6 +418,69 @@ void showTube(int number);
 ```
 - Restart drawing the tube. Used only after `hideTube()` stops drawing. 
 - `number` is the identifier of the tube.
+
+### Applying Textures to Cubes
+
+Textures are associated with the id numbers that represent user defined colours. You can assign a colour, a texture, or both to a colour id.
+The texture currently replaces all colour information.
+
+To use a texture, create a used defined colour and then assign a texture id number to it using setAssignedTexture(). The texture id number is the numeric part of the file name in the /textures directory.
+
+The sequence of operations to make a texture appear is:
+
+```
+setUserColour(10, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+setAssignedTexture(10, 22);
+world[59][25][50] = 10;
+```
+- This will create user defined colour number 10. 
+- Then assign a texture 22 to that colour number 10.
+- Then place a block in the world array with that colour/texture 10.
+
+```
+int setAssignedTexture(int colourid, int textureid);
+```
+- `colourid` is the user defined colour number that will have a texture assigned to it
+- `textureid` is the texture number to assign to that colour id
+- returns 0 on success and 1 on failure
+
+```
+int getAssignedTexture(int id);
+```
+- the return value is the texture number associated with id
+
+```
+void setTextureOffset(int id, float uoffset, float voffset);
+```
+- id is the colour id to which the texture offset will be applied
+- `uoffset` is the amount of offset is the texture u coordinate (horizontal)
+- `voffset` is the amount of offset is the texture v coordinate (vertical)
+> Note that the texture offsets are stored with the `colourId` and not the textures. This means you can use the same texture with different colours and use different texture offset. For example, some textures can be offset while others are not (or they are offset to different values).
+
+The colour of the texture will be a blend of the object colour which is set using `setUserColour()` and the colours in the texture image.
+If you set the colour of the object to be all white using
+
+```
+setUserColour(12, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
+```
+
+then only the colour in the texture image will be displayed. This is a reasonable default method for using textures. If you make the base colour something other than white then the result will be a tinted version of the original texture. This is a way to add variety to textures by using the same texture but tinting it with different colours.
+
+Texture files are stored in a subdirectory named `./textures`. Each texture file is named with a number followed by the `.ppm` suffix. The numbers from 0 to 50 are used for textures that are supplied with the game engine. These are textures `0.ppm` to `50.ppm`. 
+
+The texture files must be `.ppm` files of type 3 (ASCII) or type 6 `.ppm` (binary) files. No other format of texture files will load correctly. Textures must be 256x256 pixels.
+
+More textures can be added by converting other file formats to `.ppm`. To do this, load the texture images into Gimp (GNU Image Manipulation Program), resize them to 256 pixels square, and export them as `.ppm` files.
+
+If you add more textures to the system then place them in the `./textures` directory. They must be named with a number followed by `.ppm`. The number will be the textureid that is used with the function:
+
+```
+int setAssignedTexture(int colourid, int textureid);
+```
+
+to identify the texture in the game. Do not use any other format for the names of that texture files.
+
+The current maximum number of textures the system can support is 100. If you want to increase this then change the `NUMBERTEXTURES` macro and recompile the code.
 
 
 ## Appendix A

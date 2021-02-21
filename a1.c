@@ -14,6 +14,8 @@
 #include "perlin.h"
 #include "clouds.h"
 #include "map.h"
+#define DEFINE_BLOCK
+#include "colors.h"
 
 int current_state = 0;
 
@@ -192,11 +194,11 @@ void collisionResponse() {
       // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
       // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
-      if(world[int_next_x][int_next_y][int_next_z] == 1 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 1 || world[int_curr_x][int_next_y - 1][int_curr_z] == 1) {
+      if(world[int_next_x][int_next_y][int_next_z] == CLR_U_STAIR || world[int_predicted_x][int_next_y_head][int_predicted_z] == CLR_U_STAIR || world[int_curr_x][int_next_y - 1][int_curr_z] == CLR_U_STAIR) {
          stairNavigation(1);
          return;
       }
-      else if(world[int_next_x][int_next_y][int_next_z] == 3 || world[int_predicted_x][int_next_y_head][int_predicted_z] == 3 || world[int_curr_x][int_next_y - 1][int_curr_z] == 3) {
+      else if(world[int_next_x][int_next_y][int_next_z] == CLR_D_STAIR || world[int_predicted_x][int_next_y_head][int_predicted_z] == CLR_D_STAIR || world[int_curr_x][int_next_y - 1][int_curr_z] == CLR_D_STAIR) {
          stairNavigation(-1);
          return;
       }
@@ -268,7 +270,6 @@ void draw2D() {
    }
 
 }
-
 
 	/*** update() ***/
 	/* background process, it is called when there are no other events */
@@ -427,11 +428,33 @@ void mouse(int button, int state, int x, int y) {
 }
 
 
+void setColors() {
+   setUserColour(CLR_U_STAIR, BLOCK_WHITE[0], BLOCK_WHITE[1], BLOCK_WHITE[2], BLOCK_WHITE[3], BLOCK_WHITE[4], BLOCK_WHITE[5], BLOCK_WHITE[6], BLOCK_WHITE[7]);
+   setUserColour(CLR_D_STAIR, BLOCK_GREY[0], BLOCK_GREY[1], BLOCK_GREY[2], BLOCK_GREY[3], BLOCK_GREY[4], BLOCK_GREY[5], BLOCK_GREY[6], BLOCK_GREY[7]);
+   setUserColour(CLR_DG_WALL, BLOCK_WHITE[0], BLOCK_WHITE[1], BLOCK_WHITE[2], BLOCK_WHITE[3], BLOCK_WHITE[4], BLOCK_WHITE[5], BLOCK_WHITE[6], BLOCK_WHITE[7]);
+   setUserColour(CLR_DG_FLOOR, BLOCK_WHITE[0], BLOCK_WHITE[1], BLOCK_WHITE[2], BLOCK_WHITE[3], BLOCK_WHITE[4], BLOCK_WHITE[5], BLOCK_WHITE[6], BLOCK_WHITE[7]);
+   setUserColour(CLR_GRASS, BLOCK_GREY[0], BLOCK_GREY[1], BLOCK_GREY[2], BLOCK_GREY[3], BLOCK_GREY[4], BLOCK_GREY[5], BLOCK_GREY[6], BLOCK_GREY[7]);
+   setUserColour(CLR_SNOW, BLOCK_SNOW[0], BLOCK_SNOW[1], BLOCK_SNOW[2], BLOCK_SNOW[3], BLOCK_SNOW[4], BLOCK_SNOW[5], BLOCK_SNOW[6], BLOCK_SNOW[7]);
+   setUserColour(CLR_DIRT, BLOCK_DIRT[0], BLOCK_DIRT[1], BLOCK_DIRT[2], BLOCK_DIRT[3], BLOCK_DIRT[4], BLOCK_DIRT[5], BLOCK_DIRT[6], BLOCK_DIRT[7]);
+   setUserColour(CLR_CLOUDS, BLOCK_CLOUDS[0], BLOCK_CLOUDS[1], BLOCK_CLOUDS[2], BLOCK_CLOUDS[3], BLOCK_CLOUDS[4], BLOCK_CLOUDS[5], BLOCK_CLOUDS[6], BLOCK_CLOUDS[7]);
+}
+
+void setTextures() {
+   setAssignedTexture(CLR_GRASS, 41);
+   setAssignedTexture(CLR_DG_FLOOR, 52);
+   setAssignedTexture(CLR_DG_WALL, 53);
+   setAssignedTexture(CLR_D_STAIR, 54);
+   setAssignedTexture(CLR_U_STAIR, 54);
+}
+
+
 int main(int argc, char** argv) {
    srand(time(NULL));
 int i, j, k;
 	/* initialize the graphics system */
    graphicsInit(&argc, argv);
+   setColors();
+   setTextures();
 
    /* initialize world to empty */
    for(i=0; i<WORLDX; i++)

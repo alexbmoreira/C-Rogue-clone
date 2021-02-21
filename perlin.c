@@ -113,7 +113,7 @@ void generateTerrain() {
     }
     for(int y = 41; y >= 0; y--) {
         if(world[x][y][z] != 0) {
-            world[x][y][z] = 3;
+            world[x][y][z] = CLR_D_STAIR;
         }
     }
 
