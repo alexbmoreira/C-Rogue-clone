@@ -472,22 +472,16 @@ void setObjectColour(int colourID) {
       glMaterialfv(GL_FRONT, GL_DIFFUSE, grey);
    }
    else if (colourID == 4) {
-      // glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonwalls);
-      // glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonwalls);
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, white);
-      setAssignedTexture(colourID, 53);
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonwalls);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonwalls);
    }
    else if (colourID == 5) {
-      // glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloors);
-      // glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloors);
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, white);
-      setAssignedTexture(colourID, 52);
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_dungeonfloors);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, dungeonfloors);
    }
    else if (colourID == 6) {
-      // glMaterialfv(GL_FRONT, GL_AMBIENT, d_grass);
-      // glMaterialfv(GL_FRONT, GL_DIFFUSE, grass);
-      glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, grey);
-      setAssignedTexture(colourID, 41);
+      glMaterialfv(GL_FRONT, GL_AMBIENT, d_grass);
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, grass);
    }
    else if (colourID == 7) {
       glMaterialfv(GL_FRONT, GL_AMBIENT, d_dirt);

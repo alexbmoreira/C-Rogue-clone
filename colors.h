@@ -1,14 +1,14 @@
 #include "graphics.h"
 
-#define CLR_U_STAIR 1
-#define CLR_BLACK 2
-#define CLR_D_STAIR 3
-#define CLR_DG_WALL 4
-#define CLR_DG_FLOOR 5
-#define CLR_GRASS 6
-#define CLR_DIRT 7
-#define CLR_SNOW 8
-#define CLR_CLOUDS 9
+#define CLR_U_STAIR 9
+#define CLR_BLACK 10
+#define CLR_D_STAIR 11
+#define CLR_DG_WALL 12
+#define CLR_DG_FLOOR 13
+#define CLR_GRASS 14
+#define CLR_DIRT 15
+#define CLR_SNOW 16
+#define CLR_CLOUDS 17
 
 #ifdef DEFINE_MAP
 float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
