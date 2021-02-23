@@ -49,7 +49,7 @@ LIBS = -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/De
 #LIBS = -lGL -lGLU -lglut -lm -D__LINUX__
 
 a1: a1.c graphics.c visible.c utils.c generation.c states.c perlin.c clouds.c mesh.c map.c animation.c mobs.c graphics.h utils.h generation.h states.h perlin.h clouds.h colors.h mesh.h fast_obj.h map.h animation.h mobs.h
-	gcc a1.c graphics.c visible.c utils.c generation.c states.c perlin.c clouds.c mesh.c map.c animation.c -o a1 $(LIBS)
+	gcc a1.c graphics.c visible.c utils.c generation.c states.c perlin.c clouds.c mesh.c map.c animation.c mobs.c -o a1 $(LIBS)
 
 run:
 	make a1 && ./a1

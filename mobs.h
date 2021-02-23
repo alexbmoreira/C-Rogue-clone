@@ -13,8 +13,8 @@ typedef struct mob
 
 mob mobs[NUM_MOBS];
 
-void createMob(int id, int mesh_number, float x, float y, float z);
-void setMob(mob m);
-void freeMob(mob m);
-void drawMob(mob m);
-void hideMob(mob m);
+void createMeshMob(int id, int mesh_number, float x, float y, float z);
+void setMeshMob(mob m);
+void freeMeshMob(mob m);
+void drawMeshMob(mob m);
+void hideMeshMob(mob m);
