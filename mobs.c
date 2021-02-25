@@ -20,7 +20,6 @@ void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     
     mobs[id] = new_mob;
     printf("Mesh number: %d\n", new_mob.mesh_number);
-    printf("Here\n");
     setMeshMob(new_mob);
 }
 

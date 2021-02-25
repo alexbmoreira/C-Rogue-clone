@@ -7,7 +7,6 @@
 char maze[WORLDX][WORLDZ];
 int d_room;
 
-extern void setMeshID(int, int, float, float, float);
 extern void setViewPosition(float, float, float);
 extern void getViewPosition(float *, float *, float *);
 extern void getOldViewPosition(float *, float *, float *);
@@ -364,7 +363,6 @@ void generateDungeon() {
             }
             else if(maze[i][j] == 'm') { // Create a mob
                 createMeshMob(0, getRandom(0, 3), i + 0.5, 31.5, j + 0.5);
-                // setMeshID(0, getRandom(0, 3), i + 0.5, 31.5, j + 0.5);
             }
             else if(maze[i][j] == 'u') { // Create a staircase back up
                 world[i][30][j] = CLR_U_STAIR;
