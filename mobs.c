@@ -25,13 +25,13 @@ void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     new_mob.z = z;
     
     mobs[id] = new_mob;
-    printf("Mesh number: %d\n", new_mob.mesh_number);
     setMeshMob(new_mob);
 }
 
 void setMeshMob(mob m) {
-    printf("Mesh number: %d\n", m.mesh_number);
-    setMeshID(m.mesh_id, m.mesh_number, m.x, m.y, m.z);
+    if(m.x > 0 && m.y > 0 && m.z >0) {
+        setMeshID(m.mesh_id, m.mesh_number, m.x, m.y, m.z);
+    }
 }
 
 void freeMeshMob(mob m) {
