@@ -341,6 +341,7 @@ void generateDungeon2D() {
 
 void generateDungeon() {
     clearCorridorsArray();
+    initMeshMobs();
 
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
@@ -362,7 +363,7 @@ void generateDungeon() {
                 world[i][30][j] = CLR_D_STAIR;
             }
             else if(maze[i][j] == 'm') { // Create a mob
-                createMeshMob(0, getRandom(0, 3), i + 0.5, 31.5, j + 0.5);
+                createMeshMob(0, 1, i + 0.5, 31.5, j + 0.5);
             }
             else if(maze[i][j] == 'u') { // Create a staircase back up
                 world[i][30][j] = CLR_U_STAIR;

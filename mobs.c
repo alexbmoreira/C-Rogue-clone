@@ -10,6 +10,12 @@ extern void setScaleMesh(int, float);
 extern void drawMesh(int id);
 extern void hideMesh(int id);
 
+void initMeshMobs() {
+    for(int i = 0; i < NUM_MOBS; i++) {
+        mobs[i].mesh_id = i;
+    }
+}
+
 void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     mob new_mob;
     new_mob.mesh_id = id;

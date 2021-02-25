@@ -8,7 +8,6 @@ extern void getOldViewPosition(float *, float *, float *);
 extern void setOldViewPosition(float, float, float);
 
 void addState(worldState state) {
-    copyWorld(&state);
     state.active = 1;
     states[state.state_id] = state;
 }
@@ -79,15 +78,17 @@ void setStateMaze(worldState *state) {
 void setStateMobs(worldState *state) {
     for(int i = 0; i < NUM_MOBS; i++) {
         state->mobs[i] = mobs[i];
+        freeMeshMob(state->mobs[i]);
     }
 }
 
 void updateState(int state_id) {
     copyWorld(&states[state_id]);
-    printState(state_id);
 }
 
 void stateToWorld(worldState state) {
+    printState(state.state_id);
+
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDY; j++) {
             for(int k = 0; k < WORLDZ; k++) {
@@ -111,6 +112,7 @@ void stateToWorld(worldState state) {
     }
     for(int i = 0; i < NUM_MOBS; i++) {
         mobs[i] = state.mobs[i];
+        setMeshMob(state.mobs[i]);
     }
 }
 
@@ -141,14 +143,18 @@ void printSlice(int x, int state_id) {
 
 void printState(int state_id) {
     FILE *f = fopen("world.log", "a");
+    fprintf(f, "======================\n");
     fprintf(f, "State %d:\n------------\n", state_id);   
 
-    fprintf(f, "Mobs:\n");   
+    fprintf(f, "Mobs:\n");
+    fprintf(f, "|ID\t|Num\t|x\t\t|y\t\t|z\t\t|\n");
     for(int i = 0; i < NUM_MOBS; i++) {
-        fprintf(f, "Num: %d\n", states[state_id].mobs[i].mesh_number);
+        fprintf(f, "|%d\t|%d\t\t|%0.2f\t|%0.2f\t|%0.2f\t|\n", states[state_id].mobs[i].mesh_id, states[state_id].mobs[i].mesh_number, states[state_id].mobs[i].x, states[state_id].mobs[i].y, states[state_id].mobs[i].z);
     }
     fprintf(f, "\n\n");   
 
-    fprintf(f, "Player spawn:\n");    
-    fprintf(f, "(%f, %f, %f)\n", states[state_id].vp_x, states[state_id].vp_y, states[state_id].vp_z);    
+    fprintf(f, "Player spawn:\n");
+    fprintf(f, "(%f, %f, %f)\n", states[state_id].vp_x, states[state_id].vp_y, states[state_id].vp_z);
+
+    fprintf(f, "======================\n\n");
 }
