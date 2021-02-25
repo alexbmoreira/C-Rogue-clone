@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define NUM_MOBS 20
+#define NUM_MOBS 5
 
 typedef struct mob
 {

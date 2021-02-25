@@ -29,6 +29,7 @@ void copyWorld(worldState *state) {
     setStateViewPoint(state);
     setStateRooms(state);
     setStateMaze(state);
+    setStateMobs(state);
 }
 
 void setStateViewPoint(worldState *state) {
@@ -75,8 +76,15 @@ void setStateMaze(worldState *state) {
     }
 }
 
+void setStateMobs(worldState *state) {
+    for(int i = 0; i < NUM_MOBS; i++) {
+        state->mobs[i] = mobs[i];
+    }
+}
+
 void updateState(int state_id) {
     copyWorld(&states[state_id]);
+    printState(state_id);
 }
 
 void stateToWorld(worldState state) {
@@ -101,6 +109,9 @@ void stateToWorld(worldState state) {
             maze[i][j] = state.maze[i][j];
         }
     }
+    for(int i = 0; i < NUM_MOBS; i++) {
+        mobs[i] = state.mobs[i];
+    }
 }
 
 void clearWorld() {
@@ -123,6 +134,20 @@ void printSlice(int x, int state_id) {
         fprintf(f, "\n");
     }
 
+
+    fprintf(f, "Player spawn:\n");    
+    fprintf(f, "(%f, %f, %f)\n", states[state_id].vp_x, states[state_id].vp_y, states[state_id].vp_z);    
+}
+
+void printState(int state_id) {
+    FILE *f = fopen("world.log", "a");
+    fprintf(f, "State %d:\n------------\n", state_id);   
+
+    fprintf(f, "Mobs:\n");   
+    for(int i = 0; i < NUM_MOBS; i++) {
+        fprintf(f, "Num: %d\n", states[state_id].mobs[i].mesh_number);
+    }
+    fprintf(f, "\n\n");   
 
     fprintf(f, "Player spawn:\n");    
     fprintf(f, "(%f, %f, %f)\n", states[state_id].vp_x, states[state_id].vp_y, states[state_id].vp_z);    
