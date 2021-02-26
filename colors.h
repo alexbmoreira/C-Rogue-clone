@@ -11,19 +11,21 @@
 #define CLR_CLOUDS 17
 
 #ifdef DEFINE_MAP
-float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 0.5};
-float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1};
-float MAP_BLACK[4] = {0.2, 0.2, 0.2, 0.5};
-float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1};
+float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 1.0};
+float MAP_MOB[4] = {0.0, 0.0, 0.0, 0.5};
+float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1.0};
+float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1.0};
 float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
-float MAP_DG_WALL[4] = {0.28, 0.34, 0.44, 1.0};
+float MAP_DG_WALL[4] = {0.28, 0.34, 0.44, 0.5};
+float MAP_BORDER[4] = {1.0, 0.65, 0.0, 0.5};
 #else
 extern float MAP_PLAYER[4];
+extern float MAP_MOB[4];
 extern float MAP_U_STAIR[4];
-extern float MAP_BLACK[4];
 extern float MAP_D_STAIR[4];
 extern float MAP_DG_FLOOR[4];
 extern float MAP_DG_WALL[4];
+extern float MAP_BORDER[4];
 #endif
 
 #ifdef DEFINE_BLOCK
