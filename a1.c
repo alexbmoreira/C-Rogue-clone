@@ -399,6 +399,10 @@ float x, y, z;
       }
 
       runAnimations();
+      for(int i = 0; i < NUM_MOBS; i++) {
+         moveMeshMob(&mobs[i]);
+         // translateMeshMob(&mobs[i], mobs[i].x + 0.1, mobs[i].y, mobs[i].z);
+      }
    }
 }
 

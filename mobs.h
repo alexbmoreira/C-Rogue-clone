@@ -9,6 +9,7 @@ typedef struct mob
     int mesh_number;
 
     float x, y, z;
+    int move_x, move_y, move_z;
 } mob;
 
 mob mobs[NUM_MOBS];
@@ -20,3 +21,7 @@ void setMeshMob(mob m);
 void freeMeshMob(mob m);
 void drawMeshMob(mob m);
 void hideMeshMob(mob m);
+
+void translateMeshMob(mob *m, float x, float y, float z);
+
+void moveMeshMob(mob *m);
