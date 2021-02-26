@@ -233,7 +233,7 @@ void makeRooms(int section) {
     }
 
     maze[corner_x + room_x - 1][corner_z + 1] = 'm';
-    createMeshMob(section - 1, getRandom(0, 3), (corner_x + room_x - 1) + 0.5, 31.5, (corner_z + 1) + 0.5);
+    createMeshMob(section - 1, getRandom(0, 3), (corner_x + room_x - 1) + 0.5, 31.5, (corner_z + 2));
 
     room new_room;
     new_room.stair_type = -1;

@@ -16,6 +16,25 @@ void initMeshMobs() {
     }
 }
 
+void scaleByMeshNum(mob *m) {
+    switch(m->mesh_number) {
+        case 0:
+            scaleMeshMob(m, 1);
+            break;
+        case 1:
+            scaleMeshMob(m, 0.5);
+            break;
+        case 2:
+            scaleMeshMob(m, 0.3);
+            break;
+        case 3:
+            scaleMeshMob(m, 0.25);
+            break;
+        default:
+            break;
+    }
+}
+
 void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     mob new_mob;
     new_mob.mesh_id = id;
@@ -23,12 +42,15 @@ void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     new_mob.x = x;
     new_mob.y = y;
     new_mob.z = z;
-
+    
     new_mob.move_x = 1;
     new_mob.move_y = 0;
     new_mob.move_z = 0;
-    
+
+    scaleByMeshNum(&new_mob);
+
     mobs[id] = new_mob;
+
     setMeshMob(new_mob);
 }
 
@@ -43,6 +65,7 @@ void freeMeshMob(mob m) {
 }
 
 void drawMeshMob(mob m) {
+    setScaleMesh(m.mesh_id, m.scale);
     drawMesh(m.mesh_id);
 }
 
@@ -58,6 +81,15 @@ void translateMeshMob(mob *m, float x, float y, float z) {
     m->z = z;
 
     setTranslateMesh(m->mesh_id, m->x, m->y, m->z);
+    drawMeshMob(*m);
+}
+
+void scaleMeshMob(mob *m, float scale) {
+    if(m->x == 0 && m->y == 0 && m->z == 0) return;
+
+    m->scale = scale;
+
+    setScaleMesh(m->mesh_id, m->scale);
     drawMeshMob(*m);
 }
 
