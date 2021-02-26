@@ -3,6 +3,7 @@
 #include "map.h"
 #define DEFINE_MAP
 #include "colors.h"
+#include "mobs.h"
 
 
 int MINIMAP = 2;
@@ -53,6 +54,7 @@ void drawFullmap(int state) {
     FULLMAP_Z = (screenHeight - (FULLMAP * WORLDZ)) / 2;
 
     drawViewpointLarge();
+    drawMobsLarge();
     if(state > 0) {
         drawDungeonWithFog();
     }
@@ -264,3 +266,16 @@ void drawViewpointLarge() {
     
     draw2Dtriangle(x_1, z_1, x_2, z_2, x_3, z_3);
 }
+
+void drawMobsLarge() {
+    set2Dcolour(MAP_PLAYER);
+    for(int m = 0; m < NUM_MOBS; m++) {
+        int x = mobs[m].x * FULLMAP + FULLMAP_X;
+        int z = mobs[m].z * FULLMAP + FULLMAP_Z;
+        draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
+    }
+}
+
+// void drawCircle(int x, int z, int radius) {
+
+// }
