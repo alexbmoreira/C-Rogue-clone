@@ -212,6 +212,10 @@ void drawWorld() {
             }
         }
     }
+    draw2Dline(0, 0, WORLDX * MINIMAP, 0, MINIMAP);
+    draw2Dline(WORLDX * MINIMAP, 0, WORLDX * MINIMAP, WORLDZ * MINIMAP, MINIMAP);
+    draw2Dline(WORLDX * MINIMAP, WORLDZ * MINIMAP, 0, WORLDZ * MINIMAP, MINIMAP);
+    draw2Dline(0, WORLDZ * MINIMAP, 0, 0, MINIMAP);
 }
 
 void drawWorldLarge() {
@@ -225,6 +229,11 @@ void drawWorldLarge() {
             }
         }
     }
+
+    draw2Dline(0 + FULLMAP_X, 0 + FULLMAP_Z, (WORLDX * FULLMAP) + FULLMAP_X, 0 + FULLMAP_Z, FULLMAP);
+    draw2Dline((WORLDX * FULLMAP) + FULLMAP_X, 0 + FULLMAP_Z, (WORLDX * FULLMAP) + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, FULLMAP);
+    draw2Dline((WORLDX * FULLMAP) + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, 0 + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, FULLMAP);
+    draw2Dline(0 + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, 0 + FULLMAP_X, 0 + FULLMAP_Z, FULLMAP);
 }
 
 void drawViewpoint() {
