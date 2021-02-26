@@ -2,6 +2,7 @@
 #include "graphics.h"
 #include "utils.h"
 #include "colors.h"
+#include "mobs.h"
 
 char maze[WORLDX][WORLDZ];
 int d_room;
@@ -231,6 +232,9 @@ void makeRooms(int section) {
         makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
     }
 
+    maze[corner_x + room_x - 1][corner_z + 1] = 'm';
+    createMeshMob(section - 1, getRandom(0, 3), (corner_x + room_x - 1) + 0.5, 31.5, (corner_z + 2));
+
     room new_room;
     new_room.stair_type = -1;
 
@@ -338,6 +342,7 @@ void generateDungeon2D() {
 
 void generateDungeon() {
     clearCorridorsArray();
+    initMeshMobs();
 
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDZ; j++) {
@@ -358,6 +363,9 @@ void generateDungeon() {
             else if(maze[i][j] == 'd') { // Create a staircase down
                 world[i][30][j] = CLR_D_STAIR;
             }
+            // else if(maze[i][j] == 'm') { // Create a mob
+            //     setTranslateMesh(0, 1, i + 0.5, 31.5, j + 0.5);
+            // }
             else if(maze[i][j] == 'u') { // Create a staircase back up
                 world[i][30][j] = CLR_U_STAIR;
             }

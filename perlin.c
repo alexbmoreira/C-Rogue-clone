@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "clouds.h"
 #include "colors.h"
+#include "mobs.h"
 
 /* 
     Code for generating 2D Perlin noise inspired by pseudocode found here:
@@ -81,6 +82,8 @@ void generateNoise() {
 }
 
 void generateTerrain() {
+    initMeshMobs();
+
     a = getRandom(1000000, 9999999);
     b = getRandom(1000000, 9999999);
     c = getRandom(1000000, 9999999);

@@ -18,3 +18,5 @@ void drawWorldLarge();
 
 void drawViewpoint();
 void drawViewpointLarge();
+
+void drawMobsLarge();

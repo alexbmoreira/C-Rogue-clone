@@ -482,6 +482,92 @@ to identify the texture in the game. Do not use any other format for the names o
 
 The current maximum number of textures the system can support is 100. If you want to increase this then change the `NUMBERTEXTURES` macro and recompile the code.
 
+### Using 3D Models From Object Files
+
+3D models are also associated with an id number. These id numbers are different to those used for textures that are applied to cubes. Each 3D model that you display will have its own id number. It will also have a mesh number which determines which model will be drawn. For instance, the mesh of the cow has a mesh number of 0. The mesh numbers for the currently available models that you can use in the game are:
+
+```
+Mesh #	Model
+0       cow
+1       fish
+2       bat
+3       cactus
+```
+
+If you wanted to create three fish, they would all have the mesh number of 1. Each of the fish would have it's own unique id which is assigned by the user.
+
+The functions used to add and control 3D meshes are:
+
+```
+void setMeshID(int id, int meshNumber, float xpos, float ypos, float zpos)
+```
+- Create a 3D mesh mesh and place it in the game world
+- The `id` is the unique identifier for that mesh, it is used to modify the size, location, rotation, visibility of the mesh.
+- The `meshNumber` identifies which mesh to draw
+- `xpos`, `ypos`, `zpos` are the location in the world where the mesh will be drawn. These correspond to the location in the world array but are floating point numbers. This allows the mesh objects to be positioned anywhere in the world array and not only at the integer positions of the cubes.
+
+```
+void unsetMeshID(int id)
+```
+- Frees the mesh id number and removes the mesh from the screen
+- This deallocates the mesh id so it can be reused again
+- Use only if you want to reuse the id number, if you want to stop drawing a mesh then you can use `hideMesh()` instead.
+
+```
+void setTranslateMesh(int id, float xpos, float ypos, float zpos)
+```
+- Move a mesh to a new (x,y,z) location
+- Gradually changing these values can be used to animate motion
+
+```
+void setRotateMesh(int id, float xrot, float yrot, float zrot)
+```
+- Rotate the mesh around the x, y, and z axis
+- Rotation values are measured in degrees
+- Rotations are done in the order of x rotation first, y rotation second, z rotation third
+- Mesh objects are not oriented the same way, you will need to rotate them (most likely around the y axis) to make them face in the direction you wish 
+
+```
+void setScaleMesh(int id, float scale)
+```
+- Resizes the mesh, a scale of 1.0 is default the size of the mesh, a value of 0.5 would reduce the size by half in three dimensions, a value of 2.0 would double the size of the mesh in three dimensions. 
+- The default mesh sizes are not related to the size of the game world cubes. You may need to scale the meshes to make them fit within the world
+
+```
+void drawMesh(int id);
+void hideMesh(int id);
+```
+- These two functions turn the drawing on and off for an individual mesh
+- The mesh id is still associated with the object but it is not drawn when `hideMesh()` is used
+
+
+An example of using these functions.
+If you do this:
+
+```
+setMeshID(10, 2, 10, 10, 10);
+```
+
+it will create an id number if 10, and associate model 2 (bat) with that number. It will also place a copy of the bat at location (10,10,10) in the world. If you follow that function with:
+
+```
+setRotateMesh(10, 0.0, 9.0, 0.0);
+```
+
+it will rotate the bat associated with id 10 by 90 degrees around the y axis. This bat will continue to be drawn in this positions until another function is called with moves or hides the bat. 
+
+The models and textures for the models are stored in numbered file names. For example, the first file is named `0.obj` and the associated texture is `0.ppm`. The files must be stored in the `/models` directory. The numbers of the files in the `/models` directory is the same as the mesh numbers listed above (e.g. 0==cow, 1==fish, 2==bat, 3==cactus).
+
+The `.obj` files must contain only triangles. The textures must be `.ppm` files. They can be either binary or ASCII. Textures are limited to 256 x 256 pixels. Only texture colouring is used with the mesh. Vertex colours are not used by the game engine. 
+
+To convert a mesh for use with the game:
+
+1. Make sure the model is made entirely of triangles. You can load the mesh into a 3D modelling program such as Blender and convert all of polygons to triangles. Then save the model as a `.obj` file (Wavefront `.obj` format).
+2. Make the texture file is 256x256 pixels. This can be done using an image editing program such as Gimp. Resize the image to be 256x256 pixels.
+3. The image must be in the `.ppm` format. Export the file to `.ppm` format. It can be either binary or ASCII format.
+4. Name both of the files with a number. The system comes with models 0 to 4 so add numbers after 4. Both the texture and the model file must be named with the same number. For example, `5.obj` and `5.ppm` would be the model and the texture files for object 5.
+
+If the mesh is not made entirely of triangles or the texture is not in the correct format then the game engine will exit and print an error message which indicates the problem it found while reading the files.
 
 ## Appendix A
 
