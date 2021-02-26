@@ -74,9 +74,9 @@ void moveMeshMob(mob *m) {
     checkMeshMobMovement(m);
 
     if(m->move_x > 0) {
-        translateMeshMob(m, m->x + 0.1, m->y, m->z);
+        translateMeshMob(m, m->x + MOB_MOVEMENT, m->y, m->z);
     }
     else if(m->move_x < 0) {
-        translateMeshMob(m, m->x - 0.1, m->y, m->z);
+        translateMeshMob(m, m->x - MOB_MOVEMENT, m->y, m->z);
     }
 }
