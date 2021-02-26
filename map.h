@@ -20,3 +20,5 @@ void drawViewpoint();
 void drawViewpointLarge();
 
 void drawMobsLarge();
+
+void draw2Dcircle(int x, int z, int r);

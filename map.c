@@ -282,11 +282,51 @@ void drawMobsLarge() {
         if(mobs[m].seen == 1) {
             int x = mobs[m].x * FULLMAP + FULLMAP_X;
             int z = mobs[m].z * FULLMAP + FULLMAP_Z;
-            draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
+            draw2Dcircle(x, z, FULLMAP_O);
+            // draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
         }
     }
 }
 
-// void drawCircle(int x, int z, int radius) {
-
-// }
+void draw2Dcircle(int x, int z, int r) {
+    draw2Dtriangle(
+        x, z,
+        x + r, z,
+        x + (r * 2/3), z + (r / 3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x + (r * 2/3), z + (r / 3),
+        x, z + r
+    );
+    draw2Dtriangle(
+        x, z,
+        x, z + r,
+        x - (r / 3), z + (r * 2/3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x - (r / 3), z + (r * 2/3),
+        x - r, z
+    );
+    draw2Dtriangle(
+        x, z,
+        x - r, z,
+        x - (r * 2/3), z - (r / 3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x - (r * 2/3), z - (r / 3),
+        x, z - r
+    );
+    draw2Dtriangle(
+        x, z,
+        x, z - r,
+        x + (r / 3), z - (r * 2/3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x + (r / 3), z - (r * 2/3),
+        x + r, z
+    );
+}
