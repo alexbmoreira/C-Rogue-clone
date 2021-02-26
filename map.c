@@ -212,6 +212,12 @@ void drawWorld() {
             }
         }
     }
+    
+    set2Dcolour(MAP_BORDER);
+    draw2Dline(0, 0, WORLDX * MINIMAP, 0, MINIMAP);
+    draw2Dline(WORLDX * MINIMAP, 0, WORLDX * MINIMAP, WORLDZ * MINIMAP, MINIMAP);
+    draw2Dline(WORLDX * MINIMAP, WORLDZ * MINIMAP, 0, WORLDZ * MINIMAP, MINIMAP);
+    draw2Dline(0, WORLDZ * MINIMAP, 0, 0, MINIMAP);
 }
 
 void drawWorldLarge() {
@@ -225,6 +231,12 @@ void drawWorldLarge() {
             }
         }
     }
+
+    set2Dcolour(MAP_BORDER);
+    draw2Dline(0 + FULLMAP_X, 0 + FULLMAP_Z, (WORLDX * FULLMAP) + FULLMAP_X, 0 + FULLMAP_Z, FULLMAP);
+    draw2Dline((WORLDX * FULLMAP) + FULLMAP_X, 0 + FULLMAP_Z, (WORLDX * FULLMAP) + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, FULLMAP);
+    draw2Dline((WORLDX * FULLMAP) + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, 0 + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, FULLMAP);
+    draw2Dline(0 + FULLMAP_X, (WORLDZ * FULLMAP) + FULLMAP_Z, 0 + FULLMAP_X, 0 + FULLMAP_Z, FULLMAP);
 }
 
 void drawViewpoint() {
@@ -268,16 +280,56 @@ void drawViewpointLarge() {
 }
 
 void drawMobsLarge() {
-    set2Dcolour(MAP_PLAYER);
+    set2Dcolour(MAP_MOB);
     for(int m = 0; m < NUM_MOBS; m++) {
         if(mobs[m].seen == 1) {
             int x = mobs[m].x * FULLMAP + FULLMAP_X;
             int z = mobs[m].z * FULLMAP + FULLMAP_Z;
-            draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
+            draw2Dcircle(x, z, FULLMAP_O);
+            // draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
         }
     }
 }
 
-// void drawCircle(int x, int z, int radius) {
-
-// }
+void draw2Dcircle(int x, int z, int r) {
+    draw2Dtriangle(
+        x, z,
+        x + r, z,
+        x + (r * 2/3), z + (r / 3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x + (r * 2/3), z + (r / 3),
+        x, z + r
+    );
+    draw2Dtriangle(
+        x, z,
+        x, z + r,
+        x - (r / 3), z + (r * 2/3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x - (r / 3), z + (r * 2/3),
+        x - r, z
+    );
+    draw2Dtriangle(
+        x, z,
+        x - r, z,
+        x - (r * 2/3), z - (r / 3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x - (r * 2/3), z - (r / 3),
+        x, z - r
+    );
+    draw2Dtriangle(
+        x, z,
+        x, z - r,
+        x + (r / 3), z - (r * 2/3)
+    );
+    draw2Dtriangle(
+        x, z,
+        x + (r / 3), z - (r * 2/3),
+        x + r, z
+    );
+}
