@@ -22,6 +22,7 @@
     - [Setting the Light Position](#setting-the-light-position)
     - [Drawing Tubes (actually crossed quadrilaterals)](#drawing-tubes-actually-crossed-quadrilaterals)
     - [Applying Textures to Cubes](#applying-textures-to-cubes)
+    - [Using 3D Models From Object Files](#using-3d-models-from-object-files)
 - [Appendix A](#appendix-a)
     - [Culling Objects that Cannot Be Seen](#culling-objects-that-cannot-be-seen)
     - [Display Lists](#display-lists)
