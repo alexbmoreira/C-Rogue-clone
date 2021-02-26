@@ -39,6 +39,8 @@ void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     mob new_mob;
     new_mob.mesh_id = id;
     new_mob.mesh_number = mesh_number;
+    new_mob.seen = 0;
+
     new_mob.x = x;
     new_mob.y = y;
     new_mob.z = z;

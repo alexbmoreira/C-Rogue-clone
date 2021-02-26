@@ -270,9 +270,11 @@ void drawViewpointLarge() {
 void drawMobsLarge() {
     set2Dcolour(MAP_PLAYER);
     for(int m = 0; m < NUM_MOBS; m++) {
-        int x = mobs[m].x * FULLMAP + FULLMAP_X;
-        int z = mobs[m].z * FULLMAP + FULLMAP_Z;
-        draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
+        if(mobs[m].seen == 1) {
+            int x = mobs[m].x * FULLMAP + FULLMAP_X;
+            int z = mobs[m].z * FULLMAP + FULLMAP_Z;
+            draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
+        }
     }
 }
 
