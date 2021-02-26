@@ -9,6 +9,7 @@ typedef struct mob
     int mesh_id;
     int mesh_number;
 
+    int visible;
     int seen;
 
     float scale;

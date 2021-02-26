@@ -392,6 +392,7 @@ float x, y, z;
       checkInRoom(int_x, int_z);
       checkInCorridor(int_x, int_z);
       mobsInRoom();
+      checkMobCloseness(int_x, int_z);
       
       if ((world[int_x][int_y][int_z] == 0) && flycontrol != 1) {
          y += 0.3;

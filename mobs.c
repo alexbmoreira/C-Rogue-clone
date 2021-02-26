@@ -13,6 +13,7 @@ extern void hideMesh(int id);
 void initMeshMobs() {
     for(int i = 0; i < NUM_MOBS; i++) {
         mobs[i].mesh_id = i;
+        mobs[i].visible = 0;
     }
 }
 
@@ -39,6 +40,7 @@ void createMeshMob(int id, int mesh_number, float x, float y, float z) {
     mob new_mob;
     new_mob.mesh_id = id;
     new_mob.mesh_number = mesh_number;
+    new_mob.visible = 1;
     new_mob.seen = 0;
 
     new_mob.x = x;
@@ -67,12 +69,19 @@ void freeMeshMob(mob m) {
 }
 
 void drawMeshMob(mob m) {
-    setScaleMesh(m.mesh_id, m.scale);
-    drawMesh(m.mesh_id);
+    if(m.visible == 1) {
+        setScaleMesh(m.mesh_id, m.scale);
+        drawMesh(m.mesh_id);
+        printf("%d mesh #%d is visible\n", m.mesh_number, m.mesh_id);
+    }
+    else hideMeshMob(m);
 }
 
 void hideMeshMob(mob m) {
-    hideMesh(m.mesh_id);
+    if(m.visible == 0) {
+        hideMesh(m.mesh_id);
+        printf("%d mesh #%d is not visible\n", m.mesh_number, m.mesh_id);
+    }
 }
 
 void translateMeshMob(mob *m, float x, float y, float z) {

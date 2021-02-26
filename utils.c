@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "generation.h"
 #include "mobs.h"
+#include "graphics.h"
 
 
 int getRandom(int min, int max) {
@@ -47,6 +48,23 @@ void mobsInRoom() {
          if(x > rooms[i].start_x && x < rooms[i].start_x + rooms[i].size_x && z > rooms[i].start_z && z < rooms[i].start_z + rooms[i].size_z && rooms[i].visited == 1) {
             mobs[j].seen = 1;
          }
+      }
+   }
+}
+
+void checkMobCloseness(int x, int z) {
+   for(int i = 0; i < NUM_MOBS; i++) {
+      if(abs((int)mobs[i].x - x) < 20) {
+         mobs[i].visible = 1;
+      }
+      else {
+         mobs[i].visible = 0;
+      }
+      if(abs((int)mobs[i].z - z) < 20) {
+         mobs[i].visible = 1;
+      }
+      else {
+         mobs[i].visible = 0;
       }
    }
 }
