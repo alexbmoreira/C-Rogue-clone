@@ -87,8 +87,6 @@ void updateState(int state_id) {
 }
 
 void stateToWorld(worldState state) {
-    printState(state.state_id);
-
     for(int i = 0; i < WORLDX; i++) {
         for(int j = 0; j < WORLDY; j++) {
             for(int k = 0; k < WORLDZ; k++) {
