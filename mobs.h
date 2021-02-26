@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define NUM_MOBS 5
+#define NUM_MOBS 9
 #define MOB_MOVEMENT 0.1
 
 typedef struct mob

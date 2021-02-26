@@ -232,6 +232,9 @@ void makeRooms(int section) {
         makeDoors(room_x, corner_x, room_z, corner_z, section, doors);
     }
 
+    maze[corner_x + room_x - 1][corner_z + 1] = 'm';
+    createMeshMob(section - 1, getRandom(0, 3), (corner_x + room_x - 1) + 0.5, 31.5, (corner_z + 1) + 0.5);
+
     room new_room;
     new_room.stair_type = -1;
 
@@ -249,8 +252,6 @@ void makeRooms(int section) {
         new_room.stair_x = corner_x + x_placement;
         new_room.stair_z = corner_z + z_placement;
         new_room.stair_type = 0;
-
-        maze[corner_x + 1][corner_z + 1] = 'm';
     }
 
     new_room.start_x = corner_x;
@@ -362,9 +363,9 @@ void generateDungeon() {
             else if(maze[i][j] == 'd') { // Create a staircase down
                 world[i][30][j] = CLR_D_STAIR;
             }
-            else if(maze[i][j] == 'm') { // Create a mob
-                createMeshMob(0, 1, i + 0.5, 31.5, j + 0.5);
-            }
+            // else if(maze[i][j] == 'm') { // Create a mob
+            //     setTranslateMesh(0, 1, i + 0.5, 31.5, j + 0.5);
+            // }
             else if(maze[i][j] == 'u') { // Create a staircase back up
                 world[i][30][j] = CLR_U_STAIR;
             }
