@@ -92,7 +92,6 @@ void translateMeshMob(mob *m, float x, float y, float z) {
     m->z = z;
 
     setTranslateMesh(m->mesh_id, m->x, m->y, m->z);
-    drawMeshMob(*m);
 }
 
 void scaleMeshMob(mob *m, float scale) {
@@ -101,7 +100,6 @@ void scaleMeshMob(mob *m, float scale) {
     m->scale = scale;
 
     setScaleMesh(m->mesh_id, m->scale);
-    drawMeshMob(*m);
 }
 
 void checkMeshMobMovement(mob *m) {
@@ -150,4 +148,6 @@ void moveMeshMob(mob *m) {
     else if(m->move_z < 0) {
         translateMeshMob(m, m->x, m->y, m->z - MOB_MOVEMENT);
     }
+
+    drawMeshMob(*m);
 }
