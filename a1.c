@@ -278,6 +278,7 @@ void update() {
 int i, j, k;
 float *la;
 float x, y, z;
+float rotx, roty, rotz;
 
 	/* sample animation for the testworld, don't remove this code */
 	/* demo of animating mobs */
@@ -384,6 +385,7 @@ float x, y, z;
 
    } else {
       getOldViewPosition(&x, &y, &z);
+      getViewOrientation(&rotx, &roty, &rotz);
 
       int int_x = (int)x*(-1);
       int int_y = (int)((y*(-1)) - 1.3);
@@ -393,6 +395,7 @@ float x, y, z;
       checkInCorridor(int_x, int_z);
       mobsInRoom();
       checkMobCloseness(int_x, int_z);
+      checkMobInView(roty, x, y, z);
       
       if ((world[int_x][int_y][int_z] == 0) && flycontrol != 1) {
          y += 0.3;

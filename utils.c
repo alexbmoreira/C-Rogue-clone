@@ -68,3 +68,29 @@ void checkMobCloseness(int x, int z) {
       }
    }
 }
+
+void checkMobInView(float roty, float x, float y, float z) {
+   x *= -1;
+   y *= -1;
+   z *= -1;
+
+   float x_diff = fabs(45 - x);
+   float z_diff = fabs(46 - z);
+
+   printf("Tan: %0.2f\n", tan(roty));
+   printf("Sin / Cos: %0.2f\n", sin(roty) / cos(roty));
+   printf("Diff / Diff: %0.2f\n", x_diff / z_diff);
+   printf("Diffs: %0.2f, %0.2f\n", x_diff, z_diff);
+   // printf("Sin: %0.2f\n", sin(roty));
+   // printf("Cos: %0.2f\n", cos(roty));
+
+   for(int i = 0; i < 20; i++) {
+      if((x + (sin(roty) * i) == 45 || x - (sin(roty) * i) == 45) && (z + (cos(roty) * i) == 45 || z - (cos(roty) * i) == 45)) {
+         printf("Looking at 45, 45\n");
+      }
+   }
+
+   // printf("Rotation: %0.2f\n", sin(roty));
+   // printf("Player Location: (%0.2f, %0.2f, %0.2f)\n", x, y, z);
+   // printf("Mobs:\n");
+}
