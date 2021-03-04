@@ -72,7 +72,7 @@ void drawMeshMob(mob m) {
     if(m.visible == 1) {
         setScaleMesh(m.mesh_id, m.scale);
         drawMesh(m.mesh_id);
-        printf("%d mesh #%d is visible\n", m.mesh_number, m.mesh_id);
+        // printf("%d mesh #%d is visible\n", m.mesh_number, m.mesh_id);
     }
     else hideMeshMob(m);
 }
@@ -80,7 +80,7 @@ void drawMeshMob(mob m) {
 void hideMeshMob(mob m) {
     if(m.visible == 0) {
         hideMesh(m.mesh_id);
-        printf("%d mesh #%d is not visible\n", m.mesh_number, m.mesh_id);
+        // printf("%d mesh #%d is not visible\n", m.mesh_number, m.mesh_id);
     }
 }
 
