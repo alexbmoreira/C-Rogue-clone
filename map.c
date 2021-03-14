@@ -281,7 +281,7 @@ void drawViewpointLarge() {
 
 void drawMobsLarge() {
     for(int m = 0; m < NUM_MOBS; m++) {
-        if(mobs[m].seen == 1) {
+        if(mobs[m].seen == 1 && mobs[m].active == 1) {
             int x = mobs[m].x * FULLMAP + FULLMAP_X;
             int z = mobs[m].z * FULLMAP + FULLMAP_Z;
             if(mobs[m].mob_type == 1) {

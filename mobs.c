@@ -95,7 +95,7 @@ void drawMeshMob(mob m) {
 }
 
 void hideMeshMob(mob m) {
-    if(m.visible == 0) {
+    if(m.visible == 0 || m.active == 0) {
         hideMesh(m.mesh_id);
         printf("%d mesh #%d is not visible\n", m.mesh_number, m.mesh_id);
     }
