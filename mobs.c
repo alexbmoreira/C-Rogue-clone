@@ -1,5 +1,6 @@
 #include "mobs.h"
 #include "graphics.h"
+#include "utils.h"
 
 extern void setMeshID(int, int, float, float, float);
 extern void unsetMeshID(int);
@@ -14,6 +15,8 @@ void initMeshMobs() {
     for(int i = 0; i < NUM_MOBS; i++) {
         mobs[i].mesh_id = i;
         mobs[i].visible = 0;
+        mobs[i].active = 1;
+        mobs[i].mob_type = getRandom(1, 3);
     }
 }
 
