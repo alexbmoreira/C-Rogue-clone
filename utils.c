@@ -68,3 +68,23 @@ void checkMobCloseness(int x, int z) {
       }
    }
 }
+
+void playerTurnElapsed() {
+   float curr_x, curr_y, curr_z;
+   float next_x, next_y, next_z;
+
+   getOldViewPosition(&curr_x, &curr_y, &curr_z);
+   getViewPosition(&next_x, &next_y, &next_z);
+
+   int int_curr_x = (int)curr_x * (-1);
+   int int_curr_y = (int)curr_y * (-1);
+   int int_curr_z = (int)curr_z * (-1);
+
+   int int_next_x = (int)next_x * (-1);
+   int int_next_y = (int)next_y * (-1);
+   int int_next_z = (int)next_z * (-1);
+
+   if(int_next_x != int_curr_x || int_next_y != int_curr_y || int_next_z != int_curr_z) {
+      printf("Turn elapsed; execute other turns here\n");
+   }
+}
