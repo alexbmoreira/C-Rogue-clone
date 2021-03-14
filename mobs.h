@@ -9,8 +9,11 @@ typedef struct mob
     int mesh_id;
     int mesh_number;
 
+    int mob_type; // 1 = plant, 2 = random, 3 = responsive
+
     int visible;
     int seen;
+    int active;
 
     float scale;
     float x, y, z;
@@ -21,7 +24,7 @@ mob mobs[NUM_MOBS];
 
 void initMeshMobs();
 
-void createMeshMob(int id, int mesh_number, float x, float y, float z);
+void createMeshMob(int id, float x, float y, float z);
 void setMeshMob(mob m);
 void freeMeshMob(mob m);
 void drawMeshMob(mob m);

@@ -1,5 +1,6 @@
 #include "mobs.h"
 #include "graphics.h"
+#include "utils.h"
 
 extern void setMeshID(int, int, float, float, float);
 extern void unsetMeshID(int);
@@ -36,12 +37,28 @@ void scaleByMeshNum(mob *m) {
     }
 }
 
-void createMeshMob(int id, int mesh_number, float x, float y, float z) {
+void createMeshMob(int id, float x, float y, float z) {
     mob new_mob;
     new_mob.mesh_id = id;
-    new_mob.mesh_number = mesh_number;
     new_mob.visible = 1;
     new_mob.seen = 0;
+
+    new_mob.active = 1;
+    new_mob.mob_type = getRandom(1, 3);
+
+    switch(new_mob.mob_type) {
+        case 1:
+            new_mob.mesh_number = 3;
+            break;
+        case 2:
+            new_mob.mesh_number = 2;
+            break;
+        case 3:
+            new_mob.mesh_number = 1;
+            break;
+        default:
+            break;
+    }
 
     new_mob.x = x;
     new_mob.y = y;
@@ -69,7 +86,7 @@ void freeMeshMob(mob m) {
 }
 
 void drawMeshMob(mob m) {
-    if(m.visible == 1) {
+    if(m.visible == 1 && m.active == 1) {
         setScaleMesh(m.mesh_id, m.scale);
         drawMesh(m.mesh_id);
         printf("%d mesh #%d is visible\n", m.mesh_number, m.mesh_id);
@@ -78,7 +95,7 @@ void drawMeshMob(mob m) {
 }
 
 void hideMeshMob(mob m) {
-    if(m.visible == 0) {
+    if(m.visible == 0 || m.active == 0) {
         hideMesh(m.mesh_id);
         printf("%d mesh #%d is not visible\n", m.mesh_number, m.mesh_id);
     }
