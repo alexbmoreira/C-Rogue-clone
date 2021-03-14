@@ -15,8 +15,6 @@ void initMeshMobs() {
     for(int i = 0; i < NUM_MOBS; i++) {
         mobs[i].mesh_id = i;
         mobs[i].visible = 0;
-        mobs[i].active = 1;
-        mobs[i].mob_type = getRandom(1, 3);
     }
 }
 
@@ -39,12 +37,28 @@ void scaleByMeshNum(mob *m) {
     }
 }
 
-void createMeshMob(int id, int mesh_number, float x, float y, float z) {
+void createMeshMob(int id, float x, float y, float z) {
     mob new_mob;
     new_mob.mesh_id = id;
-    new_mob.mesh_number = mesh_number;
     new_mob.visible = 1;
     new_mob.seen = 0;
+
+    new_mob.active = 1;
+    new_mob.mob_type = getRandom(1, 3);
+
+    switch(new_mob.mob_type) {
+        case 1:
+            new_mob.mesh_number = 3;
+            break;
+        case 2:
+            new_mob.mesh_number = 2;
+            break;
+        case 3:
+            new_mob.mesh_number = 1;
+            break;
+        default:
+            break;
+    }
 
     new_mob.x = x;
     new_mob.y = y;

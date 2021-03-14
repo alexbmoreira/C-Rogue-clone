@@ -12,11 +12,17 @@
 
 #ifdef DEFINE_MAP
 float MAP_PLAYER[4] = {1.0, 0.0, 0.0, 1.0};
-float MAP_MOB[4] = {0.0, 0.0, 0.0, 0.5};
+
+float MAP_MOB_PLANT[4] = {0.15, 0.55, 0.25, 0.5};
+float MAP_MOB_RAND[4] = {0.0, 0.0, 0.0, 0.5};
+float MAP_MOB_RESP[4] = {0.25, 0.5, 0.75, 0.5};
+
 float MAP_U_STAIR[4] = {1.0, 1.0, 1.0, 1.0};
 float MAP_D_STAIR[4] = {0.5, 0.5, 0.5, 1.0};
+
 float MAP_DG_FLOOR[4] = {0.28, 0.3, 0.36, 0.5};
 float MAP_DG_WALL[4] = {0.28, 0.34, 0.44, 0.5};
+
 float MAP_BORDER[4] = {1.0, 0.65, 0.0, 0.5};
 #else
 extern float MAP_PLAYER[4];

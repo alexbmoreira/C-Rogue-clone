@@ -280,13 +280,20 @@ void drawViewpointLarge() {
 }
 
 void drawMobsLarge() {
-    set2Dcolour(MAP_MOB);
     for(int m = 0; m < NUM_MOBS; m++) {
         if(mobs[m].seen == 1) {
             int x = mobs[m].x * FULLMAP + FULLMAP_X;
             int z = mobs[m].z * FULLMAP + FULLMAP_Z;
+            if(mobs[m].mob_type == 1) {
+                set2Dcolour(MAP_MOB_PLANT);
+            }
+            else if(mobs[m].mob_type == 2) {
+                set2Dcolour(MAP_MOB_RAND);
+            }
+            else if(mobs[m].mob_type == 3) {
+                set2Dcolour(MAP_MOB_RESP);
+            }
             draw2Dcircle(x, z, FULLMAP_O);
-            // draw2Dbox(x - FULLMAP_O, z - FULLMAP_O, x + FULLMAP_O, z + FULLMAP_O);
         }
     }
 }
