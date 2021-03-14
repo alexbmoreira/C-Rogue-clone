@@ -170,11 +170,6 @@ void collisionResponse() {
       float append_x = (diff_x < 0) ? -0.25: 0.25;
       float append_z = (diff_z < 0) ? -0.25: 0.25;
 
-      // printf("diff_x: %f\n", diff_x);
-      // printf("rounded diff_x: %f\n", roundFloat(diff_x));
-      // printf("diff_z: %f\n", diff_z);
-      // printf("rounded diff_z: %f\n\n", roundFloat(diff_z));
-
       int int_next_x = (int)(next_x)*(-1);
       int int_predicted_x = (int)(next_x - append_x)*(-1);
       int int_next_y = (int)next_y*(-1) - 1;
@@ -186,11 +181,6 @@ void collisionResponse() {
       int int_curr_y = (int)curr_y*(-1) - 1;
       int int_curr_y_head = (int)curr_y*(-1);
       int int_curr_z = (int)curr_z*(-1);
-
-      // printf("Current: %f, %f, %f\n", curr_x, curr_y, curr_z);
-      // printf("Current Int: %d, %d, %d\n", int_curr_x, int_curr_y, int_curr_z);
-      // printf("Next: %f, %f, %f\n", next_x, next_y, next_z);
-      // printf("Next Int: %d, %d, %d\n", int_next_x, int_next_y, int_next_z);
 
       if(world[int_next_x][int_next_y][int_next_z] == CLR_U_STAIR || world[int_predicted_x][int_next_y_head][int_predicted_z] == CLR_U_STAIR || world[int_curr_x][int_next_y - 1][int_curr_z] == CLR_U_STAIR) {
          stairNavigation(1);
@@ -232,6 +222,7 @@ void collisionResponse() {
 
          setViewPosition(gotoX, gotoY, gotoZ);
       }
+      playerTurnElapsed();
    }
 }
 

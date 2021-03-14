@@ -4,6 +4,9 @@
 #define NUM_MOBS 9
 #define MOB_MOVEMENT 0.1
 
+extern void getViewPosition(float *, float *, float *);
+extern void getOldViewPosition(float *, float *, float *);
+
 typedef struct mob
 {
     int mesh_id;
