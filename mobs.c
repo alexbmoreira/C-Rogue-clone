@@ -64,9 +64,9 @@ void createMeshMob(int id, float x, float y, float z) {
     new_mob.y = y;
     new_mob.z = z;
     
-    new_mob.move_x = 1;
+    new_mob.move_x = 0;
     new_mob.move_y = 0;
-    new_mob.move_z = 1;
+    new_mob.move_z = 0;
 
     scaleByMeshNum(&new_mob);
 
@@ -120,24 +120,24 @@ void scaleMeshMob(mob *m, float scale) {
 }
 
 void checkMeshMobMovement(mob *m) {
-    if(world[(int)m->x + 1][(int)m->y][(int)m->z] != 0) {
+    if(m->move_x == 1 && world[(int)m->x + 1][(int)m->y][(int)m->z] != 0) {
         m->move_x = -1;
     }
-    else if(world[(int)m->x - 1][(int)m->y][(int)m->z] != 0) {
+    else if(m->move_x == -1 && world[(int)m->x - 1][(int)m->y][(int)m->z] != 0) {
         m->move_x = 1;
     }
 
     if(m->move_y == 1 && world[(int)m->x][(int)m->y + 1][(int)m->z] != 0) {
         m->move_y = -1;
     }
-    else if(m->move_y == 1 && world[(int)m->x][(int)m->y - 1][(int)m->z] != 0) {
+    else if(m->move_y == -1 && world[(int)m->x][(int)m->y - 1][(int)m->z] != 0) {
         m->move_y = 1;
     }
 
-    if(world[(int)m->x][(int)m->y][(int)m->z + 1] != 0) {
+    if(m->move_z == 1 && world[(int)m->x][(int)m->y][(int)m->z + 1] != 0) {
         m->move_z = -1;
     }
-    else if(world[(int)m->x][(int)m->y][(int)m->z - 1] != 0) {
+    else if(m->move_z == -1 && world[(int)m->x][(int)m->y][(int)m->z - 1] != 0) {
         m->move_z = 1;
     }
 }
