@@ -9,8 +9,11 @@ typedef struct mob
     int mesh_id;
     int mesh_number;
 
+    int mob_type;
+
     int visible;
     int seen;
+    int active;
 
     float scale;
     float x, y, z;
