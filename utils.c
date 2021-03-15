@@ -10,6 +10,8 @@ extern void setOldViewPosition(float, float, float);
 
 int player_turn = 1;
 
+int mobIsAdjacent(int int_next_x, int int_next_z, mob m);
+
 int getRandom(int min, int max) {
    int r = (rand() % (max + 1 - min)) + min;
    return r;
@@ -92,7 +94,6 @@ void playerTurnElapsed() {
 
    if(int_next_x != int_curr_x || int_next_y != int_curr_y || int_next_z != int_curr_z) {
       player_turn = 0;
-      printf("Player turn: %d\n", player_turn);
    }
 }
 
@@ -114,21 +115,44 @@ void checkMobCollision() {
    int collision = 0;
 
    for(int i = 0; i < NUM_MOBS; i++) {
-      if(mobs[i].active == 1){
-         float goto_x = next_x;
-         float goto_y = next_y;
-         float goto_z = next_z;
-         if(int_next_x == (int)mobs[i].x && int_next_z == (int)mobs[i].z) {
-            goto_x = curr_x;
-            goto_z = curr_z;
-            attackMob(&mobs[i]);
-            collision = 1;
-            player_turn = 0;
-            printf("Player turn: %d\n", player_turn);
+      if(mobs[i].active == 1) {
+         if(mobIsAdjacent(int_next_x, int_next_z, mobs[i])) {
+            mobs[i].mob_state = MOB_ADJACENT;
          }
-         setViewPosition(goto_x, goto_y, goto_z);
+         else {
+            mobs[i].mob_state = MOB_WAITING;
+            float goto_x = next_x;
+            float goto_y = next_y;
+            float goto_z = next_z;
 
-         if(collision == 1) break;
+            if(int_next_x == (int)mobs[i].x && int_next_z == (int)mobs[i].z) {
+               goto_x = curr_x;
+               goto_z = curr_z;
+               attackMob(&mobs[i]);
+               collision = 1;
+               player_turn = 0;
+               mobs[i].mob_state = MOB_ADJACENT;
+            }
+            setViewPosition(goto_x, goto_y, goto_z);
+
+            if(collision == 1) break;
+         }
       }
    }
+}
+
+int mobIsAdjacent(int int_next_x, int int_next_z, mob m) {
+
+   if(int_next_x == (int)m.x - 1 && int_next_z == (int)m.z) return 1;
+   if(int_next_x == (int)m.x - 1 && int_next_z == (int)m.z - 1) return 1;
+   if(int_next_x == (int)m.x - 1 && int_next_z == (int)m.z + 1) return 1;
+   
+   if(int_next_x == (int)m.x + 1 && int_next_z == (int)m.z) return 1;
+   if(int_next_x == (int)m.x + 1 && int_next_z == (int)m.z - 1) return 1;
+   if(int_next_x == (int)m.x + 1 && int_next_z == (int)m.z + 1) return 1;
+
+   if(int_next_x == (int)m.x && int_next_z == (int)m.z - 1) return 1;
+   if(int_next_x == (int)m.x && int_next_z == (int)m.z + 1) return 1;
+
+   return 0;
 }

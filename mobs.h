@@ -46,3 +46,6 @@ void scaleMeshMob(mob *m, float scale);
 void moveMeshMob(mob *m);
 
 void attackMob(mob *m);
+void attackPlayer(mob *m);
+
+void mobActivites();
