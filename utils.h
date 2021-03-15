@@ -11,3 +11,4 @@ void checkInCorridor(int x, int z);
 void mobsInRoom();
 void checkMobCloseness(int x, int z);
 void playerTurnElapsed();
+void checkMobCollision();

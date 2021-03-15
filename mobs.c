@@ -168,3 +168,12 @@ void moveMeshMob(mob *m) {
 
     drawMeshMob(*m);
 }
+
+void attackMob(mob *m) {
+    int hit_chance = getRandom(0, 1);
+
+    if(hit_chance == 1) {
+        m->active = 0;
+        printf("Mob has been hit\n");
+    }
+}
