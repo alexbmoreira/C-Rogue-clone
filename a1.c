@@ -226,6 +226,9 @@ void collisionResponse() {
          setViewPosition(gotoX, gotoY, gotoZ);
       }
       playerTurnElapsed();
+      printf("Player turn: %d\n", player_turn);
+      mobActivites();
+      player_turn = 1;
    }
 }
 
@@ -395,9 +398,6 @@ float x, y, z;
       }
 
       runAnimations();
-      player_turn = 1;
-
-      printf("Player turn: %d\n", player_turn);
    }
 }
 

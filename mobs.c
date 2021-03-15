@@ -11,6 +11,8 @@ extern void setScaleMesh(int, float);
 extern void drawMesh(int id);
 extern void hideMesh(int id);
 
+extern int player_turn;
+
 void initMeshMobs() {
     for(int i = 0; i < NUM_MOBS; i++) {
         mobs[i].mesh_id = i;
@@ -175,5 +177,25 @@ void attackMob(mob *m) {
     if(hit_chance == 1) {
         m->active = 0;
         printf("Mob has been hit\n");
+    }
+}
+
+void attackPlayer(mob *m) {
+    int hit_chance = getRandom(0, 1);
+
+    if(hit_chance == 1) {
+        printf("Player has been hit\n");
+    }
+}
+
+void mobActivites() {
+    if(player_turn == 1) return;
+
+    for(int i = 0; i < NUM_MOBS; i++) {
+        if(mobs[i].active) {
+            if(mobs[i].mob_state == MOB_ADJACENT) {
+                attackPlayer(&mobs[i]);
+            }
+        }
     }
 }
