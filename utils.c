@@ -60,15 +60,34 @@ void mobsInRoom() {
    }
 }
 
+void playerInMobView() {
+   float x, y, z;
+   getViewPosition(&x, &y, &z);
+
+   x *= -1;
+   y *= -1;
+   z *= -1;
+
+   // printf("(%0.2f, %0.2f, %0.2f)\n", x, y, z);
+   
+   for(int i = 0; i < NUM_MOBS; i++) {
+      if(mobs[i].active == 1) {
+         if(mobs[i].mob_type == 2 || mobs[i].mob_type == 3) {
+            if(fabs((int)mobs[i].x - x) < 20 && fabs((int)mobs[i].z - z) < 20) {
+               mobs[i].mob_state = MOB_PLAYER_IN_VIEW;
+            }
+            else {
+               mobs[i].mob_state = MOB_WAITING;
+               if(mobs[i].mob_type == 2) mobs[i].mob_state = MOB_RANDOM_SEARCH;
+            }
+         }
+      }
+   }
+}
+
 void checkMobCloseness(int x, int z) {
    for(int i = 0; i < NUM_MOBS; i++) {
-      if(abs((int)mobs[i].x - x) < 20) {
-         mobs[i].visible = 1;
-      }
-      else {
-         mobs[i].visible = 0;
-      }
-      if(abs((int)mobs[i].z - z) < 20) {
+      if(abs((int)mobs[i].x - x) < 20 && abs((int)mobs[i].z - z) < 20) {
          mobs[i].visible = 1;
       }
       else {

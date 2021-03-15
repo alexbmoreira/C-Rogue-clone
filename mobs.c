@@ -196,6 +196,9 @@ void mobActivites() {
             if(mobs[i].mob_state == MOB_ADJACENT) {
                 attackPlayer(&mobs[i]);
             }
+            else if(mobs[i].mob_state == MOB_PLAYER_IN_VIEW) {
+                printf("Mob %d sees the player\n", mobs[i].mesh_id);
+            }
         }
     }
 }

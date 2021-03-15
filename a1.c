@@ -226,7 +226,7 @@ void collisionResponse() {
          setViewPosition(gotoX, gotoY, gotoZ);
       }
       playerTurnElapsed();
-      printf("Player turn: %d\n", player_turn);
+      playerInMobView();
       mobActivites();
       player_turn = 1;
    }
