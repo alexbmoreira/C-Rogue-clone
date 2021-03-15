@@ -7,8 +7,8 @@
 #define MOB_INACTIVE -1
 #define MOB_WAITING 0
 #define MOB_ADJACENT 1
-#define MOB_RANDOM_SEARCH 2
-#define MOB_PLAYER_IN_VIEW 3
+#define MOB_PLAYER_IN_VIEW 2
+#define MOB_RANDOM_SEARCH 3
 
 extern void getViewPosition(float *, float *, float *);
 extern void getOldViewPosition(float *, float *, float *);
