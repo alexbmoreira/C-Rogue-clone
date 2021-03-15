@@ -191,6 +191,8 @@ void collisionResponse() {
          return;
       }
 
+      checkMobCollision();
+
       if(world[int_next_x][int_next_y][int_next_z] != 0 || world[int_predicted_x][int_next_y_head][int_predicted_z] != 0) {
 
          float gotoX = curr_x;
