@@ -118,6 +118,7 @@ void checkMobCollision() {
          if(int_next_x == (int)mobs[i].x && int_next_z == (int)mobs[i].z) {
             goto_x = curr_x;
             goto_z = curr_z;
+            attackMob(&mobs[i]);
             collision = 1;
          }
          setViewPosition(goto_x, goto_y, goto_z);

@@ -44,3 +44,5 @@ void translateMeshMob(mob *m, float x, float y, float z);
 void scaleMeshMob(mob *m, float scale);
 
 void moveMeshMob(mob *m);
+
+void attackMob(mob *m);
