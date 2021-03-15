@@ -4,6 +4,12 @@
 #define NUM_MOBS 9
 #define MOB_MOVEMENT 0.1
 
+#define MOB_INACTIVE -1
+#define MOB_WAITING 0
+#define MOB_ADJACENT 1
+#define MOB_RANDOM_SEARCH 2
+#define MOB_PLAYER_IN_VIEW 3
+
 extern void getViewPosition(float *, float *, float *);
 extern void getOldViewPosition(float *, float *, float *);
 
@@ -13,6 +19,7 @@ typedef struct mob
     int mesh_number;
 
     int mob_type; // 1 = plant, 2 = random, 3 = responsive
+    int mob_state;
 
     int visible;
     int seen;
