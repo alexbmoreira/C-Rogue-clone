@@ -8,6 +8,8 @@ extern void getViewPosition(float *, float *, float *);
 extern void getOldViewPosition(float *, float *, float *);
 extern void setOldViewPosition(float, float, float);
 
+int player_turn = 1;
+
 int getRandom(int min, int max) {
    int r = (rand() % (max + 1 - min)) + min;
    return r;
@@ -89,7 +91,8 @@ void playerTurnElapsed() {
    int int_next_z = (int)next_z * (-1);
 
    if(int_next_x != int_curr_x || int_next_y != int_curr_y || int_next_z != int_curr_z) {
-      printf("Turn elapsed; execute other turns here\n");
+      player_turn = 0;
+      printf("Player turn: %d\n", player_turn);
    }
 }
 
@@ -120,6 +123,8 @@ void checkMobCollision() {
             goto_z = curr_z;
             attackMob(&mobs[i]);
             collision = 1;
+            player_turn = 0;
+            printf("Player turn: %d\n", player_turn);
          }
          setViewPosition(goto_x, goto_y, goto_z);
 

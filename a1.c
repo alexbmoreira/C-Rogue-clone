@@ -19,6 +19,7 @@
 #include "colors.h"
 
 int current_state = 0;
+extern int player_turn;
 
 extern char maze[WORLDX][WORLDZ];
 
@@ -394,6 +395,9 @@ float x, y, z;
       }
 
       runAnimations();
+      player_turn = 1;
+
+      printf("Player turn: %d\n", player_turn);
    }
 }
 
