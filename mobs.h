@@ -49,3 +49,5 @@ void attackMob(mob *m);
 void attackPlayer(mob *m);
 
 void mobActivites();
+
+void pickRandomTarget(mob *m, int stay_in_room);

@@ -77,7 +77,7 @@ void playerInMobView() {
                int mob_x = (int)mobs[i].x;
                int mob_z = (int)mobs[i].z;
                if(mob_x > rooms[j].start_x && mob_x < rooms[j].start_x + rooms[j].size_x && mob_z > rooms[j].start_z && mob_z < rooms[j].start_z + rooms[j].size_z) {
-                  if(x > rooms[j].start_x + 1 && x < rooms[j].start_x + rooms[j].size_x - 1 && z > rooms[j].start_z + 1 && z < rooms[j].start_z + rooms[j].size_z - 1) {
+                  if(x > rooms[j].start_x && x < rooms[j].start_x + rooms[j].size_x && z > rooms[j].start_z && z < rooms[j].start_z + rooms[j].size_z) {
                      mobs[i].mob_state = MOB_PLAYER_IN_VIEW;
                   }
                   else {

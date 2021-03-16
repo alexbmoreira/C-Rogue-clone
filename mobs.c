@@ -1,6 +1,7 @@
 #include "mobs.h"
 #include "graphics.h"
 #include "utils.h"
+#include "generation.h"
 
 extern void setMeshID(int, int, float, float, float);
 extern void unsetMeshID(int);
@@ -147,24 +148,18 @@ void checkMeshMobMovement(mob *m) {
 
 void moveMeshMob(mob *m) {
     if(m->mob_type == 1) return;
-
-    float player_x, player_y, player_z;
-    getViewPosition(&player_x, &player_y, &player_z);
-    player_x *= -1;
-    player_y *= -1;
-    player_z *= -1;
     
     int trans_x = 0, trans_z = 0;
-    if((int)player_x > (int)m->x && world[(int)m->x + 1][(int)m->y][(int)m->z] == 0) {
+    if((int)m->target_x > (int)m->x && world[(int)m->x + 1][(int)m->y][(int)m->z] == 0) {
         trans_x = 1;
     }
-    else if((int)player_x < (int)m->x && world[(int)m->x - 1][(int)m->y][(int)m->z] == 0) {
+    else if((int)m->target_x < (int)m->x && world[(int)m->x - 1][(int)m->y][(int)m->z] == 0) {
         trans_x = -1;
     }
-    if((int)player_z > (int)m->z && world[(int)m->x][(int)m->y][(int)m->z + 1] == 0) {
+    if((int)m->target_z > (int)m->z && world[(int)m->x][(int)m->y][(int)m->z + 1] == 0) {
         trans_z = 1;
     }
-    else if((int)player_z < (int)m->z && world[(int)m->x][(int)m->y][(int)m->z - 1] == 0) {
+    else if((int)m->target_z < (int)m->z && world[(int)m->x][(int)m->y][(int)m->z - 1] == 0) {
         trans_z = -1;
     }
 
@@ -211,6 +206,8 @@ void mobActivites() {
                 printf("Mob %d sees the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
+                if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 0);
+                moveMeshMob(&mobs[i]);
                 printf("Mob %d is doing a random search\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_WAITING) {
@@ -220,9 +217,9 @@ void mobActivites() {
                     printf("Mob %d is waiting for the player by staying planted\n", mobs[i].mesh_id);
                 }
                 else if(mobs[i].mob_type == 3) {
-                    mobs[i].target_x = mobs[i].x;
-                    mobs[i].target_z = mobs[i].z;
-                    printf("Mob %d is waiting for the player by wandering around\n", mobs[i].mesh_id);
+                    if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 1);
+                    moveMeshMob(&mobs[i]);
+                    printf("Mob %d is waiting for the player by wandering around to (%d, %d)\n", mobs[i].mesh_id, mobs[i].target_x, mobs[i].target_z);
                 }
             }
         }
@@ -230,4 +227,17 @@ void mobActivites() {
     }
 
     player_turn = 1;
+}
+
+void pickRandomTarget(mob *m, int stay_in_room) {
+    if(stay_in_room == 1) {
+        int r = m->mesh_id;
+        m->target_x = getRandom(rooms[r].start_x + 1, rooms[r].start_x + rooms[r].size_x - 1);
+        m->target_z = getRandom(rooms[r].start_z + 1, rooms[r].start_z + rooms[r].size_z - 1);
+    }
+    else {
+        int r = getRandom(0, NUM_ROOMS - 1);
+        m->target_x = getRandom(rooms[r].start_x + 1, rooms[r].start_x + rooms[r].size_x - 2);
+        m->target_z = getRandom(rooms[r].start_z + 1, rooms[r].start_z + rooms[r].size_z - 2);
+    }
 }
