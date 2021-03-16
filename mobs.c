@@ -195,9 +195,16 @@ void mobActivites() {
         if(mobs[i].active) {
             if(mobs[i].mob_state == MOB_ADJACENT) {
                 attackPlayer(&mobs[i]);
+                printf("Mob %d attacked the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_PLAYER_IN_VIEW) {
                 printf("Mob %d sees the player\n", mobs[i].mesh_id);
+            }
+            else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
+                printf("Mob %d is doing a random search\n", mobs[i].mesh_id);
+            }
+            else if(mobs[i].mob_state == MOB_WAITING) {
+                printf("Mob %d is not moving\n", mobs[i].mesh_id);
             }
         }
     }
