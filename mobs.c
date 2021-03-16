@@ -155,16 +155,16 @@ void moveMeshMob(mob *m) {
     player_z *= -1;
     
     int trans_x = 0, trans_z = 0;
-    if((int)player_x > (int)m->x) {
+    if((int)player_x > (int)m->x && world[(int)m->x + 1][(int)m->y][(int)m->z] == 0) {
         trans_x = 1;
     }
-    else if((int)player_x < (int)m->x) {
+    else if((int)player_x < (int)m->x && world[(int)m->x - 1][(int)m->y][(int)m->z] == 0) {
         trans_x = -1;
     }
-    if((int)player_z > (int)m->z) {
+    if((int)player_z > (int)m->z && world[(int)m->x][(int)m->y][(int)m->z + 1] == 0) {
         trans_z = 1;
     }
-    else if((int)player_z < (int)m->z) {
+    else if((int)player_z < (int)m->z && world[(int)m->x][(int)m->y][(int)m->z - 1] == 0) {
         trans_z = -1;
     }
 
