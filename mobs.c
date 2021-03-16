@@ -215,7 +215,7 @@ void mobActivites() {
                     printf("Mob %d is waiting for the player by staying planted\n", mobs[i].mesh_id);
                 }
                 else if(mobs[i].mob_type == 3) {
-                    pickRandomTarget(&mobs[i], 1);
+                    if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 1);
                     moveMeshMob(&mobs[i]);
                     printf("Mob %d is waiting for the player by wandering around to (%d, %d)\n", mobs[i].mesh_id, mobs[i].target_x, mobs[i].target_z);
                 }

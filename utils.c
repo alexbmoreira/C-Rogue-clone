@@ -73,16 +73,17 @@ void playerInMobView() {
    for(int i = 0; i < NUM_MOBS; i++) {
       if(mobs[i].active == 1) {
          if(mobs[i].mob_type == 2 || mobs[i].mob_type == 3) {
-            int mob_x = (int)mobs[i].x;
-            int mob_z = (int)mobs[i].z;
-            int r = mobs[i].mesh_id;
-            if(mob_x > rooms[r].start_x && mob_x < rooms[r].start_x + rooms[r].size_x && mob_z > rooms[r].start_z && mob_z < rooms[r].start_z + rooms[r].size_z) { // If the mob is in its room
-               if(x > rooms[r].start_x + 1 && x < rooms[r].start_x + rooms[r].size_x - 1 && z > rooms[r].start_z + 1 && z < rooms[r].start_z + rooms[r].size_z - 1) { // If the player is in the same room
-                  mobs[i].mob_state = MOB_PLAYER_IN_VIEW;
-               }
-               else {
-                  mobs[i].mob_state = MOB_WAITING;
-                  if(mobs[i].mob_type == 2) mobs[i].mob_state = MOB_RANDOM_SEARCH;
+            for(int j = 0; j < NUM_ROOMS; j++) {
+               int mob_x = (int)mobs[i].x;
+               int mob_z = (int)mobs[i].z;
+               if(mob_x > rooms[j].start_x && mob_x < rooms[j].start_x + rooms[j].size_x && mob_z > rooms[j].start_z && mob_z < rooms[j].start_z + rooms[j].size_z) {
+                  if(x > rooms[j].start_x && x < rooms[j].start_x + rooms[j].size_x && z > rooms[j].start_z && z < rooms[j].start_z + rooms[j].size_z) {
+                     mobs[i].mob_state = MOB_PLAYER_IN_VIEW;
+                  }
+                  else {
+                     mobs[i].mob_state = MOB_WAITING;
+                     if(mobs[i].mob_type == 2) mobs[i].mob_state = MOB_RANDOM_SEARCH;
+                  }
                }
             }
          }
