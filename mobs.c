@@ -198,13 +198,24 @@ void mobActivites() {
                 printf("Mob %d attacked the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_PLAYER_IN_VIEW) {
+                mobs[i].move_x = 0;
+                mobs[i].move_z = 0;
                 printf("Mob %d sees the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
                 printf("Mob %d is doing a random search\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_WAITING) {
-                printf("Mob %d is not moving\n", mobs[i].mesh_id);
+                if(mobs[i].mob_type == 1) {
+                    mobs[i].move_x = 0;
+                    mobs[i].move_z = 0;
+                    printf("Mob %d is waiting for the player by staying planted\n", mobs[i].mesh_id);
+                }
+                else if(mobs[i].mob_type == 3) {
+                    mobs[i].move_x = 1;
+                    mobs[i].move_z = 1;
+                    printf("Mob %d is waiting for the player by wandering around\n", mobs[i].mesh_id);
+                }
             }
         }
     }
