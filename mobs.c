@@ -206,6 +206,8 @@ void mobActivites() {
                 printf("Mob %d sees the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
+                if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 0);
+                moveMeshMob(&mobs[i]);
                 printf("Mob %d is doing a random search\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_WAITING) {
@@ -234,6 +236,8 @@ void pickRandomTarget(mob *m, int stay_in_room) {
         m->target_z = getRandom(rooms[r].start_z + 1, rooms[r].start_z + rooms[r].size_z - 1);
     }
     else {
-
+        int r = getRandom(0, NUM_ROOMS - 1);
+        m->target_x = getRandom(rooms[r].start_x + 1, rooms[r].start_x + rooms[r].size_x - 2);
+        m->target_z = getRandom(rooms[r].start_z + 1, rooms[r].start_z + rooms[r].size_z - 2);
     }
 }
