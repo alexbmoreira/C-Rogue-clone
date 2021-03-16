@@ -87,7 +87,7 @@ void playerInMobView() {
 
 void checkMobCloseness(int x, int z) {
    for(int i = 0; i < NUM_MOBS; i++) {
-      if(abs((int)mobs[i].x - x) < 20 && abs((int)mobs[i].z - z) < 20) {
+      if(abs((int)mobs[i].x - x) < 30 && abs((int)mobs[i].z - z) < 30) {
          mobs[i].visible = 1;
       }
       else {
