@@ -26,7 +26,7 @@ void scaleByMeshNum(mob *m) {
             scaleMeshMob(m, 1);
             break;
         case 1:
-            scaleMeshMob(m, 0.5);
+            scaleMeshMob(m, 0.25);
             break;
         case 2:
             scaleMeshMob(m, 0.3);
@@ -155,16 +155,16 @@ void moveMeshMob(mob *m) {
     player_z *= -1;
     
     int trans_x = 0, trans_z = 0;
-    if(player_x > m->x) {
+    if((int)player_x > (int)m->x) {
         trans_x = 1;
     }
-    else if(player_x < m->x) {
+    else if((int)player_x < (int)m->x) {
         trans_x = -1;
     }
-    if(player_z > m->z) {
+    if((int)player_z > (int)m->z) {
         trans_z = 1;
     }
-    else if(player_z < m->z) {
+    else if((int)player_z < (int)m->z) {
         trans_z = -1;
     }
 
@@ -216,12 +216,12 @@ void mobActivites() {
             else if(mobs[i].mob_state == MOB_WAITING) {
                 if(mobs[i].mob_type == 1) {
                     mobs[i].target_x = mobs[i].x;
-                    mobs[i].target_z = mobs[i].x;
+                    mobs[i].target_z = mobs[i].z;
                     printf("Mob %d is waiting for the player by staying planted\n", mobs[i].mesh_id);
                 }
                 else if(mobs[i].mob_type == 3) {
-                    mobs[i].target_x = 1;
-                    mobs[i].target_z = 1;
+                    mobs[i].target_x = mobs[i].x;
+                    mobs[i].target_z = mobs[i].z;
                     printf("Mob %d is waiting for the player by wandering around\n", mobs[i].mesh_id);
                 }
             }
