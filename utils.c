@@ -73,12 +73,18 @@ void playerInMobView() {
    for(int i = 0; i < NUM_MOBS; i++) {
       if(mobs[i].active == 1) {
          if(mobs[i].mob_type == 2 || mobs[i].mob_type == 3) {
-            if(fabs((int)mobs[i].x - x) < 20 && fabs((int)mobs[i].z - z) < 20 && !mobIsAdjacent((int)x, (int)z, mobs[i])) {
-               mobs[i].mob_state = MOB_PLAYER_IN_VIEW;
-            }
-            else if((fabs((int)mobs[i].x - x) >= 20 || fabs((int)mobs[i].z - z) >= 20)) {
-               mobs[i].mob_state = MOB_WAITING;
-               if(mobs[i].mob_type == 2) mobs[i].mob_state = MOB_RANDOM_SEARCH;
+            for(int j = 0; j < NUM_ROOMS; j++) {
+               int mob_x = (int)mobs[i].x;
+               int mob_z = (int)mobs[i].z;
+               if(mob_x > rooms[j].start_x && mob_x < rooms[j].start_x + rooms[j].size_x && mob_z > rooms[j].start_z && mob_z < rooms[j].start_z + rooms[j].size_z) {
+                  if(x > rooms[j].start_x + 1 && x < rooms[j].start_x + rooms[j].size_x - 1 && z > rooms[j].start_z + 1 && z < rooms[j].start_z + rooms[j].size_z - 1) {
+                     mobs[i].mob_state = MOB_PLAYER_IN_VIEW;
+                  }
+                  else {
+                     mobs[i].mob_state = MOB_WAITING;
+                     if(mobs[i].mob_type == 2) mobs[i].mob_state = MOB_RANDOM_SEARCH;
+                  }
+               }
             }
          }
       }

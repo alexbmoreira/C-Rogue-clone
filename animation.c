@@ -1,6 +1,9 @@
 #include "animation.h"
 #include "clouds.h"
 #include "mobs.h"
+#include "utils.h"
+
+extern int player_turn;
 
 void runAnimations() {
     // long int current_time = time(NULL);
@@ -17,10 +20,10 @@ void runAnimations() {
       last_cloud_anim = current_time;
     }
 
-    if(current_time - last_mob_anim >= MOB_ANIM_TIME) {
-      for(int i = 0; i < NUM_MOBS; i++) {
-         moveMeshMob(&mobs[i]);
-      }
+    if(current_time - last_mob_anim >= MOB_ANIM_TIME && player_turn == 0) {
+      // for(int i = 0; i < NUM_MOBS; i++) {
+      //    moveMeshMob(&mobs[i]);
+      // }
       last_mob_anim = current_time;
     }
 }
