@@ -195,31 +195,32 @@ void mobActivites() {
 
     for(int i = 0; i < NUM_MOBS; i++) {
         if(mobs[i].active) {
+            printf("Mob %d ", mobs[i].mesh_id);
             if(mobs[i].mob_state == MOB_ADJACENT) {
                 attackPlayer(&mobs[i]);
-                printf("Mob %d attacked the player\n", mobs[i].mesh_id);
+                printf("attacked the player\n");
             }
             else if(mobs[i].mob_state == MOB_PLAYER_IN_VIEW) {
                 mobs[i].target_x = player_x;
                 mobs[i].target_z = player_z;
                 moveMeshMob(&mobs[i]);
-                printf("Mob %d sees the player\n", mobs[i].mesh_id);
+                printf("sees the player\n");
             }
             else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
-                if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 0);
+                if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 1);
                 moveMeshMob(&mobs[i]);
-                printf("Mob %d is doing a random search\n", mobs[i].mesh_id);
+                printf("is doing a random search\n");
             }
             else if(mobs[i].mob_state == MOB_WAITING) {
                 if(mobs[i].mob_type == 1) {
                     mobs[i].target_x = mobs[i].x;
                     mobs[i].target_z = mobs[i].z;
-                    printf("Mob %d is waiting for the player by staying planted\n", mobs[i].mesh_id);
+                    printf("is waiting for the player by staying planted\n");
                 }
                 else if(mobs[i].mob_type == 3) {
                     if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 1);
                     moveMeshMob(&mobs[i]);
-                    printf("Mob %d is waiting for the player by wandering around to (%d, %d)\n", mobs[i].mesh_id, mobs[i].target_x, mobs[i].target_z);
+                    printf("is waiting for the player by wandering around to (%d, %d)\n", mobs[i].target_x, mobs[i].target_z);
                 }
             }
         }

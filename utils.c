@@ -146,6 +146,7 @@ void checkMobCollision() {
          }
          else {
             mobs[i].mob_state = MOB_WAITING;
+            if(mobs[i].mob_type == 2) mobs[i].mob_state = MOB_RANDOM_SEARCH;
             float goto_x = next_x;
             float goto_y = next_y;
             float goto_z = next_z;
