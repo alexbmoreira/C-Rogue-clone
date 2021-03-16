@@ -241,7 +241,7 @@ void makeRooms(int section) {
     if(section == 1) {
         maze[corner_x + (room_x / 2)][corner_z + (room_z / 2)] = 'S';
         maze[corner_x + room_x - 1][corner_z + 1] = 'u';
-        new_room.stair_x = corner_x + 1;
+        new_room.stair_x = corner_x + room_x - 1;
         new_room.stair_z = corner_z + 1;
         new_room.stair_type = 1;
     }
