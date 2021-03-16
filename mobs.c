@@ -66,15 +66,16 @@ void createMeshMob(int id, float x, float y, float z) {
     new_mob.y = y;
     new_mob.z = z;
     
-    new_mob.move_x = 0;
-    new_mob.move_y = 0;
-    new_mob.move_z = 0;
+    new_mob.target_x = new_mob.x;
+    new_mob.target_y = new_mob.y;
+    new_mob.target_z = new_mob.z;
 
     scaleByMeshNum(&new_mob);
 
     mobs[id] = new_mob;
 
     setMeshMob(new_mob);
+    drawMeshMob(new_mob);
 }
 
 void setMeshMob(mob m) {
@@ -122,52 +123,52 @@ void scaleMeshMob(mob *m, float scale) {
 }
 
 void checkMeshMobMovement(mob *m) {
-    if(m->move_x == 1 && world[(int)m->x + 1][(int)m->y][(int)m->z] != 0) {
-        m->move_x = -1;
+    if(m->target_x == 1 && world[(int)m->x + 1][(int)m->y][(int)m->z] != 0) {
+        m->target_x = -1;
     }
-    else if(m->move_x == -1 && world[(int)m->x - 1][(int)m->y][(int)m->z] != 0) {
-        m->move_x = 1;
-    }
-
-    if(m->move_y == 1 && world[(int)m->x][(int)m->y + 1][(int)m->z] != 0) {
-        m->move_y = -1;
-    }
-    else if(m->move_y == -1 && world[(int)m->x][(int)m->y - 1][(int)m->z] != 0) {
-        m->move_y = 1;
+    else if(m->target_x == -1 && world[(int)m->x - 1][(int)m->y][(int)m->z] != 0) {
+        m->target_x = 1;
     }
 
-    if(m->move_z == 1 && world[(int)m->x][(int)m->y][(int)m->z + 1] != 0) {
-        m->move_z = -1;
+    if(m->target_y == 1 && world[(int)m->x][(int)m->y + 1][(int)m->z] != 0) {
+        m->target_y = -1;
     }
-    else if(m->move_z == -1 && world[(int)m->x][(int)m->y][(int)m->z - 1] != 0) {
-        m->move_z = 1;
+    else if(m->target_y == -1 && world[(int)m->x][(int)m->y - 1][(int)m->z] != 0) {
+        m->target_y = 1;
+    }
+
+    if(m->target_z == 1 && world[(int)m->x][(int)m->y][(int)m->z + 1] != 0) {
+        m->target_z = -1;
+    }
+    else if(m->target_z == -1 && world[(int)m->x][(int)m->y][(int)m->z - 1] != 0) {
+        m->target_z = 1;
     }
 }
 
 void moveMeshMob(mob *m) {
-    checkMeshMobMovement(m);
+    if(m->mob_type == 1) return;
 
-    if(m->move_x > 0) {
-        translateMeshMob(m, m->x + MOB_MOVEMENT, m->y, m->z);
-    }
-    else if(m->move_x < 0) {
-        translateMeshMob(m, m->x - MOB_MOVEMENT, m->y, m->z);
-    }
-
-    if(m->move_y > 0) {
-        translateMeshMob(m, m->x, m->y + MOB_MOVEMENT, m->z);
-    }
-    else if(m->move_y < 0) {
-        translateMeshMob(m, m->x , m->y- MOB_MOVEMENT, m->z);
-    }
+    float player_x, player_y, player_z;
+    getViewPosition(&player_x, &player_y, &player_z);
+    player_x *= -1;
+    player_y *= -1;
+    player_z *= -1;
     
-    if(m->move_z > 0) {
-        translateMeshMob(m, m->x, m->y, m->z + MOB_MOVEMENT);
+    int trans_x = 0, trans_z = 0;
+    if(player_x > m->x) {
+        trans_x = 1;
     }
-    else if(m->move_z < 0) {
-        translateMeshMob(m, m->x, m->y, m->z - MOB_MOVEMENT);
+    else if(player_x < m->x) {
+        trans_x = -1;
+    }
+    if(player_z > m->z) {
+        trans_z = 1;
+    }
+    else if(player_z < m->z) {
+        trans_z = -1;
     }
 
+    translateMeshMob(m, m->x + trans_x, m->y, m->z + trans_z);
     drawMeshMob(*m);
 }
 
@@ -191,6 +192,12 @@ void attackPlayer(mob *m) {
 void mobActivites() {
     if(player_turn == 1) return;
 
+    float player_x, player_y, player_z;
+    getViewPosition(&player_x, &player_y, &player_z);
+    player_x *= -1;
+    player_y *= -1;
+    player_z *= -1;
+
     for(int i = 0; i < NUM_MOBS; i++) {
         if(mobs[i].active) {
             if(mobs[i].mob_state == MOB_ADJACENT) {
@@ -198,8 +205,9 @@ void mobActivites() {
                 printf("Mob %d attacked the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_PLAYER_IN_VIEW) {
-                mobs[i].move_x = 0;
-                mobs[i].move_z = 0;
+                mobs[i].target_x = player_x;
+                mobs[i].target_z = player_z;
+                moveMeshMob(&mobs[i]);
                 printf("Mob %d sees the player\n", mobs[i].mesh_id);
             }
             else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
@@ -207,16 +215,19 @@ void mobActivites() {
             }
             else if(mobs[i].mob_state == MOB_WAITING) {
                 if(mobs[i].mob_type == 1) {
-                    mobs[i].move_x = 0;
-                    mobs[i].move_z = 0;
+                    mobs[i].target_x = mobs[i].x;
+                    mobs[i].target_z = mobs[i].x;
                     printf("Mob %d is waiting for the player by staying planted\n", mobs[i].mesh_id);
                 }
                 else if(mobs[i].mob_type == 3) {
-                    mobs[i].move_x = 1;
-                    mobs[i].move_z = 1;
+                    mobs[i].target_x = 1;
+                    mobs[i].target_z = 1;
                     printf("Mob %d is waiting for the player by wandering around\n", mobs[i].mesh_id);
                 }
             }
         }
+        drawMeshMob(mobs[i]);
     }
+
+    player_turn = 1;
 }

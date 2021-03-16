@@ -228,7 +228,6 @@ void collisionResponse() {
       playerTurnElapsed();
       playerInMobView();
       mobActivites();
-      player_turn = 1;
    }
 }
 

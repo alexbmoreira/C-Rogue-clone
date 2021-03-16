@@ -27,7 +27,7 @@ typedef struct mob
 
     float scale;
     float x, y, z;
-    int move_x, move_y, move_z;
+    int target_x, target_y, target_z;
 } mob;
 
 mob mobs[NUM_MOBS];
