@@ -162,11 +162,15 @@ void moveMeshMob(mob *m) {
     else if((int)m->target_x < (int)m->x && world[(int)m->x - 1][(int)m->y][(int)m->z] == 0) {
         trans_x = -1;
     }
-    if((int)m->target_z > (int)m->z && world[(int)m->x][(int)m->y][(int)m->z + 1] == 0) {
-        trans_z = 1;
+    if((int)m->target_z > (int)m->z) {
+        if(trans_x > 0 && world[(int)m->x + 1][(int)m->y][(int)m->z + 1] == 0) trans_z = 1;
+        else if(trans_x < 0 && world[(int)m->x - 1][(int)m->y][(int)m->z + 1] == 0) trans_z = 1;
+        else if(trans_x ==  0 && world[(int)m->x][(int)m->y][(int)m->z + 1] == 0) trans_z = 1;
     }
-    else if((int)m->target_z < (int)m->z && world[(int)m->x][(int)m->y][(int)m->z - 1] == 0) {
-        trans_z = -1;
+    else if((int)m->target_z < (int)m->z) {
+        if(trans_x > 0 && world[(int)m->x + 1][(int)m->y][(int)m->z - 1] == 0) trans_z = -1;
+        else if(trans_x < 0 && world[(int)m->x - 1][(int)m->y][(int)m->z - 1] == 0) trans_z = -1;
+        else if(trans_x ==  0 && world[(int)m->x][(int)m->y][(int)m->z - 1] == 0) trans_z = -1;
     }
 
     if((int)m->x + trans_x == (int)player_x && (int)m->z + trans_z == (int)player_z) {
