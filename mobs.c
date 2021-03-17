@@ -148,6 +148,12 @@ void checkMeshMobMovement(mob *m) {
 
 void moveMeshMob(mob *m) {
     if(m->mob_type == 1) return;
+
+    float player_x, player_y, player_z;
+    getViewPosition(&player_x, &player_y, &player_z);
+    player_x *= -1;
+    player_y *= -1;
+    player_z *= -1;
     
     int trans_x = 0, trans_z = 0;
     if((int)m->target_x > (int)m->x && world[(int)m->x + 1][(int)m->y][(int)m->z] == 0) {
@@ -161,6 +167,12 @@ void moveMeshMob(mob *m) {
     }
     else if((int)m->target_z < (int)m->z && world[(int)m->x][(int)m->y][(int)m->z - 1] == 0) {
         trans_z = -1;
+    }
+
+    if((int)m->x + trans_x == (int)player_x && (int)m->z + trans_z == (int)player_z) {
+        m->mob_state = MOB_ADJACENT;
+        attackPlayer(m);
+        return;
     }
 
     translateMeshMob(m, m->x + trans_x, m->y, m->z + trans_z);
