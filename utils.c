@@ -73,7 +73,7 @@ void playerInMobView() {
    for(int i = 0; i < NUM_MOBS; i++) {
       if(mobs[i].active == 1) {
          if(mobs[i].mob_type == 2 || mobs[i].mob_type == 3) {
-            if(mobs[i].mob_state != MOB_PLAYER_IN_VIEW && mobs[i].mob_state != MOB_ADJACENT) {
+            if(mobs[i].mob_state != MOB_PLAYER_IN_VIEW && mobs[i].mob_state != MOB_ADJACENT && mobs[i].mob_type != 2) {
                for(int j = 0; j < NUM_ROOMS; j++) {
                   int mob_x = (int)mobs[i].x;
                   int mob_z = (int)mobs[i].z;
