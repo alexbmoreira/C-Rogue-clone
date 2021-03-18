@@ -188,25 +188,27 @@ void moveMeshMob(mob *m) {
 }
 
 void attackMob(mob *m) {
+    printf("The player attacked mob %d - \t", m->mesh_id);
     int hit_chance = getRandom(0, 1);
 
     if(hit_chance == 1) {
         m->active = 0;
-        printf("Mob has been hit\n");
+        printf("HIT\n");
     }
     else {
-        printf("The player missed the mob\n");
+        printf("MISS\n");
     }
 }
 
 void attackPlayer(mob *m) {
+    printf("Mob %d attacked the player - \t", m->mesh_id);
     int hit_chance = getRandom(0, 1);
 
     if(hit_chance == 1) {
-        printf("Player has been hit\n");
+        printf("HIT\n");
     }
     else {
-        printf("The mob missed the player\n");
+        printf("MISS\n");
     }
 }
 
@@ -221,32 +223,32 @@ void mobActivites() {
 
     for(int i = 0; i < NUM_MOBS; i++) {
         if(mobs[i].active) {
-            printf("Mob %d ", mobs[i].mesh_id);
+            // printf("Mob %d ", mobs[i].mesh_id);
             if(mobs[i].mob_state == MOB_ADJACENT) {
                 attackPlayer(&mobs[i]);
-                printf("attacked the player\n");
+                // printf("attacked the player\n");
             }
             else if(mobs[i].mob_state == MOB_PLAYER_IN_VIEW) {
                 mobs[i].target_x = player_x;
                 mobs[i].target_z = player_z;
                 moveMeshMob(&mobs[i]);
-                printf("sees the player\n");
+                // printf("sees the player\n");
             }
             else if(mobs[i].mob_state == MOB_RANDOM_SEARCH) {
                 if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 1);
                 moveMeshMob(&mobs[i]);
-                printf("is doing a random search\n");
+                // printf("is doing a random search\n");
             }
             else if(mobs[i].mob_state == MOB_WAITING) {
                 if(mobs[i].mob_type == 1) {
                     mobs[i].target_x = mobs[i].x;
                     mobs[i].target_z = mobs[i].z;
-                    printf("is waiting for the player by staying planted\n");
+                    // printf("is waiting for the player by staying planted\n");
                 }
                 else if(mobs[i].mob_type == 3) {
                     if(((int)mobs[i].target_x == (int)player_x && (int)mobs[i].target_z == (int)player_z)|| ((int)mobs[i].target_x == (int)mobs[i].x && (int)mobs[i].target_z == (int)mobs[i].z)) pickRandomTarget(&mobs[i], 1);
                     moveMeshMob(&mobs[i]);
-                    printf("is waiting for the player by wandering around to (%d, %d)\n", mobs[i].target_x, mobs[i].target_z);
+                    // printf("is waiting for the player by wandering around to (%d, %d)\n", mobs[i].target_x, mobs[i].target_z);
                 }
             }
         }
