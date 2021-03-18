@@ -179,8 +179,11 @@ void moveMeshMob(mob *m) {
         return;
     }
 
-    if(trans_x == 0 && trans_z == 0) {
+    if(m->mob_type == 2 && trans_x == 0 && trans_z == 0) {
         pickRandomTarget(m, 0);
+    }
+    else if(m->mob_type == 3 && trans_x == 0 && trans_z == 0) {
+        pickRandomTarget(m, 1);
     }
 
     translateMeshMob(m, m->x + trans_x, m->y, m->z + trans_z);
