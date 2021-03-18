@@ -49,12 +49,17 @@ void checkInCorridor(int x, int z) {
 }
 
 void mobsInRoom() {
-   for(int i = 0; i < NUM_ROOMS; i++) {
-      for(int j = 0; j < NUM_MOBS; j++) {
-         int x = (int)mobs[j].x;
-         int z = (int)mobs[j].z;
-         if(x > rooms[i].start_x && x < rooms[i].start_x + rooms[i].size_x && z > rooms[i].start_z && z < rooms[i].start_z + rooms[i].size_z && rooms[i].visited == 1) {
-            mobs[j].seen = 1;
+   for(int m = 0; m < NUM_MOBS; m++) {
+      int x = (int)mobs[m].x;
+      int z = (int)mobs[m].z;
+      for(int r = 0; r < NUM_ROOMS; r++) {
+         if(x > rooms[r].start_x && x < rooms[r].start_x + rooms[r].size_x && z > rooms[r].start_z && z < rooms[r].start_z + rooms[r].size_z && rooms[r].visited == 1) {
+            mobs[m].seen = 1;
+         }
+      }
+      for(int c = 0; c < NUM_ROOMS * 10; c++) {
+         if(x >= corridors[c].start_x && x <= corridors[c].end_x && z >= corridors[c].start_z && z <= corridors[c].end_z && corridors[c].visited == 1) {
+            mobs[m].seen = 1;
          }
       }
    }
